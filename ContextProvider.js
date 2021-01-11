@@ -1,9 +1,26 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 
 const Context = React.createContext();
 function ContextProvider(props) {
   const regeneratorRunTime = "https://cors-anywhere.herokuapp.com/";
-  const weatherData = `${regeneratorRunTime}https://www.metaweather.com/api/location/search/?query=helsinki`;
+  
+  const date = Date.now();
+  const dateNow = new Date(date);
+  let yyyy = dateNow.getFullYear().toString();
+  let mm = (dateNow.getMonth() + 1).toString();
+  let dd = dateNow.getDate().toString();
+  const fullDate = `${yyyy}/${mm}/${dd}`;
+
+
+  const [city, setCity] = useState('helsinki');
+  const [location, setLocation] = useState('565346');
+
+  const searchByCity = `${regeneratorRunTime}https://www.metaweather.com/api/location/search/?query=${city}`;
+  
+  const weatherData = `${regeneratorRunTime}https://www.metaweather.com/api/location/${location}/${fullDate}`;
+  
+  const image = `null`;
+  const staticImage = `/static/img/weather/${image}.svg`;
 
   let [state, dispatch] = useReducer(
     (state, action) => {
@@ -55,11 +72,13 @@ function ContextProvider(props) {
     };
   }, []);
 
-console.log(state.response);
+  console.log(state.response[0], city);
 
   return (
     <div>
-      <Context.Provider value={""}>{props.children}</Context.Provider>
+      <Context.Provider value={{ state, dispatch }}>
+        {props.children}
+      </Context.Provider>
     </div>
   );
 }

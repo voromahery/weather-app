@@ -29772,25 +29772,7 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"App.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function App() {
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h1", null, "Onja Weather App"));
-}
-
-var _default = App;
-exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"ContextProvider.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"ContextProvider.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -29829,7 +29811,27 @@ exports.Context = Context;
 
 function ContextProvider(props) {
   var regeneratorRunTime = "https://cors-anywhere.herokuapp.com/";
-  var weatherData = "".concat(regeneratorRunTime, "https://www.metaweather.com/api/location/search/?query=helsinki");
+  var date = Date.now();
+  var dateNow = new Date(date);
+  var yyyy = dateNow.getFullYear().toString();
+  var mm = (dateNow.getMonth() + 1).toString();
+  var dd = dateNow.getDate().toString();
+  var fullDate = "".concat(yyyy, "/").concat(mm, "/").concat(dd);
+
+  var _useState = (0, _react.useState)('helsinki'),
+      _useState2 = _slicedToArray(_useState, 2),
+      city = _useState2[0],
+      setCity = _useState2[1];
+
+  var _useState3 = (0, _react.useState)('565346'),
+      _useState4 = _slicedToArray(_useState3, 2),
+      location = _useState4[0],
+      setLocation = _useState4[1];
+
+  var searchByCity = "".concat(regeneratorRunTime, "https://www.metaweather.com/api/location/search/?query=").concat(city);
+  var weatherData = "".concat(regeneratorRunTime, "https://www.metaweather.com/api/location/").concat(location, "/").concat(fullDate);
+  var image = "null";
+  var staticImage = "/static/img/weather/".concat(image, ".svg");
 
   var _useReducer = (0, _react.useReducer)(function (state, action) {
     switch (action.type) {
@@ -29891,12 +29893,70 @@ function ContextProvider(props) {
       isCurrent = false;
     };
   }, []);
-  console.log(state.response);
+  console.log(state.response[0], city);
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(Context.Provider, {
-    value: ""
+    value: {
+      state: state,
+      dispatch: dispatch
+    }
   }, props.children));
 }
-},{"react":"node_modules/react/index.js"}],"index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"components/HeaderForm.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _ContextProvider = require("../ContextProvider");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function HeaderForm() {
+  var _useContext = (0, _react.useContext)(_ContextProvider.Context),
+      state = _useContext.state;
+
+  var dataWeather = state.response;
+  dataWeather.length = 1;
+  console.log(dataWeather);
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", null, "Seach for places")), dataWeather.map(function (data) {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      key: data.id
+    }, /*#__PURE__*/_react.default.createElement("img", {
+      src: "/static/img/weather/".concat(data.weather_state_abbr, ".svg"),
+      alt: ""
+    }), /*#__PURE__*/_react.default.createElement("h3", null, data.the_temp, " \xB0C"), /*#__PURE__*/_react.default.createElement("p", null, "Today - ", data.weather_state_name), /*#__PURE__*/_react.default.createElement("p", null, data.created), /*#__PURE__*/_react.default.createElement("p", null, "Helsinki"));
+  }));
+}
+
+var _default = HeaderForm;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","../ContextProvider":"ContextProvider.js"}],"App.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _HeaderForm = _interopRequireDefault(require("./components/HeaderForm"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function App() {
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h1", null, "Onja Weather App"), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_HeaderForm.default, null)));
+}
+
+var _default = App;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","./components/HeaderForm":"components/HeaderForm.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -29938,7 +29998,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51956" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56588" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
