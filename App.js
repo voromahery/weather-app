@@ -1,7 +1,11 @@
-import React from 'react';
+import React from "react";
 
 function App() {
-    return <h1>Hello World</h1>
+  return (
+    <div>
+      <h1>Onja Weather App</h1>
+    </div>
+  );
 }
 
 export default App;
