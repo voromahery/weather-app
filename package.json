@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/voromahery/weather-app#readme",
   "dependencies": {
+    "date-fns": "^2.16.1",
+    "metaweather-ts": "0.0.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   }
