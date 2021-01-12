@@ -1,0 +1,14 @@
+.future-weather {
+  background: #100e1d;
+}
+
+.next-forecast {
+  max-width: 120px;
+  background: #1E213A;
+}
+
+.future-forecast {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 26px;
+}

@@ -1,0 +1,36 @@
+.today {
+  text-align: center;
+  background: #1e213a;
+}
+
+.today-degree {
+  color: #e7e7eb;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 144px;
+}
+
+.today-weather-state,
+.today-degree-sign {
+  color: #a09fb1;
+}
+
+.today-degree-sign {
+  font-weight: bold;
+  font-size: 64px;
+  line-height: 75px;
+}
+
+.today-weather-state {
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 42px;
+}
+
+.today-date,
+.location {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 21px;
+  color: #88869d;
+}

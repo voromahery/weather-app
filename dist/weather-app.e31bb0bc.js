@@ -29822,7 +29822,7 @@ function ContextProvider(props) {
     const dataId = await responseId.json();
     dataId.length = 1;
     setTodayWeather(dataId.consolidated_weather[0]);
-    setDataByWoeid(dataId.consolidated_weather);
+    setDataByWoeid(dataId.consolidated_weather.slice(1, 6));
     setIsLoading(false);
   }
 
@@ -29943,18 +29943,35 @@ function HeaderForm() {
   }, "Seach for places"), isSearch && /*#__PURE__*/_react.default.createElement(_SearchForm.default, {
     searchCity: searchCity
   })), isLoading ? /*#__PURE__*/_react.default.createElement("h1", null, "Loading...") : /*#__PURE__*/_react.default.createElement("div", {
-    className: ""
+    className: "today"
   }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("img", {
     src: `/static/img/weather/${todayWeather.weather_state_abbr}.svg`,
     alt: ""
-  }), /*#__PURE__*/_react.default.createElement("h3", null, Math.round(todayWeather.the_temp), " \xB0C"), /*#__PURE__*/_react.default.createElement("p", null, todayWeather.weather_state_name), /*#__PURE__*/_react.default.createElement("p", null, todayWeather.applicable_date), /*#__PURE__*/_react.default.createElement("p", null, dataByCity.title || "Helsinki"))), /*#__PURE__*/_react.default.createElement("div", {
+  }), /*#__PURE__*/_react.default.createElement("h3", {
+    className: "temperature"
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: "today-degree"
+  }, Math.round(todayWeather.the_temp)), /*#__PURE__*/_react.default.createElement("span", {
+    className: "today-degree-sign"
+  }, "\xB0C")), /*#__PURE__*/_react.default.createElement("p", {
+    className: "today-weather-state"
+  }, todayWeather.weather_state_name), /*#__PURE__*/_react.default.createElement("p", {
+    className: "today-date"
+  }, todayWeather.applicable_date), /*#__PURE__*/_react.default.createElement("p", {
+    className: "location"
+  }, dataByCity.title || "Helsinki"))), /*#__PURE__*/_react.default.createElement("div", {
     className: "future-weather"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "convertButton"
-  }, /*#__PURE__*/_react.default.createElement("button", null, "\xB0C"), /*#__PURE__*/_react.default.createElement("button", null, "\xB0F")), dataByWoeid.map(data => /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, data.applicable_date), /*#__PURE__*/_react.default.createElement("img", {
+  }, /*#__PURE__*/_react.default.createElement("button", null, "\xB0C"), /*#__PURE__*/_react.default.createElement("button", null, "\xB0F")), /*#__PURE__*/_react.default.createElement("div", {
+    className: "future-forecast"
+  }, dataByWoeid.map((data, index) => /*#__PURE__*/_react.default.createElement("div", {
+    className: "next-forecast",
+    key: data[index]
+  }, /*#__PURE__*/_react.default.createElement("p", null, data.applicable_date), /*#__PURE__*/_react.default.createElement("img", {
     src: `/static/img/weather/${data.weather_state_abbr}.svg`,
     alt: ""
-  }), /*#__PURE__*/_react.default.createElement("h3", null, Math.round(data.the_temp), " \xB0C"), /*#__PURE__*/_react.default.createElement("h3", null, "25 \xB0C")))));
+  }), /*#__PURE__*/_react.default.createElement("h3", null, Math.round(data.the_temp), " \xB0C"), /*#__PURE__*/_react.default.createElement("h3", null, "25 \xB0C"))))));
 }
 
 var _default = HeaderForm;

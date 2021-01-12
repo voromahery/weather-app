@@ -37,7 +37,7 @@ function ContextProvider(props) {
     const dataId = await responseId.json();
     dataId.length = 1;
     setTodayWeather(dataId.consolidated_weather[0]);
-    setDataByWoeid(dataId.consolidated_weather);
+    setDataByWoeid((dataId.consolidated_weather).slice(1,6));
     setIsLoading(false)
   }
 

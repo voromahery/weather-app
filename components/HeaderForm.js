@@ -45,16 +45,23 @@ function HeaderForm() {
       {isLoading ? (
         <h1>Loading...</h1>
       ) : (
-        <div className="">
+        <div className="today">
           <div>
             <img
               src={`/static/img/weather/${todayWeather.weather_state_abbr}.svg`}
               alt=""
             />
-            <h3>{Math.round(todayWeather.the_temp)} &deg;C</h3>
-            <p>{todayWeather.weather_state_name}</p>
-            <p>{todayWeather.applicable_date}</p>
-            <p>{dataByCity.title || "Helsinki"}</p>
+            <h3 className="temperature">
+              <span className="today-degree">
+                {Math.round(todayWeather.the_temp)}
+              </span>
+              <span className="today-degree-sign">&deg;C</span>
+            </h3>
+            <p className="today-weather-state">
+              {todayWeather.weather_state_name}
+            </p>
+            <p className="today-date">{todayWeather.applicable_date}</p>
+            <p className="location">{dataByCity.title || "Helsinki"}</p>
           </div>
         </div>
       )}
@@ -63,17 +70,19 @@ function HeaderForm() {
           <button>&deg;C</button>
           <button>&deg;F</button>
         </div>
-        {dataByWoeid.map((data) => (
-          <div>
-            <p>{data.applicable_date}</p>
-            <img
-              src={`/static/img/weather/${data.weather_state_abbr}.svg`}
-              alt=""
-            />
-            <h3>{Math.round(data.the_temp)} &deg;C</h3>
-            <h3>25 &deg;C</h3>
-          </div>
-        ))}
+        <div className="future-forecast">
+          {dataByWoeid.map((data, index) => (
+            <div className="next-forecast" key={data[index]}>
+              <p>{data.applicable_date}</p>
+              <img
+                src={`/static/img/weather/${data.weather_state_abbr}.svg`}
+                alt=""
+              />
+              <h3>{Math.round(data.the_temp)} &deg;C</h3>
+              <h3>25 &deg;C</h3>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
