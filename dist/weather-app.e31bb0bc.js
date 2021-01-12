@@ -31657,7 +31657,27 @@ function DateFormat() {
   let newMonth = month[dateFormat.getMonth()];
   return `${newDay}, ${newDate} ${newMonth}`;
 }
-},{}],"components/HeaderForm.js":[function(require,module,exports) {
+},{}],"components/SearchForm.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = SearchForm;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function SearchForm({
+  searchCity
+}) {
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    onChange: searchCity
+  }), /*#__PURE__*/_react.default.createElement("button", null, "Search"));
+}
+},{"react":"node_modules/react/index.js"}],"components/HeaderForm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -31672,6 +31692,8 @@ var _metaweatherTs = require("metaweather-ts");
 var _ContextProvider = require("../ContextProvider");
 
 var _DateFormat = _interopRequireDefault(require("./DateFormat"));
+
+var _SearchForm = _interopRequireDefault(require("./SearchForm"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31688,6 +31710,11 @@ function HeaderForm() {
     location,
     setLocation
   } = (0, _react.useContext)(_ContextProvider.Context);
+  const [isSearch, setIsSearch] = (0, _react.useState)(false);
+
+  function openSearch() {
+    setIsSearch(!isSearch);
+  }
 
   function searchCity(e) {
     if (e.currentTarget.value !== "") {
@@ -31699,25 +31726,26 @@ function HeaderForm() {
     }
   }
 
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", null, "Seach for places"), /*#__PURE__*/_react.default.createElement("input", {
-    type: "text",
-    onChange: searchCity
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", {
+    onClick: openSearch
+  }, "Seach for places"), isSearch && /*#__PURE__*/_react.default.createElement(_SearchForm.default, {
+    searchCity: searchCity
   })), /*#__PURE__*/_react.default.createElement("div", {
     className: ""
   }, /*#__PURE__*/_react.default.createElement("img", {
     src: `/static/img/weather/${dataByWoeid.weather_state_abbr}.svg`,
     alt: ""
-  }), /*#__PURE__*/_react.default.createElement("h3", null, dataByWoeid.the_temp, " \xB0C"), /*#__PURE__*/_react.default.createElement("p", null, dataByWoeid.weather_state_name), /*#__PURE__*/_react.default.createElement("p", null, (0, _DateFormat.default)(new Date())), /*#__PURE__*/_react.default.createElement("p", null, dataByCity.title || "Helsinki")), /*#__PURE__*/_react.default.createElement("div", {
+  }), /*#__PURE__*/_react.default.createElement("h3", null, Math.round(dataByWoeid.the_temp), " \xB0C"), /*#__PURE__*/_react.default.createElement("p", null, dataByWoeid.weather_state_name), /*#__PURE__*/_react.default.createElement("p", null, (0, _DateFormat.default)(new Date())), /*#__PURE__*/_react.default.createElement("p", null, dataByCity.title || "Helsinki")), /*#__PURE__*/_react.default.createElement("div", {
     className: "future-weather"
-  }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, "Date"), /*#__PURE__*/_react.default.createElement("img", {
+  }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, (0, _DateFormat.default)(new Date())), /*#__PURE__*/_react.default.createElement("img", {
     src: `/static/img/weather/${dataByWoeid.weather_state_abbr}.svg`,
     alt: ""
-  }), /*#__PURE__*/_react.default.createElement("h3", null, dataByWoeid.the_temp, " \xB0C"), /*#__PURE__*/_react.default.createElement("h3", null, "25 \xB0C"))));
+  }), /*#__PURE__*/_react.default.createElement("h3", null, Math.round(dataByWoeid.the_temp), " \xB0C"), /*#__PURE__*/_react.default.createElement("h3", null, "25 \xB0C"))));
 }
 
 var _default = HeaderForm;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","metaweather-ts":"node_modules/metaweather-ts/dist/index.js","../ContextProvider":"ContextProvider.js","./DateFormat":"components/DateFormat.js"}],"App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","metaweather-ts":"node_modules/metaweather-ts/dist/index.js","../ContextProvider":"ContextProvider.js","./DateFormat":"components/DateFormat.js","./SearchForm":"components/SearchForm.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
