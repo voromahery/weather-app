@@ -13,13 +13,16 @@ function ContextProvider(props) {
 
   const [dataByCity, setDataByCity] = useState([]);
   const [dataByWoeid, setDataByWoeid] = useState([]);
+  const [consolidatedWeather, setConsolidatedWeather] = useState([]);
+  const [todayWeather, setTodayWeather] = useState("");
 
   const [city, setCity] = useState("Helsinki");
   const [location, setLocation] = useState("565346");
+  const [isLoading, setIsLoading] = useState(false);
 
   const searchByCity = `${regeneratorRunTime}https://www.metaweather.com/api/location/search/?query=${city}`;
 
-  const weatherData = `${regeneratorRunTime}https://www.metaweather.com/api/location/${location}/${fullDate}`;
+  const weatherData = `${regeneratorRunTime}https://www.metaweather.com/api/location/${location}/`;
 
   async function dataFetchCity() {
     const responseCity = await fetch(searchByCity);
@@ -29,10 +32,13 @@ function ContextProvider(props) {
   }
 
   async function dataFetchId() {
+    setIsLoading(true);
     const responseId = await fetch(weatherData);
     const dataId = await responseId.json();
     dataId.length = 1;
-    setDataByWoeid(dataId[0]);
+    setTodayWeather(dataId.consolidated_weather[0]);
+    setDataByWoeid(dataId.consolidated_weather);
+    setIsLoading(false)
   }
 
   useEffect(() => {
@@ -45,7 +51,7 @@ function ContextProvider(props) {
   }, [dataByCity]);
 
 
-  console.log(location, dataByCity, dataByWoeid, city);
+  console.log(dataByWoeid.slice(1,6));
 
   return (
     <div>
@@ -57,6 +63,9 @@ function ContextProvider(props) {
           dataByWoeid,
           location,
           setLocation,
+          isLoading,
+          setIsLoading,
+          todayWeather
         }}
       >
         {props.children}
