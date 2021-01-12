@@ -31588,124 +31588,50 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-var Context = _react.default.createContext();
+const Context = _react.default.createContext();
 
 exports.Context = Context;
 
 function ContextProvider(props) {
-  var regeneratorRunTime = "https://cors-anywhere.herokuapp.com/";
-  var date = Date.now();
-  var dateNow = new Date(date);
-  var yyyy = dateNow.getFullYear().toString();
-  var mm = (dateNow.getMonth() + 1).toString();
-  var dd = dateNow.getDate().toString();
-  var fullDate = "".concat(yyyy, "/").concat(mm, "/").concat(dd);
+  const regeneratorRunTime = "https://cors-anywhere.herokuapp.com/";
+  const date = Date.now();
+  const dateNow = new Date(date);
+  let yyyy = dateNow.getFullYear().toString();
+  let mm = (dateNow.getMonth() + 1).toString();
+  let dd = dateNow.getDate().toString();
+  const fullDate = `${yyyy}/${mm}/${dd}`;
+  const [dataByCity, setDataByCity] = (0, _react.useState)([]);
+  const [dataByWoeid, setDataByWoeid] = (0, _react.useState)([]);
+  const [city, setCity] = (0, _react.useState)("Helsinki");
+  const [location, setLocation] = (0, _react.useState)("565346");
+  const searchByCity = `${regeneratorRunTime}https://www.metaweather.com/api/location/search/?query=${city}`;
+  const weatherData = `${regeneratorRunTime}https://www.metaweather.com/api/location/${location}/${fullDate}`;
 
-  var _useState = (0, _react.useState)("Helsinki"),
-      _useState2 = _slicedToArray(_useState, 2),
-      city = _useState2[0],
-      setCity = _useState2[1];
+  async function dataFetch() {
+    const responseCity = await fetch(searchByCity);
+    const dataCity = await responseCity.json();
+    const responseId = await fetch(weatherData);
+    const dataId = await responseId.json();
+    dataId.length = 1;
+    dataCity.length = 1;
+    setDataByCity(dataCity[0]);
+    setDataByWoeid(dataId[0]);
+  }
 
-  var _useState3 = (0, _react.useState)("565346"),
-      _useState4 = _slicedToArray(_useState3, 2),
-      location = _useState4[0],
-      setLocation = _useState4[1];
-
-  var searchByCity = "".concat(regeneratorRunTime, "https://www.metaweather.com/api/location/search/?query=").concat(city);
-  var weatherData = "".concat(regeneratorRunTime, "https://www.metaweather.com/api/location/").concat(location, "/").concat(fullDate);
-  var image = "null";
-  var staticImage = "/static/img/weather/".concat(image, ".svg");
-
-  var _useReducer = (0, _react.useReducer)(function (state, action) {
-    switch (action.type) {
-      case "LOADING":
-        {
-          return _objectSpread(_objectSpread({}, state), {}, {
-            loading: true
-          });
-        }
-
-      case "RESOLVED":
-        {
-          return _objectSpread(_objectSpread({}, state), {}, {
-            loading: false,
-            response: action.response,
-            error: null
-          });
-        }
-
-      case "ERROR":
-        {
-          return _objectSpread(_objectSpread({}, state), {}, {
-            loading: false,
-            response: null,
-            error: action.error
-          });
-        }
-    }
-  }, {
-    loading: false,
-    response: [],
-    error: null
-  }),
-      _useReducer2 = _slicedToArray(_useReducer, 2),
-      state = _useReducer2[0],
-      dispatch = _useReducer2[1];
-
-  var dataWoeid = state.response.map(function (data) {
-    return data.woeid;
-  });
-  dataWoeid.length = 1;
-  (0, _react.useEffect)(function () {
-    var isCurrent = true;
-    dispatch({
-      type: "LOADING"
-    });
-    fetch(searchByCity).then(function (response) {
-      return response.json();
-    }).then(function (json) {
-      if (isCurrent) {
-        dispatch({
-          type: "RESOLVED",
-          response: json
-        });
-      }
-    }).catch(function (error) {
-      dispatch({
-        type: "ERROR",
-        error: error
-      });
-    });
-    setLocation(dataWoeid);
-    return function () {
-      isCurrent = false;
-    };
-  }, [city]);
-  console.log(state.response, city);
-  console.log(location);
+  (0, _react.useEffect)(() => {
+    setCity(dataByCity.title);
+    setLocation(dataByCity.woeid);
+    dataFetch();
+  }, []);
+  console.log(location, dataByCity, dataByWoeid, city);
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(Context.Provider, {
     value: {
-      state: state,
-      dispatch: dispatch,
-      city: city
+      city,
+      setCity,
+      dataByCity,
+      dataByWoeid,
+      location,
+      setLocation
     }
   }, props.children));
 }
@@ -31728,24 +31654,18 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function HeaderForm() {
-  var _useContext = (0, _react.useContext)(_ContextProvider.Context),
-      state = _useContext.state,
-      city = _useContext.city;
-
-  var dataWeather = state.response;
-  dataWeather.length = 1;
-  console.log(dataWeather);
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", null, "Seach for places")), dataWeather.map(function (data) {
-    var date = data.created;
-    return /*#__PURE__*/_react.default.createElement("div", {
-      key: data.id
-    }, state.loading && /*#__PURE__*/_react.default.createElement("h1", null, "Loading..."), state.error && /*#__PURE__*/_react.default.createElement("h1", {
-      className: "error"
-    }, "No data here...\uD83D\uDE22"), state.response && /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("img", {
-      src: "/static/img/weather/".concat(data.weather_state_abbr, ".svg"),
-      alt: ""
-    }), /*#__PURE__*/_react.default.createElement("h3", null, data.the_temp, " \xB0C"), /*#__PURE__*/_react.default.createElement("p", null, data.weather_state_name), /*#__PURE__*/_react.default.createElement("p", null, date)), /*#__PURE__*/_react.default.createElement("p", null, city));
-  }));
+  const {
+    city,
+    setCity,
+    dataByCity,
+    dataByWoeid,
+    location,
+    setLocation
+  } = (0, _react.useContext)(_ContextProvider.Context);
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", null, "Seach for places")), /*#__PURE__*/_react.default.createElement("img", {
+    src: `/static/img/weather/${dataByWoeid.weather_state_abbr}.svg`,
+    alt: ""
+  }), /*#__PURE__*/_react.default.createElement("h3", null, dataByWoeid.the_temp, " \xB0C"), /*#__PURE__*/_react.default.createElement("p", null, dataByWoeid.weather_state_name), /*#__PURE__*/_react.default.createElement("p", null, dataByWoeid.created), /*#__PURE__*/_react.default.createElement("p", null, city));
 }
 
 var _default = HeaderForm;
@@ -31812,7 +31732,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56588" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61748" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

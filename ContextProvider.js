@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Context = React.createContext();
 function ContextProvider(props) {
@@ -11,6 +11,9 @@ function ContextProvider(props) {
   let dd = dateNow.getDate().toString();
   const fullDate = `${yyyy}/${mm}/${dd}`;
 
+  const [dataByCity, setDataByCity] = useState([]);
+  const [dataByWoeid, setDataByWoeid] = useState([]);
+
   const [city, setCity] = useState("Helsinki");
   const [location, setLocation] = useState("565346");
 
@@ -18,71 +21,40 @@ function ContextProvider(props) {
 
   const weatherData = `${regeneratorRunTime}https://www.metaweather.com/api/location/${location}/${fullDate}`;
 
-  const image = `null`;
-  const staticImage = `/static/img/weather/${image}.svg`;
+  async function dataFetch() {
+    const responseCity = await fetch(searchByCity);
+    const dataCity = await responseCity.json();
 
-  let [state, dispatch] = useReducer(
-    (state, action) => {
-      switch (action.type) {
-        case "LOADING": {
-          return { ...state, loading: true };
-        }
-        case "RESOLVED": {
-          return {
-            ...state,
-            loading: false,
-            response: action.response,
-            error: null,
-          };
-        }
-        case "ERROR": {
-          return {
-            ...state,
-            loading: false,
-            response: null,
-            error: action.error,
-          };
-        }
-      }
-    },
-    {
-      loading: false,
-      response: [],
-      error: null,
-    }
-  );
+    const responseId = await fetch(weatherData);
+    const dataId = await responseId.json();
 
-  const dataWoeid = state.response.map((data) => data.woeid);
-  dataWoeid.length = 1;
+    dataId.length = 1;
+    dataCity.length = 1;
+
+    setDataByCity(dataCity[0]);
+    setDataByWoeid(dataId[0]);
+  }
 
   useEffect(() => {
-    let isCurrent = true;
-    dispatch({ type: "LOADING" });
-    fetch(searchByCity)
-      .then((response) => response.json())
-      .then((json) => {
-        if (isCurrent) {
-          dispatch({ type: "RESOLVED", response: json });
-        }
-      })
-      .catch((error) => {
-        dispatch({ type: "ERROR", error });
-      });
+    setCity(dataByCity.title)
+    setLocation(dataByCity.woeid);
+    dataFetch();
+  }, []);
 
-    setLocation(dataWoeid);
-
-    return () => {
-      isCurrent = false;
-    };
-  }, [city]);
-
-  console.log(state.response, city);
-
-  console.log(location);
+  console.log(location, dataByCity, dataByWoeid, city);
 
   return (
     <div>
-      <Context.Provider value={{ state, dispatch, city }}>
+      <Context.Provider
+        value={{
+          city,
+          setCity,
+          dataByCity,
+          dataByWoeid,
+          location,
+          setLocation
+        }}
+      >
         {props.children}
       </Context.Provider>
     </div>

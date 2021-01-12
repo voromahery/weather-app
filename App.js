@@ -6,7 +6,7 @@ function App() {
     <div>
       <h1>Onja Weather App</h1>
       <div>
-        <HeaderForm />
+         <HeaderForm />
       </div>
     </div>
   );
