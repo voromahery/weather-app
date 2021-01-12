@@ -24,27 +24,23 @@ function ContextProvider(props) {
   async function dataFetchCity() {
     const responseCity = await fetch(searchByCity);
     const dataCity = await responseCity.json();
-
     dataCity.length = 1;
-
     setDataByCity(dataCity[0]);
   }
 
   async function dataFetchId() {
     const responseId = await fetch(weatherData);
     const dataId = await responseId.json();
-
     dataId.length = 1;
-
     setDataByWoeid(dataId[0]);
   }
 
   useEffect(() => {
+    setLocation(dataByCity.woeid);
     dataFetchCity();
   }, [city]);
 
   useEffect(() => {
-    setLocation(dataByCity.woeid);
     dataFetchId();
   }, [dataByCity]);
 

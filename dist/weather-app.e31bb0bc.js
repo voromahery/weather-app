@@ -31622,10 +31622,10 @@ function ContextProvider(props) {
   }
 
   (0, _react.useEffect)(() => {
+    setLocation(dataByCity.woeid);
     dataFetchCity();
   }, [city]);
   (0, _react.useEffect)(() => {
-    setLocation(dataByCity.woeid);
     dataFetchId();
   }, [dataByCity]);
   console.log(location, dataByCity, dataByWoeid, city);
@@ -31640,7 +31640,24 @@ function ContextProvider(props) {
     }
   }, props.children));
 }
-},{"react":"node_modules/react/index.js"}],"components/HeaderForm.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"components/DateFormat.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = DateFormat;
+
+function DateFormat() {
+  const day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  let dateFormat = new Date();
+  let newDay = day[dateFormat.getDay()];
+  let newDate = dateFormat.getDate();
+  let newMonth = month[dateFormat.getMonth()];
+  return `${newDay}, ${newDate} ${newMonth}`;
+}
+},{}],"components/HeaderForm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -31653,6 +31670,10 @@ var _react = _interopRequireWildcard(require("react"));
 var _metaweatherTs = require("metaweather-ts");
 
 var _ContextProvider = require("../ContextProvider");
+
+var _DateFormat = _interopRequireDefault(require("./DateFormat"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -31669,21 +31690,34 @@ function HeaderForm() {
   } = (0, _react.useContext)(_ContextProvider.Context);
 
   function searchCity(e) {
-    setCity(e.currentTarget.value);
+    if (e.currentTarget.value !== "") {
+      setCity(e.currentTarget.value);
+    }
+
+    if (e.currentTarget.value === "") {
+      setCity("Helsinki");
+    }
   }
 
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", null, "Seach for places"), /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
     onChange: searchCity
-  })), /*#__PURE__*/_react.default.createElement("img", {
+  })), /*#__PURE__*/_react.default.createElement("div", {
+    className: ""
+  }, /*#__PURE__*/_react.default.createElement("img", {
     src: `/static/img/weather/${dataByWoeid.weather_state_abbr}.svg`,
     alt: ""
-  }), /*#__PURE__*/_react.default.createElement("h3", null, dataByWoeid.the_temp, " \xB0C"), /*#__PURE__*/_react.default.createElement("p", null, dataByWoeid.weather_state_name), /*#__PURE__*/_react.default.createElement("p", null, dataByWoeid.created), /*#__PURE__*/_react.default.createElement("p", null, dataByCity.title));
+  }), /*#__PURE__*/_react.default.createElement("h3", null, dataByWoeid.the_temp, " \xB0C"), /*#__PURE__*/_react.default.createElement("p", null, dataByWoeid.weather_state_name), /*#__PURE__*/_react.default.createElement("p", null, (0, _DateFormat.default)(new Date())), /*#__PURE__*/_react.default.createElement("p", null, dataByCity.title || "Helsinki")), /*#__PURE__*/_react.default.createElement("div", {
+    className: "future-weather"
+  }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, "Date"), /*#__PURE__*/_react.default.createElement("img", {
+    src: `/static/img/weather/${dataByWoeid.weather_state_abbr}.svg`,
+    alt: ""
+  }), /*#__PURE__*/_react.default.createElement("h3", null, dataByWoeid.the_temp, " \xB0C"), /*#__PURE__*/_react.default.createElement("h3", null, "25 \xB0C"))));
 }
 
 var _default = HeaderForm;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","metaweather-ts":"node_modules/metaweather-ts/dist/index.js","../ContextProvider":"ContextProvider.js"}],"App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","metaweather-ts":"node_modules/metaweather-ts/dist/index.js","../ContextProvider":"ContextProvider.js","./DateFormat":"components/DateFormat.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
