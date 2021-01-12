@@ -31607,22 +31607,27 @@ function ContextProvider(props) {
   const searchByCity = `${regeneratorRunTime}https://www.metaweather.com/api/location/search/?query=${city}`;
   const weatherData = `${regeneratorRunTime}https://www.metaweather.com/api/location/${location}/${fullDate}`;
 
-  async function dataFetch() {
+  async function dataFetchCity() {
     const responseCity = await fetch(searchByCity);
     const dataCity = await responseCity.json();
+    dataCity.length = 1;
+    setDataByCity(dataCity[0]);
+  }
+
+  async function dataFetchId() {
     const responseId = await fetch(weatherData);
     const dataId = await responseId.json();
     dataId.length = 1;
-    dataCity.length = 1;
-    setDataByCity(dataCity[0]);
     setDataByWoeid(dataId[0]);
   }
 
   (0, _react.useEffect)(() => {
-    setCity(dataByCity.title);
+    dataFetchCity();
+  }, [city]);
+  (0, _react.useEffect)(() => {
     setLocation(dataByCity.woeid);
-    dataFetch();
-  }, []);
+    dataFetchId();
+  }, [dataByCity]);
   console.log(location, dataByCity, dataByWoeid, city);
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(Context.Provider, {
     value: {
@@ -31662,10 +31667,18 @@ function HeaderForm() {
     location,
     setLocation
   } = (0, _react.useContext)(_ContextProvider.Context);
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", null, "Seach for places")), /*#__PURE__*/_react.default.createElement("img", {
+
+  function searchCity(e) {
+    setCity(e.currentTarget.value);
+  }
+
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", null, "Seach for places"), /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    onChange: searchCity
+  })), /*#__PURE__*/_react.default.createElement("img", {
     src: `/static/img/weather/${dataByWoeid.weather_state_abbr}.svg`,
     alt: ""
-  }), /*#__PURE__*/_react.default.createElement("h3", null, dataByWoeid.the_temp, " \xB0C"), /*#__PURE__*/_react.default.createElement("p", null, dataByWoeid.weather_state_name), /*#__PURE__*/_react.default.createElement("p", null, dataByWoeid.created), /*#__PURE__*/_react.default.createElement("p", null, city));
+  }), /*#__PURE__*/_react.default.createElement("h3", null, dataByWoeid.the_temp, " \xB0C"), /*#__PURE__*/_react.default.createElement("p", null, dataByWoeid.weather_state_name), /*#__PURE__*/_react.default.createElement("p", null, dataByWoeid.created), /*#__PURE__*/_react.default.createElement("p", null, dataByCity.title));
 }
 
 var _default = HeaderForm;

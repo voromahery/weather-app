@@ -21,25 +21,33 @@ function ContextProvider(props) {
 
   const weatherData = `${regeneratorRunTime}https://www.metaweather.com/api/location/${location}/${fullDate}`;
 
-  async function dataFetch() {
+  async function dataFetchCity() {
     const responseCity = await fetch(searchByCity);
     const dataCity = await responseCity.json();
 
+    dataCity.length = 1;
+
+    setDataByCity(dataCity[0]);
+  }
+
+  async function dataFetchId() {
     const responseId = await fetch(weatherData);
     const dataId = await responseId.json();
 
     dataId.length = 1;
-    dataCity.length = 1;
 
-    setDataByCity(dataCity[0]);
     setDataByWoeid(dataId[0]);
   }
 
   useEffect(() => {
-    setCity(dataByCity.title)
+    dataFetchCity();
+  }, [city]);
+
+  useEffect(() => {
     setLocation(dataByCity.woeid);
-    dataFetch();
-  }, []);
+    dataFetchId();
+  }, [dataByCity]);
+
 
   console.log(location, dataByCity, dataByWoeid, city);
 
@@ -52,7 +60,7 @@ function ContextProvider(props) {
           dataByCity,
           dataByWoeid,
           location,
-          setLocation
+          setLocation,
         }}
       >
         {props.children}
