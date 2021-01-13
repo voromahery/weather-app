@@ -33914,6 +33914,7 @@ function ContextProvider(props) {
   (0, _react.useEffect)(() => {
     dataFetchId();
   }, [dataByCity]);
+  console.log(dataByWoeid);
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(Context.Provider, {
     value: {
       city,
@@ -34094,7 +34095,7 @@ function HeaderForm() {
     className: "today-weather-state"
   }, todayWeather.weather_state_name), /*#__PURE__*/_react.default.createElement("p", {
     className: "today-date"
-  }, todayWeather.applicable_date), /*#__PURE__*/_react.default.createElement("p", {
+  }, "Today . ", (0, _DateFormat.default)(todayWeather.applicable_date)), /*#__PURE__*/_react.default.createElement("p", {
     className: "location"
   }, dataByCity.title || "Helsinki")))), /*#__PURE__*/_react.default.createElement("div", {
     className: "future-weather"
@@ -34106,13 +34107,13 @@ function HeaderForm() {
     onClick: convertDegreeF
   }, "\xB0F")), /*#__PURE__*/_react.default.createElement("div", {
     className: "future-forecast"
-  }, isLoading ? /*#__PURE__*/_react.default.createElement("h2", null, "Loading...") : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, dataByWoeid.map(data => {
+  }, isLoading ? /*#__PURE__*/_react.default.createElement("h2", null, "Loading...") : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, dataByWoeid.map((data, index) => {
     return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
       to: `/highlight/${data.id}`,
       key: data.id
     }, /*#__PURE__*/_react.default.createElement("div", {
       className: "next-forecast"
-    }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, data.applicable_date), /*#__PURE__*/_react.default.createElement("img", {
+    }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, index === 0 ? "Tomorrow" : (0, _DateFormat.default)(data.applicable_date)), /*#__PURE__*/_react.default.createElement("img", {
       src: `/static/img/weather/${data.weather_state_abbr}.svg`,
       alt: ""
     }), /*#__PURE__*/_react.default.createElement("h3", null, converted ? /*#__PURE__*/_react.default.createElement("span", null, `${Math.round(data.the_temp * (9 / 5) + 32)} °F`) : /*#__PURE__*/_react.default.createElement("span", null, `${Math.round(data.the_temp)} °C`)), /*#__PURE__*/_react.default.createElement("h3", null, " ", converted ? /*#__PURE__*/_react.default.createElement("span", null, `${25 * (9 / 5) + 32} °F`) : /*#__PURE__*/_react.default.createElement("span", null, `${25} °C`)))));

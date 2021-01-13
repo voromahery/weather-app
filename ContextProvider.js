@@ -51,7 +51,7 @@ function ContextProvider(props) {
   useEffect(() => {
     dataFetchId();
   }, [dataByCity]);
-
+console.log(dataByWoeid);
   return (
     <div>
       <Context.Provider

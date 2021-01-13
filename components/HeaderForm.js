@@ -83,7 +83,9 @@ function HeaderForm() {
               <p className="today-weather-state">
                 {todayWeather.weather_state_name}
               </p>
-              <p className="today-date">{todayWeather.applicable_date}</p>
+              <p className="today-date">
+                Today . {DateFormat(todayWeather.applicable_date)}
+              </p>
               <p className="location">{dataByCity.title || "Helsinki"}</p>
             </div>
           </Link>
@@ -99,12 +101,16 @@ function HeaderForm() {
             <h2>Loading...</h2>
           ) : (
             <>
-              {dataByWoeid.map((data) => {
+              {dataByWoeid.map((data, index) => {
                 return (
                   <Link to={`/highlight/${data.id}`} key={data.id}>
                     <div className="next-forecast">
                       <div>
-                        <p>{data.applicable_date}</p>
+                        <p>
+                          {index === 0
+                            ? "Tomorrow"
+                            : DateFormat(data.applicable_date)}
+                        </p>
                         <img
                           src={`/static/img/weather/${data.weather_state_abbr}.svg`}
                           alt=""
