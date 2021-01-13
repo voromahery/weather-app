@@ -33,12 +33,14 @@ function ContextProvider(props) {
 
   async function dataFetchId() {
     setIsLoading(true);
+
     const responseId = await fetch(weatherData);
     const dataId = await responseId.json();
     dataId.length = 1;
+
     setTodayWeather(dataId.consolidated_weather[0]);
-    setDataByWoeid((dataId.consolidated_weather).slice(1,6));
-    setIsLoading(false)
+    setDataByWoeid(dataId.consolidated_weather.slice(1, 6));
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -49,9 +51,6 @@ function ContextProvider(props) {
   useEffect(() => {
     dataFetchId();
   }, [dataByCity]);
-
-
-  console.log(dataByWoeid.slice(1,6));
 
   return (
     <div>
@@ -65,7 +64,7 @@ function ContextProvider(props) {
           setLocation,
           isLoading,
           setIsLoading,
-          todayWeather
+          todayWeather,
         }}
       >
         {props.children}

@@ -33914,7 +33914,6 @@ function ContextProvider(props) {
   (0, _react.useEffect)(() => {
     dataFetchId();
   }, [dataByCity]);
-  console.log(dataByWoeid.slice(1, 6));
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(Context.Provider, {
     value: {
       city,
@@ -33970,10 +33969,6 @@ function HighlightWeather() {
     setCity,
     dataByCity,
     dataByWoeid,
-    location,
-    setLocation,
-    isLoading,
-    setIsLoading,
     todayWeather
   } = (0, _react.useContext)(_ContextProvider.Context);
   const {
@@ -34093,11 +34088,11 @@ function HeaderForm() {
     className: "convertButton"
   }, /*#__PURE__*/_react.default.createElement("button", null, "\xB0C"), /*#__PURE__*/_react.default.createElement("button", null, "\xB0F")), /*#__PURE__*/_react.default.createElement("div", {
     className: "future-forecast"
-  }, isLoading ? /*#__PURE__*/_react.default.createElement("h2", null, "Loading...") : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, " ", dataByWoeid.map((data, index) => /*#__PURE__*/_react.default.createElement("div", {
-    className: "next-forecast",
+  }, isLoading ? /*#__PURE__*/_react.default.createElement("h2", null, "Loading...") : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, dataByWoeid.map(data => /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: `/highlight/${data.id}`,
     key: data.id
-  }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-    to: `/highlight/${data.id}`
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "next-forecast"
   }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, data.applicable_date), /*#__PURE__*/_react.default.createElement("img", {
     src: `/static/img/weather/${data.weather_state_abbr}.svg`,
     alt: ""

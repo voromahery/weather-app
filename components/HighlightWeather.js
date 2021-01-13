@@ -7,11 +7,7 @@ export default function HighlightWeather() {
     setCity,
     dataByCity,
     dataByWoeid,
-    location,
-    setLocation,
-    isLoading,
-    setIsLoading,
-    todayWeather,
+    todayWeather
   } = useContext(Context);
 
   const { weatherId } = useParams();

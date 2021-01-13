@@ -16,7 +16,7 @@ export default function FutureWeather() {
           ) : (
             <>
               {" "}
-              {dataByWoeid.map((data, index) => (
+              {dataByWoeid.map((data) => (
                 <div className="next-forecast" key={data.id}>
                   <Link to="/">
                     <div>

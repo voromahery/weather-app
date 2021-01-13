@@ -79,10 +79,9 @@ function HeaderForm() {
             <h2>Loading...</h2>
           ) : (
             <>
-              {" "}
-              {dataByWoeid.map((data, index) => (
-                <div className="next-forecast" key={data.id}>
-                  <Link to={`/highlight/${data.id}`}>
+              {dataByWoeid.map((data) => (
+                <Link to={`/highlight/${data.id}`} key={(data.id)}>
+                  <div className="next-forecast">
                     <div>
                       <p>{data.applicable_date}</p>
                       <img
@@ -92,8 +91,8 @@ function HeaderForm() {
                       <h3>{Math.round(data.the_temp)} &deg;C</h3>
                       <h3>25 &deg;C</h3>
                     </div>
-                  </Link>
-                </div>
+                  </div>
+                </Link>
               ))}
             </>
           )}
