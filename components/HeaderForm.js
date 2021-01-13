@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { Context } from "../ContextProvider";
 import DateFormat from "./DateFormat";
+import HighlightWeather from "./HighlightWeather";
 import SearchForm from "./SearchForm";
 
 function HeaderForm() {
@@ -46,23 +48,25 @@ function HeaderForm() {
         <h1>Loading...</h1>
       ) : (
         <div className="today">
-          <div>
-            <img
-              src={`/static/img/weather/${todayWeather.weather_state_abbr}.svg`}
-              alt=""
-            />
-            <h3 className="temperature">
-              <span className="today-degree">
-                {Math.round(todayWeather.the_temp)}
-              </span>
-              <span className="today-degree-sign">&deg;C</span>
-            </h3>
-            <p className="today-weather-state">
-              {todayWeather.weather_state_name}
-            </p>
-            <p className="today-date">{todayWeather.applicable_date}</p>
-            <p className="location">{dataByCity.title || "Helsinki"}</p>
-          </div>
+          <Link to="/highlight">
+            <div>
+              <img
+                src={`/static/img/weather/${todayWeather.weather_state_abbr}.svg`}
+                alt=""
+              />
+              <h3 className="temperature">
+                <span className="today-degree">
+                  {Math.round(todayWeather.the_temp)}
+                </span>
+                <span className="today-degree-sign">&deg;C</span>
+              </h3>
+              <p className="today-weather-state">
+                {todayWeather.weather_state_name}
+              </p>
+              <p className="today-date">{todayWeather.applicable_date}</p>
+              <p className="location">{dataByCity.title || "Helsinki"}</p>
+            </div>
+          </Link>
         </div>
       )}
       <div className="future-weather">
@@ -71,17 +75,28 @@ function HeaderForm() {
           <button>&deg;F</button>
         </div>
         <div className="future-forecast">
-          {dataByWoeid.map((data, index) => (
-            <div className="next-forecast" key={data[index]}>
-              <p>{data.applicable_date}</p>
-              <img
-                src={`/static/img/weather/${data.weather_state_abbr}.svg`}
-                alt=""
-              />
-              <h3>{Math.round(data.the_temp)} &deg;C</h3>
-              <h3>25 &deg;C</h3>
-            </div>
-          ))}
+          {isLoading ? (
+            <h2>Loading...</h2>
+          ) : (
+            <>
+              {" "}
+              {dataByWoeid.map((data, index) => (
+                <div className="next-forecast" key={data.id}>
+                  <Link to={`/highlight/${data.id}`}>
+                    <div>
+                      <p>{data.applicable_date}</p>
+                      <img
+                        src={`/static/img/weather/${data.weather_state_abbr}.svg`}
+                        alt=""
+                      />
+                      <h3>{Math.round(data.the_temp)} &deg;C</h3>
+                      <h3>25 &deg;C</h3>
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </>
+          )}
         </div>
       </div>
     </div>
