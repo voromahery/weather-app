@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import locationIcon from '../icons/location.svg';
 import { Link } from "react-router-dom";
 import { Context } from "../ContextProvider";
 import dateToDisplay from "./dateToDisplay";
@@ -48,8 +49,11 @@ function HeaderForm() {
 
   return (
     <div>
-      <div>
-        <button onClick={openSearch}>Seach for places</button>
+      <div className="search-wrapper">
+        <button onClick={openSearch} className="search-toggle">
+          Seach for places
+        </button>
+        <img src={locationIcon} alt="" className="location-icon" />
         {isSearch && <SearchForm searchCity={searchCity} />}
       </div>
       {isLoading ? (
@@ -57,10 +61,11 @@ function HeaderForm() {
       ) : (
         <div className="today">
           <Link to="/">
-            <div>
+            <div className="today-wrapper">
               <img
-                src={`/static/img/weather/${todayWeather.weather_state_abbr}.svg`}
+                src={`https://www.metaweather.com/static/img/weather/${todayWeather.weather_state_abbr}.svg`}
                 alt=""
+                className="today-icon"
               />
               <h3 className="temperature">
                 {converted ? (
@@ -104,29 +109,31 @@ function HeaderForm() {
                 return (
                   <Link to={`/highlight/${data.id}`} key={data.id}>
                     <div className="next-forecast">
-                      <div>
-                        <p>{index === 0 ? "Tomorrow" : dateToDisplay(data.applicable_date)}</p>
-                        <img
-                          src={`/static/img/weather/${data.weather_state_abbr}.svg`}
-                          alt=""
-                        />
-                        <h3>
-                          {converted ? (
-                            <span>{`${Math.round(
-                              data.the_temp * (9 / 5) + 32
-                            )} °F`}</span>
-                          ) : (
-                            <span>{`${Math.round(data.the_temp)} °C`}</span>
-                          )}
-                        </h3>
-                        <h3>
-                          {" "}
-                          {converted ? (
-                            <span>{`${25 * (9 / 5) + 32} °F`}</span>
-                          ) : (
-                            <span>{`${25} °C`}</span>
-                          )}
-                        </h3>
+                      <p>
+                        {index === 0
+                          ? "Tomorrow"
+                          : dateToDisplay(data.applicable_date)}
+                      </p>
+                      <img
+                        src={`https://www.metaweather.com/static/img/weather/${data.weather_state_abbr}.svg`}
+                        alt=""
+                        className="future-icon"
+                      />
+                      <div className="future-temperature">
+                        {converted ? (
+                          <span>{`${Math.round(
+                            data.the_temp * (9 / 5) + 32
+                          )} °F`}</span>
+                        ) : (
+                          <span>{`${Math.round(data.the_temp)} °C`}</span>
+                        )}
+                        {converted ? (
+                          <span>{`${Math.round(
+                            data.max_temp * (9 / 5) + 32
+                          )} °F`}</span>
+                        ) : (
+                          <span>{`${Math.round(data.max_temp)} °C`}</span>
+                        )}
                       </div>
                     </div>
                   </Link>

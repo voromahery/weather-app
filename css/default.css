@@ -1,9 +1,13 @@
 body {
     margin: auto;
+    background: #1E213A
 }
 
 img {
-    width: 100px;
-    height: 100px;
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
 }
 

@@ -4,11 +4,26 @@
 
 .next-forecast {
   max-width: 120px;
-  background: #1E213A;
+  background: #1e213a;
+  text-align: center;
+}
+
+.future-forecast,
+.future-temperature {
+  display: flex;
 }
 
 .future-forecast {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 26px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 26px;
+}
+
+.future-icon {
+  max-width: 56.44px;
+  /* max-height: 62px; */
+}
+
+.future-temperature {
+  justify-content: space-between;
 }
