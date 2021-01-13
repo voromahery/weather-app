@@ -1,0 +1,50 @@
+.highlight {
+  background: #100e1d;
+}
+
+.highlight-title {
+  line-height: 28px;
+}
+
+.unit,
+.highlight-title {
+  font-size: 24px;
+}
+
+.unit {
+  font-weight: 400;
+}
+
+.highlight-title,
+.status-value {
+  font-weight: bold;
+}
+
+.highlight-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.highlight-list-item {
+  background: #1e213a;
+  text-align: center;
+  padding-top: 22px;
+  padding-bottom: 22px;
+}
+
+.highlight-title,
+.highlight-list-item {
+  color: #e7e7eb;
+}
+
+.status-name {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.status-value {
+  font-size: 64px;
+  line-height: 75px;
+}

@@ -1,7 +1,7 @@
 body {
     font-family: 'Raleway';
     margin: auto;
-    background: #1E213A;
+    background: #100e1d;
 }
 
 
@@ -16,9 +16,15 @@ a {
     color: unset;
 }
 
+ul {
+    list-style: none;
+    padding: 0;
+}
+
 .loading {
     color: #E7E7EB;
 }
+
 .today {
   text-align: center;
   background: #1e213a;
@@ -67,7 +73,6 @@ a {
 
 .search-toggle {
   background: #6e707a;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border: none;
   font-weight: 500;
   font-size: 16px;
@@ -86,9 +91,15 @@ a {
   align-items: center;
   padding-left: 11px;
   padding-right: 11px;
-  margin-top: 18px;
+  padding-top: 18px;
   gap: 16px;
   flex-wrap: wrap;
+  background: #1e213a;
+}
+
+.location-icon,
+.search-toggle {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .location-icon {
@@ -102,6 +113,7 @@ a {
 .place-icon {
   max-width: 14px;
 }
+
 .future-weather {
   background: #100e1d;
 }
@@ -114,6 +126,11 @@ a {
   max-width: 120px;
   background: #1e213a;
   text-align: center;
+}
+
+.future-forecast {
+  margin-top: 51px;
+  margin-bottom: 51px;
 }
 
 .future-forecast,
@@ -156,6 +173,57 @@ a {
 
 .max-temp {
   color: #a09fb1;
+}
+
+.highlight {
+  background: #100e1d;
+}
+
+.highlight-title {
+  line-height: 28px;
+}
+
+.unit,
+.highlight-title {
+  font-size: 24px;
+}
+
+.unit {
+  font-weight: 400;
+}
+
+.highlight-title,
+.status-value {
+  font-weight: bold;
+}
+
+.highlight-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.highlight-list-item {
+  background: #1e213a;
+  text-align: center;
+  padding-top: 22px;
+  padding-bottom: 22px;
+}
+
+.highlight-title,
+.highlight-list-item {
+  color: #e7e7eb;
+}
+
+.status-name {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.status-value {
+  font-size: 64px;
+  line-height: 75px;
 }
 
 

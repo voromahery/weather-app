@@ -1,7 +1,7 @@
 body {
     font-family: 'Raleway';
     margin: auto;
-    background: #1E213A;
+    background: #100e1d;
 }
 
 
@@ -14,6 +14,11 @@ a {
     font-family: 'Raleway';
     text-decoration: none;
     color: unset;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
 }
 
 .loading {
