@@ -4,7 +4,9 @@ body {
     background: #100e1d;
 }
 
-
+button {
+    cursor: pointer;
+}
 
 img {
     width: 100%;
