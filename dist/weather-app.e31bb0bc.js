@@ -33853,9 +33853,7 @@ if ("development" !== "production") {
     style: _propTypes.default.object
   });
 }
-},{"react-router":"node_modules/react-router/esm/react-router.js","@babel/runtime/helpers/esm/inheritsLoose":"node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"node_modules/react/index.js","history":"node_modules/history/esm/history.js","prop-types":"node_modules/prop-types/index.js","tiny-warning":"node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"icons/location.svg":[function(require,module,exports) {
-module.exports = "/location.68e4bdf6.svg";
-},{}],"ContextProvider.js":[function(require,module,exports) {
+},{"react-router":"node_modules/react-router/esm/react-router.js","@babel/runtime/helpers/esm/inheritsLoose":"node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"node_modules/react/index.js","history":"node_modules/history/esm/history.js","prop-types":"node_modules/prop-types/index.js","tiny-warning":"node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"ContextProvider.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -33931,7 +33929,11 @@ function ContextProvider(props) {
     }
   }, props.children));
 }
-},{"react":"node_modules/react/index.js"}],"components/dateToDisplay.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"icons/location.svg":[function(require,module,exports) {
+module.exports = "/location.68e4bdf6.svg";
+},{}],"icons/place.svg":[function(require,module,exports) {
+module.exports = "/place.8e5a5e80.svg";
+},{}],"components/dateToDisplay.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -33981,11 +33983,13 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _location = _interopRequireDefault(require("../icons/location.svg"));
-
 var _reactRouterDom = require("react-router-dom");
 
 var _ContextProvider = require("../ContextProvider");
+
+var _location = _interopRequireDefault(require("../icons/location.svg"));
+
+var _place = _interopRequireDefault(require("../icons/place.svg"));
 
 var _dateToDisplay = _interopRequireDefault(require("./dateToDisplay"));
 
@@ -34075,7 +34079,11 @@ function HeaderForm() {
     className: "today-date"
   }, "Today . ", (0, _dateToDisplay.default)(todayWeather.applicable_date)), /*#__PURE__*/_react.default.createElement("p", {
     className: "location"
-  }, dataByCity.title || "Helsinki")))), /*#__PURE__*/_react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    src: _place.default,
+    alt: "",
+    className: "place-icon"
+  }), " ", dataByCity.title || "Helsinki")))), /*#__PURE__*/_react.default.createElement("div", {
     className: "future-weather"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "convertButton"
@@ -34103,7 +34111,7 @@ function HeaderForm() {
 
 var _default = HeaderForm;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","../icons/location.svg":"icons/location.svg","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../ContextProvider":"ContextProvider.js","./dateToDisplay":"components/dateToDisplay.js","./SearchForm":"components/SearchForm.js"}],"components/HighlightWeather.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../ContextProvider":"ContextProvider.js","../icons/location.svg":"icons/location.svg","../icons/place.svg":"icons/place.svg","./dateToDisplay":"components/dateToDisplay.js","./SearchForm":"components/SearchForm.js"}],"components/HighlightWeather.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

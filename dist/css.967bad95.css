@@ -1,13 +1,17 @@
 body {
+    font-family: 'Raleway';
     margin: auto;
-    background: #1E213A
+    background: #1E213A;
 }
+
+
 
 img {
     width: 100%;
 }
 
 a {
+    font-family: 'Raleway';
     text-decoration: none;
 }
 
@@ -90,6 +94,10 @@ a {
   padding: 9px;
   background: #6e707a;
   border-radius: 50%;
+}
+
+.place-icon {
+  max-width: 14px;
 }
 .future-weather {
   background: #100e1d;

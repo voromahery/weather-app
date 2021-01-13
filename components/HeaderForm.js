@@ -1,7 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
-import locationIcon from '../icons/location.svg';
 import { Link } from "react-router-dom";
 import { Context } from "../ContextProvider";
+import locationIcon from '../icons/location.svg';
+import placeIcon from '../icons/place.svg';
 import dateToDisplay from "./dateToDisplay";
 import SearchForm from "./SearchForm";
 
@@ -90,7 +91,7 @@ function HeaderForm() {
               <p className="today-date">
                 Today . {dateToDisplay(todayWeather.applicable_date)}
               </p>
-              <p className="location">{dataByCity.title || "Helsinki"}</p>
+              <p className="location"><img src={placeIcon} alt="" className="place-icon"/> {dataByCity.title || "Helsinki"}</p>
             </div>
           </Link>
         </div>

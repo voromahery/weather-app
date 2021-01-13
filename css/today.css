@@ -77,3 +77,7 @@
   background: #6e707a;
   border-radius: 50%;
 }
+
+.place-icon {
+  max-width: 14px;
+}
