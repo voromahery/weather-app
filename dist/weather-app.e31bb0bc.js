@@ -34071,7 +34071,7 @@ function HeaderForm() {
   })), isLoading ? /*#__PURE__*/_react.default.createElement("h1", null, "Loading...") : /*#__PURE__*/_react.default.createElement("div", {
     className: "today"
   }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-    to: "/highlight"
+    to: "/"
   }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("img", {
     src: `/static/img/weather/${todayWeather.weather_state_abbr}.svg`,
     alt: ""
@@ -34128,9 +34128,9 @@ function App() {
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h1", null, "Onja Weather App"), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     exact: true,
     path: "/"
-  }, /*#__PURE__*/_react.default.createElement(_HeaderForm.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  }, /*#__PURE__*/_react.default.createElement(_HeaderForm.default, null), /*#__PURE__*/_react.default.createElement(_HighlightWeather.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: "/highlight/:weatherId"
-  }, /*#__PURE__*/_react.default.createElement(_HighlightWeather.default, null)))));
+  }, /*#__PURE__*/_react.default.createElement(_HeaderForm.default, null), /*#__PURE__*/_react.default.createElement(_HighlightWeather.default, null)))));
 }
 
 var _default = App;

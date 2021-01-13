@@ -48,7 +48,7 @@ function HeaderForm() {
         <h1>Loading...</h1>
       ) : (
         <div className="today">
-          <Link to="/highlight">
+          <Link to="/">
             <div>
               <img
                 src={`/static/img/weather/${todayWeather.weather_state_abbr}.svg`}

@@ -11,8 +11,10 @@ function App() {
         <Switch>
           <Route exact path="/">
             <HeaderForm />
+            <HighlightWeather />
           </Route>
           <Route path="/highlight/:weatherId">
+            <HeaderForm />
             <HighlightWeather />
           </Route>
         </Switch>
