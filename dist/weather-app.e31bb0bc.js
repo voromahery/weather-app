@@ -33884,8 +33884,8 @@ function ContextProvider(props) {
   const [dataByWoeid, setDataByWoeid] = (0, _react.useState)([]);
   const [consolidatedWeather, setConsolidatedWeather] = (0, _react.useState)([]);
   const [todayWeather, setTodayWeather] = (0, _react.useState)("");
-  const [city, setCity] = (0, _react.useState)("Helsinki");
-  const [location, setLocation] = (0, _react.useState)("565346");
+  const [city, setCity] = (0, _react.useState)("Nairobi");
+  const [location, setLocation] = (0, _react.useState)("1528488");
   const [isLoading, setIsLoading] = (0, _react.useState)(false);
   const searchByCity = `${regeneratorRunTime}https://www.metaweather.com/api/location/search/?query=${city}`;
   const weatherData = `${regeneratorRunTime}https://www.metaweather.com/api/location/${location}/`;
@@ -33972,13 +33972,23 @@ function FutureWeather({
 }) {
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "next-forecast"
-  }, /*#__PURE__*/_react.default.createElement("p", null, index === 0 ? "Tomorrow" : (0, _dateToDisplay.default)(data.applicable_date)), /*#__PURE__*/_react.default.createElement("img", {
+  }, /*#__PURE__*/_react.default.createElement("p", {
+    className: "future-date"
+  }, index === 0 ? "Tomorrow" : (0, _dateToDisplay.default)(data.applicable_date)), /*#__PURE__*/_react.default.createElement("img", {
     src: `https://www.metaweather.com/static/img/weather/${data.weather_state_abbr}.svg`,
     alt: "",
     className: "future-icon"
   }), /*#__PURE__*/_react.default.createElement("div", {
     className: "future-temperature"
-  }, converted ? /*#__PURE__*/_react.default.createElement("span", null, `${Math.round(data.the_temp * (9 / 5) + 32)} °F`) : /*#__PURE__*/_react.default.createElement("span", null, `${Math.round(data.the_temp)} °C`), converted ? /*#__PURE__*/_react.default.createElement("span", null, `${Math.round(data.max_temp * (9 / 5) + 32)} °F`) : /*#__PURE__*/_react.default.createElement("span", null, `${Math.round(data.max_temp)} °C`)));
+  }, converted ? /*#__PURE__*/_react.default.createElement("span", {
+    className: "future-temperature"
+  }, `${Math.round(data.the_temp * (9 / 5) + 32)} °F`) : /*#__PURE__*/_react.default.createElement("span", {
+    className: "future-temperature"
+  }, `${Math.round(data.the_temp)} °C`), converted ? /*#__PURE__*/_react.default.createElement("span", {
+    className: "max-temp"
+  }, `${Math.round(data.max_temp * (9 / 5) + 32)} °F`) : /*#__PURE__*/_react.default.createElement("span", {
+    className: "max-temp"
+  }, `${Math.round(data.max_temp)} °C`)));
 }
 },{"react":"node_modules/react/index.js","./dateToDisplay":"components/dateToDisplay.js"}],"components/SearchForm.js":[function(require,module,exports) {
 "use strict";
@@ -34117,7 +34127,7 @@ function HeaderForm() {
     }
 
     if (e.currentTarget.value === "") {
-      setCity("Helsinki");
+      setCity("Nairobi");
     }
   }
 
@@ -34132,7 +34142,9 @@ function HeaderForm() {
     className: "location-icon"
   }), isSearch && /*#__PURE__*/_react.default.createElement(_SearchForm.default, {
     searchCity: searchCity
-  })), isLoading ? /*#__PURE__*/_react.default.createElement("h1", null, "Loading...") : /*#__PURE__*/_react.default.createElement("div", {
+  })), isLoading ? /*#__PURE__*/_react.default.createElement("h1", {
+    className: "loading"
+  }, "Loading...") : /*#__PURE__*/_react.default.createElement("div", {
     className: "today"
   }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
     to: "/"
@@ -34151,7 +34163,9 @@ function HeaderForm() {
     onClick: convertDegreeF
   }, "\xB0F")), /*#__PURE__*/_react.default.createElement("div", {
     className: "future-forecast"
-  }, isLoading ? /*#__PURE__*/_react.default.createElement("h2", null, "Loading...") : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, dataByWoeid.map((data, index) => {
+  }, isLoading ? /*#__PURE__*/_react.default.createElement("h2", {
+    className: "loading"
+  }, "Loading...") : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, dataByWoeid.map((data, index) => {
     return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
       to: `/highlight/${data.id}`,
       key: data.id
@@ -34189,18 +34203,21 @@ function HighlightWeather() {
     setCity,
     dataByCity,
     dataByWoeid,
-    todayWeather
+    todayWeather,
+    isLoading
   } = (0, _react.useContext)(_ContextProvider.Context);
   const {
     weatherId
   } = (0, _reactRouterDom.useParams)();
   const findWeather = dataByWoeid.find(data => data.id === Number(weatherId) || todayWeather.id === Number(weatherId)) || "";
   console.log(findWeather, weatherId, "FOUND");
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h2", null, "Today\u2019s Hightlights "), /*#__PURE__*/_react.default.createElement("ul", null, /*#__PURE__*/_react.default.createElement("li", null, /*#__PURE__*/_react.default.createElement("div", null, "Wind status"), /*#__PURE__*/_react.default.createElement("div", null, findWeather.wind_speed || todayWeather.wind_speed, "mph"), /*#__PURE__*/_react.default.createElement("div", null, findWeather.wind_direction_compass || todayWeather.wind_direction_compass)), /*#__PURE__*/_react.default.createElement("li", null, /*#__PURE__*/_react.default.createElement("div", null, "Humidity"), /*#__PURE__*/_react.default.createElement("div", null, findWeather.humidity || todayWeather.humidity, "%"), /*#__PURE__*/_react.default.createElement("progress", {
+  return /*#__PURE__*/_react.default.createElement("div", null, isLoading ? /*#__PURE__*/_react.default.createElement("h3", {
+    className: "loading"
+  }, "Loading") : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h2", null, "Today\u2019s Hightlights "), /*#__PURE__*/_react.default.createElement("ul", null, /*#__PURE__*/_react.default.createElement("li", null, /*#__PURE__*/_react.default.createElement("div", null, "Wind status"), /*#__PURE__*/_react.default.createElement("div", null, Math.round(findWeather.wind_speed) || Math.round(todayWeather.wind_speed), "mph"), /*#__PURE__*/_react.default.createElement("div", null, findWeather.wind_direction_compass || todayWeather.wind_direction_compass)), /*#__PURE__*/_react.default.createElement("li", null, /*#__PURE__*/_react.default.createElement("div", null, "Humidity"), /*#__PURE__*/_react.default.createElement("div", null, findWeather.humidity || todayWeather.humidity, "%"), /*#__PURE__*/_react.default.createElement("progress", {
     min: "0",
     max: "100",
     value: findWeather.humidity || todayWeather.humidity
-  })), /*#__PURE__*/_react.default.createElement("li", null, /*#__PURE__*/_react.default.createElement("div", null, "Visibility"), /*#__PURE__*/_react.default.createElement("div", null, findWeather.visibility || todayWeather.visibility, " miles")), /*#__PURE__*/_react.default.createElement("li", null, /*#__PURE__*/_react.default.createElement("div", null, "Air Pressure"), /*#__PURE__*/_react.default.createElement("div", null, findWeather.air_pressure || todayWeather.air_pressure))));
+  })), /*#__PURE__*/_react.default.createElement("li", null, /*#__PURE__*/_react.default.createElement("div", null, "Visibility"), /*#__PURE__*/_react.default.createElement("div", null, findWeather.visibility || todayWeather.visibility, " miles")), /*#__PURE__*/_react.default.createElement("li", null, /*#__PURE__*/_react.default.createElement("div", null, "Air Pressure"), /*#__PURE__*/_react.default.createElement("div", null, findWeather.air_pressure || todayWeather.air_pressure)))));
 }
 },{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../ContextProvider.js":"ContextProvider.js"}],"App.js":[function(require,module,exports) {
 "use strict";
@@ -34275,7 +34292,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59768" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60444" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

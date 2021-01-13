@@ -16,8 +16,8 @@ function ContextProvider(props) {
   const [consolidatedWeather, setConsolidatedWeather] = useState([]);
   const [todayWeather, setTodayWeather] = useState("");
 
-  const [city, setCity] = useState("Helsinki");
-  const [location, setLocation] = useState("565346");
+  const [city, setCity] = useState("Nairobi");
+  const [location, setLocation] = useState("1528488");
   const [isLoading, setIsLoading] = useState(false);
 
   const searchByCity = `${regeneratorRunTime}https://www.metaweather.com/api/location/search/?query=${city}`;

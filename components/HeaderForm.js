@@ -45,7 +45,7 @@ function HeaderForm() {
       setCity(e.currentTarget.value);
     }
     if (e.currentTarget.value === "") {
-      setCity("Helsinki");
+      setCity("Nairobi");
     }
   }
 
@@ -59,7 +59,7 @@ function HeaderForm() {
         {isSearch && <SearchForm searchCity={searchCity} />}
       </div>
       {isLoading ? (
-        <h1>Loading...</h1>
+        <h1 className="loading">Loading...</h1>
       ) : (
         <div className="today">
           <Link to="/">
@@ -79,7 +79,7 @@ function HeaderForm() {
         </div>
         <div className="future-forecast">
           {isLoading ? (
-            <h2>Loading...</h2>
+            <h2 className="loading">Loading...</h2>
           ) : (
             <>
               {dataByWoeid.map((data, index) => {

@@ -65,7 +65,7 @@
   align-items: center;
   padding-left: 11px;
   padding-right: 11px;
-  padding-top: 18px;
+  margin-top: 18px;
   gap: 16px;
   flex-wrap: wrap;
 }

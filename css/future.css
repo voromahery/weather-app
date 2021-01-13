@@ -3,6 +3,10 @@
 }
 
 .next-forecast {
+  padding-left: 22px;
+  padding-right: 22px;
+  padding-top: 18px;
+  padding-bottom: 18px;
   max-width: 120px;
   background: #1e213a;
   text-align: center;
@@ -22,8 +26,30 @@
 .future-icon {
   max-width: 56.44px;
   /* max-height: 62px; */
+  margin-bottom: 31px;
 }
 
 .future-temperature {
   justify-content: space-between;
+  gap: 16px;
+}
+
+.future-date {
+  margin-top: 0;
+}
+
+.future-date,
+.future-temperature {
+  color: #e7e7eb;
+}
+
+.future-date,
+.max-temp {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.max-temp {
+  color: #a09fb1;
 }

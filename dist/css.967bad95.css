@@ -13,9 +13,12 @@ img {
 a {
     font-family: 'Raleway';
     text-decoration: none;
+    color: unset;
 }
 
-
+.loading {
+    color: #E7E7EB;
+}
 .today {
   text-align: center;
   background: #1e213a;
@@ -83,7 +86,7 @@ a {
   align-items: center;
   padding-left: 11px;
   padding-right: 11px;
-  padding-top: 18px;
+  margin-top: 18px;
   gap: 16px;
   flex-wrap: wrap;
 }
@@ -104,6 +107,10 @@ a {
 }
 
 .next-forecast {
+  padding-left: 22px;
+  padding-right: 22px;
+  padding-top: 18px;
+  padding-bottom: 18px;
   max-width: 120px;
   background: #1e213a;
   text-align: center;
@@ -123,10 +130,32 @@ a {
 .future-icon {
   max-width: 56.44px;
   /* max-height: 62px; */
+  margin-bottom: 31px;
 }
 
 .future-temperature {
   justify-content: space-between;
+  gap: 16px;
+}
+
+.future-date {
+  margin-top: 0;
+}
+
+.future-date,
+.future-temperature {
+  color: #e7e7eb;
+}
+
+.future-date,
+.max-temp {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.max-temp {
+  color: #a09fb1;
 }
 
 
