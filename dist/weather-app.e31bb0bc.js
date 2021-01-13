@@ -33931,8 +33931,6 @@ function ContextProvider(props) {
 }
 },{"react":"node_modules/react/index.js"}],"icons/location.svg":[function(require,module,exports) {
 module.exports = "/location.68e4bdf6.svg";
-},{}],"icons/place.svg":[function(require,module,exports) {
-module.exports = "/place.8e5a5e80.svg";
 },{}],"components/dateToDisplay.js":[function(require,module,exports) {
 "use strict";
 
@@ -33953,7 +33951,36 @@ function dateToDisplay(date) {
 
 var _default = dateToDisplay;
 exports.default = _default;
-},{}],"components/SearchForm.js":[function(require,module,exports) {
+},{}],"components/FutureWeather.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = FutureWeather;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _dateToDisplay = _interopRequireDefault(require("./dateToDisplay"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function FutureWeather({
+  data,
+  index,
+  converted
+}) {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "next-forecast"
+  }, /*#__PURE__*/_react.default.createElement("p", null, index === 0 ? "Tomorrow" : (0, _dateToDisplay.default)(data.applicable_date)), /*#__PURE__*/_react.default.createElement("img", {
+    src: `https://www.metaweather.com/static/img/weather/${data.weather_state_abbr}.svg`,
+    alt: "",
+    className: "future-icon"
+  }), /*#__PURE__*/_react.default.createElement("div", {
+    className: "future-temperature"
+  }, converted ? /*#__PURE__*/_react.default.createElement("span", null, `${Math.round(data.the_temp * (9 / 5) + 32)} °F`) : /*#__PURE__*/_react.default.createElement("span", null, `${Math.round(data.the_temp)} °C`), converted ? /*#__PURE__*/_react.default.createElement("span", null, `${Math.round(data.max_temp * (9 / 5) + 32)} °F`) : /*#__PURE__*/_react.default.createElement("span", null, `${Math.round(data.max_temp)} °C`)));
+}
+},{"react":"node_modules/react/index.js","./dateToDisplay":"components/dateToDisplay.js"}],"components/SearchForm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -33973,7 +34000,57 @@ function SearchForm({
     onChange: searchCity
   }), /*#__PURE__*/_react.default.createElement("button", null, "Search"));
 }
-},{"react":"node_modules/react/index.js"}],"components/HeaderForm.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"icons/place.svg":[function(require,module,exports) {
+module.exports = "/place.8e5a5e80.svg";
+},{}],"components/TodayWeather.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = TodayWeather;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _place = _interopRequireDefault(require("../icons/place.svg"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function TodayWeather({
+  todayWeather,
+  converted,
+  dateToDisplay,
+  dataByCity
+}) {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "today-wrapper"
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    src: `https://www.metaweather.com/static/img/weather/${todayWeather.weather_state_abbr}.svg`,
+    alt: "",
+    className: "today-icon"
+  }), /*#__PURE__*/_react.default.createElement("h3", {
+    className: "temperature"
+  }, converted ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("span", {
+    className: "today-degree"
+  }, `${Math.round(todayWeather.the_temp * (9 / 5) + 32)}`), /*#__PURE__*/_react.default.createElement("span", {
+    className: "today-degree-sign"
+  }, "\xB0F")) : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("span", {
+    className: "today-degree"
+  }, `${Math.round(todayWeather.the_temp)}`), /*#__PURE__*/_react.default.createElement("span", {
+    className: "today-degree-sign"
+  }, "\xB0C"))), /*#__PURE__*/_react.default.createElement("p", {
+    className: "today-weather-state"
+  }, todayWeather.weather_state_name), /*#__PURE__*/_react.default.createElement("p", {
+    className: "today-date"
+  }, "Today . ", dateToDisplay(todayWeather.applicable_date)), /*#__PURE__*/_react.default.createElement("p", {
+    className: "location"
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    src: _place.default,
+    alt: "",
+    className: "place-icon"
+  }), " ", dataByCity.title || "Helsinki"));
+}
+},{"react":"node_modules/react/index.js","../icons/place.svg":"icons/place.svg"}],"components/HeaderForm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -33989,11 +34066,13 @@ var _ContextProvider = require("../ContextProvider");
 
 var _location = _interopRequireDefault(require("../icons/location.svg"));
 
-var _place = _interopRequireDefault(require("../icons/place.svg"));
-
 var _dateToDisplay = _interopRequireDefault(require("./dateToDisplay"));
 
+var _FutureWeather = _interopRequireDefault(require("./FutureWeather"));
+
 var _SearchForm = _interopRequireDefault(require("./SearchForm"));
+
+var _TodayWeather = _interopRequireDefault(require("./TodayWeather"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34057,33 +34136,12 @@ function HeaderForm() {
     className: "today"
   }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
     to: "/"
-  }, /*#__PURE__*/_react.default.createElement("div", {
-    className: "today-wrapper"
-  }, /*#__PURE__*/_react.default.createElement("img", {
-    src: `https://www.metaweather.com/static/img/weather/${todayWeather.weather_state_abbr}.svg`,
-    alt: "",
-    className: "today-icon"
-  }), /*#__PURE__*/_react.default.createElement("h3", {
-    className: "temperature"
-  }, converted ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("span", {
-    className: "today-degree"
-  }, `${Math.round(todayWeather.the_temp * (9 / 5) + 32)}`), /*#__PURE__*/_react.default.createElement("span", {
-    className: "today-degree-sign"
-  }, "\xB0F")) : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("span", {
-    className: "today-degree"
-  }, `${Math.round(todayWeather.the_temp)}`), /*#__PURE__*/_react.default.createElement("span", {
-    className: "today-degree-sign"
-  }, "\xB0C"))), /*#__PURE__*/_react.default.createElement("p", {
-    className: "today-weather-state"
-  }, todayWeather.weather_state_name), /*#__PURE__*/_react.default.createElement("p", {
-    className: "today-date"
-  }, "Today . ", (0, _dateToDisplay.default)(todayWeather.applicable_date)), /*#__PURE__*/_react.default.createElement("p", {
-    className: "location"
-  }, /*#__PURE__*/_react.default.createElement("img", {
-    src: _place.default,
-    alt: "",
-    className: "place-icon"
-  }), " ", dataByCity.title || "Helsinki")))), /*#__PURE__*/_react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement(_TodayWeather.default, {
+    converted: converted,
+    todayWeather: todayWeather,
+    dataByCity: dataByCity,
+    dateToDisplay: _dateToDisplay.default
+  }))), /*#__PURE__*/_react.default.createElement("div", {
     className: "future-weather"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "convertButton"
@@ -34097,21 +34155,17 @@ function HeaderForm() {
     return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
       to: `/highlight/${data.id}`,
       key: data.id
-    }, /*#__PURE__*/_react.default.createElement("div", {
-      className: "next-forecast"
-    }, /*#__PURE__*/_react.default.createElement("p", null, index === 0 ? "Tomorrow" : (0, _dateToDisplay.default)(data.applicable_date)), /*#__PURE__*/_react.default.createElement("img", {
-      src: `https://www.metaweather.com/static/img/weather/${data.weather_state_abbr}.svg`,
-      alt: "",
-      className: "future-icon"
-    }), /*#__PURE__*/_react.default.createElement("div", {
-      className: "future-temperature"
-    }, converted ? /*#__PURE__*/_react.default.createElement("span", null, `${Math.round(data.the_temp * (9 / 5) + 32)} °F`) : /*#__PURE__*/_react.default.createElement("span", null, `${Math.round(data.the_temp)} °C`), converted ? /*#__PURE__*/_react.default.createElement("span", null, `${Math.round(data.max_temp * (9 / 5) + 32)} °F`) : /*#__PURE__*/_react.default.createElement("span", null, `${Math.round(data.max_temp)} °C`))));
+    }, /*#__PURE__*/_react.default.createElement(_FutureWeather.default, {
+      data: data,
+      index: index,
+      converted: converted
+    }));
   })))));
 }
 
 var _default = HeaderForm;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../ContextProvider":"ContextProvider.js","../icons/location.svg":"icons/location.svg","../icons/place.svg":"icons/place.svg","./dateToDisplay":"components/dateToDisplay.js","./SearchForm":"components/SearchForm.js"}],"components/HighlightWeather.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../ContextProvider":"ContextProvider.js","../icons/location.svg":"icons/location.svg","./dateToDisplay":"components/dateToDisplay.js","./FutureWeather":"components/FutureWeather.js","./SearchForm":"components/SearchForm.js","./TodayWeather":"components/TodayWeather.js"}],"components/HighlightWeather.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34221,7 +34275,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56677" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59768" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

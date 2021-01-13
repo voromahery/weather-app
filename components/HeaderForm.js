@@ -1,10 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../ContextProvider";
-import locationIcon from '../icons/location.svg';
-import placeIcon from '../icons/place.svg';
+import locationIcon from "../icons/location.svg";
 import dateToDisplay from "./dateToDisplay";
+import FutureWeather from "./FutureWeather";
 import SearchForm from "./SearchForm";
+import TodayWeather from "./TodayWeather";
 
 function HeaderForm() {
   const {
@@ -62,37 +63,12 @@ function HeaderForm() {
       ) : (
         <div className="today">
           <Link to="/">
-            <div className="today-wrapper">
-              <img
-                src={`https://www.metaweather.com/static/img/weather/${todayWeather.weather_state_abbr}.svg`}
-                alt=""
-                className="today-icon"
-              />
-              <h3 className="temperature">
-                {converted ? (
-                  <>
-                    <span className="today-degree">{`${Math.round(
-                      todayWeather.the_temp * (9 / 5) + 32
-                    )}`}</span>
-                    <span className="today-degree-sign">°F</span>
-                  </>
-                ) : (
-                  <>
-                    <span className="today-degree">{`${Math.round(
-                      todayWeather.the_temp
-                    )}`}</span>
-                    <span className="today-degree-sign">°C</span>
-                  </>
-                )}
-              </h3>
-              <p className="today-weather-state">
-                {todayWeather.weather_state_name}
-              </p>
-              <p className="today-date">
-                Today . {dateToDisplay(todayWeather.applicable_date)}
-              </p>
-              <p className="location"><img src={placeIcon} alt="" className="place-icon"/> {dataByCity.title || "Helsinki"}</p>
-            </div>
+            <TodayWeather
+              converted={converted}
+              todayWeather={todayWeather}
+              dataByCity={dataByCity}
+              dateToDisplay={dateToDisplay}
+            />
           </Link>
         </div>
       )}
@@ -109,34 +85,11 @@ function HeaderForm() {
               {dataByWoeid.map((data, index) => {
                 return (
                   <Link to={`/highlight/${data.id}`} key={data.id}>
-                    <div className="next-forecast">
-                      <p>
-                        {index === 0
-                          ? "Tomorrow"
-                          : dateToDisplay(data.applicable_date)}
-                      </p>
-                      <img
-                        src={`https://www.metaweather.com/static/img/weather/${data.weather_state_abbr}.svg`}
-                        alt=""
-                        className="future-icon"
-                      />
-                      <div className="future-temperature">
-                        {converted ? (
-                          <span>{`${Math.round(
-                            data.the_temp * (9 / 5) + 32
-                          )} °F`}</span>
-                        ) : (
-                          <span>{`${Math.round(data.the_temp)} °C`}</span>
-                        )}
-                        {converted ? (
-                          <span>{`${Math.round(
-                            data.max_temp * (9 / 5) + 32
-                          )} °F`}</span>
-                        ) : (
-                          <span>{`${Math.round(data.max_temp)} °C`}</span>
-                        )}
-                      </div>
-                    </div>
+                    <FutureWeather
+                      data={data}
+                      index={index}
+                      converted={converted}
+                    />
                   </Link>
                 );
               })}

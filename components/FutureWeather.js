@@ -1,39 +1,26 @@
 import React from "react";
-import { Link } from 'react-router-dom';
-import HighlightWeather from "./HighlightWeather";
+import dateToDisplay from './dateToDisplay';
 
-export default function FutureWeather() {
+export default function FutureWeather({data, index, converted}) {
   return (
-    <div>
-      <div className="future-weather">
-        <div className="convertButton">
-          <button>&deg;C</button>
-          <button>&deg;F</button>
-        </div>
-        <div className="future-forecast">
-          {isLoading ? (
-            <h2>Loading...</h2>
-          ) : (
-            <>
-              {" "}
-              {dataByWoeid.map((data) => (
-                <div className="next-forecast" key={data.id}>
-                  <Link to="/">
-                    <div>
-                      <p>{data.applicable_date}</p>
-                      <img
-                        src={`/static/img/weather/${data.weather_state_abbr}.svg`}
-                        alt=""
-                      />
-                      <h3>{Math.round(data.the_temp)} &deg;C</h3>
-                      <h3>25 &deg;C</h3>
-                    </div>
-                  </Link>
-                </div>
-              ))}
-            </>
-          )}
-        </div>
+    <div className="next-forecast">
+      <p>{index === 0 ? "Tomorrow" : dateToDisplay(data.applicable_date)}</p>
+      <img
+        src={`https://www.metaweather.com/static/img/weather/${data.weather_state_abbr}.svg`}
+        alt=""
+        className="future-icon"
+      />
+      <div className="future-temperature">
+        {converted ? (
+          <span>{`${Math.round(data.the_temp * (9 / 5) + 32)} °F`}</span>
+        ) : (
+          <span>{`${Math.round(data.the_temp)} °C`}</span>
+        )}
+        {converted ? (
+          <span>{`${Math.round(data.max_temp * (9 / 5) + 32)} °F`}</span>
+        ) : (
+          <span>{`${Math.round(data.max_temp)} °C`}</span>
+        )}
       </div>
     </div>
   );
