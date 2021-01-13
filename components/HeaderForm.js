@@ -1,8 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../ContextProvider";
-import DateFormat from "./DateFormat";
-import HighlightWeather from "./HighlightWeather";
+import dateToDisplay from "./dateToDisplay";
 import SearchForm from "./SearchForm";
 
 function HeaderForm() {
@@ -84,7 +83,7 @@ function HeaderForm() {
                 {todayWeather.weather_state_name}
               </p>
               <p className="today-date">
-                Today . {DateFormat(todayWeather.applicable_date)}
+                Today . {dateToDisplay(todayWeather.applicable_date)}
               </p>
               <p className="location">{dataByCity.title || "Helsinki"}</p>
             </div>
@@ -106,11 +105,7 @@ function HeaderForm() {
                   <Link to={`/highlight/${data.id}`} key={data.id}>
                     <div className="next-forecast">
                       <div>
-                        <p>
-                          {index === 0
-                            ? "Tomorrow"
-                            : DateFormat(data.applicable_date)}
-                        </p>
+                        <p>{index === 0 ? "Tomorrow" : dateToDisplay(data.applicable_date)}</p>
                         <img
                           src={`/static/img/weather/${data.weather_state_abbr}.svg`}
                           alt=""
