@@ -1,12 +1,9 @@
 import React, { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../ContextProvider.js";
+import dateToDisplay from "./dateToDisplay";
 export default function HighlightWeather() {
-  const {
-    dataByWoeid,
-    todayWeather,
-    isLoading,
-  } = useContext(Context);
+  const { dataByWoeid, todayWeather, isLoading } = useContext(Context);
 
   const { weatherId } = useParams();
   const findWeather =
@@ -21,7 +18,9 @@ export default function HighlightWeather() {
         <h3 className="loading">Loading</h3>
       ) : (
         <>
-          <h2 className="highlight-title">Today’s Hightlights </h2>
+          <h2 className="highlight-title">
+            {!findWeather ? "Today’s Hightlights" : `${dateToDisplay(findWeather.applicable_date)}'s highlights`}
+          </h2>
           <ul className="highlight-list">
             <li className="highlight-list-item">
               <div className="status-name">Wind status</div>

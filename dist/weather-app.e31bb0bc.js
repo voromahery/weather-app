@@ -34252,6 +34252,10 @@ var _reactRouterDom = require("react-router-dom");
 
 var _ContextProvider = require("../ContextProvider.js");
 
+var _dateToDisplay = _interopRequireDefault(require("./dateToDisplay"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -34272,7 +34276,7 @@ function HighlightWeather() {
     className: "loading"
   }, "Loading") : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h2", {
     className: "highlight-title"
-  }, "Today\u2019s Hightlights "), /*#__PURE__*/_react.default.createElement("ul", {
+  }, !findWeather ? "Today’s Hightlights" : `${(0, _dateToDisplay.default)(findWeather.applicable_date)}'s highlights`), /*#__PURE__*/_react.default.createElement("ul", {
     className: "highlight-list"
   }, /*#__PURE__*/_react.default.createElement("li", {
     className: "highlight-list-item"
@@ -34314,7 +34318,7 @@ function HighlightWeather() {
     className: "unit"
   }, "mb"))))));
 }
-},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../ContextProvider.js":"ContextProvider.js"}],"App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../ContextProvider.js":"ContextProvider.js","./dateToDisplay":"components/dateToDisplay.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
