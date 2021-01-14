@@ -33987,7 +33987,9 @@ function FutureWeather({
     className: "max-temp"
   }, `${Math.round(data.max_temp)} °C`)));
 }
-},{"react":"node_modules/react/index.js","./dateToDisplay":"components/dateToDisplay.js"}],"components/SearchForm.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./dateToDisplay":"components/dateToDisplay.js"}],"icons/right-icon.svg":[function(require,module,exports) {
+module.exports = "/right-icon.53fa018a.svg";
+},{}],"components/SearchForm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -33996,6 +33998,10 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = SearchForm;
 
 var _react = _interopRequireWildcard(require("react"));
+
+var _rightIcon = _interopRequireDefault(require("../icons/right-icon.svg"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -34022,19 +34028,34 @@ function SearchForm({
   }
 
   console.log(dataByCity, searchTitle);
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("form", {
-    onSubmit: searchCity
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "search-form-wrapper"
+  }, /*#__PURE__*/_react.default.createElement("form", {
+    onSubmit: searchCity,
+    className: "search-form"
   }, /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
     name: "search",
-    onChange: e => e.target.value
-  }), /*#__PURE__*/_react.default.createElement("button", null, "Search")), /*#__PURE__*/_react.default.createElement("div", null, searchTitle.map(data => /*#__PURE__*/_react.default.createElement("button", {
-    key: data.woeid,
+    className: "search-field",
+    onChange: e => e.target.value,
+    placeholder: "search location"
+  }), /*#__PURE__*/_react.default.createElement("button", {
+    className: "search-button"
+  }, "Search")), /*#__PURE__*/_react.default.createElement("ul", {
+    className: "search-result-list"
+  }, searchTitle.map(data => /*#__PURE__*/_react.default.createElement("li", {
+    key: data.woeid
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    className: "search-value",
     value: data.title,
     onClick: searchByClick
-  }, data.title))));
+  }, /*#__PURE__*/_react.default.createElement("span", null, data.title), /*#__PURE__*/_react.default.createElement("img", {
+    src: _rightIcon.default,
+    alt: "",
+    className: "right-icon"
+  }))))));
 }
-},{"react":"node_modules/react/index.js"}],"icons/place.svg":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../icons/right-icon.svg":"icons/right-icon.svg"}],"icons/place.svg":[function(require,module,exports) {
 module.exports = "/place.8e5a5e80.svg";
 },{}],"components/TodayWeather.js":[function(require,module,exports) {
 "use strict";
@@ -34155,13 +34176,13 @@ function HeaderForm() {
     src: _location.default,
     alt: "",
     className: "location-icon"
-  }), isSearch && /*#__PURE__*/_react.default.createElement(_SearchForm.default, {
+  })), isSearch && /*#__PURE__*/_react.default.createElement(_SearchForm.default, {
     searchTitle: searchTitle,
     setSearchTitle: setSearchTitle,
     dataByCity: dataByCity,
     setDataByCity: setDataByCity,
     setCity: setCity
-  })), isLoading ? /*#__PURE__*/_react.default.createElement("h1", {
+  }), isLoading ? /*#__PURE__*/_react.default.createElement("h1", {
     className: "loading"
   }, "Loading...") : /*#__PURE__*/_react.default.createElement("div", {
     className: "today"

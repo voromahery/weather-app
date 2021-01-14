@@ -47,6 +47,7 @@ function HeaderForm() {
           Seach for places
         </button>
         <img src={locationIcon} alt="" className="location-icon" />
+        </div>
         {isSearch && (
           <SearchForm
             searchTitle={searchTitle}
@@ -56,7 +57,6 @@ function HeaderForm() {
             setCity={setCity}
           />
         )}
-      </div>
       {isLoading ? (
         <h1 className="loading">Loading...</h1>
       ) : (
