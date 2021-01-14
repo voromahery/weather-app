@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Context } from "../ContextProvider.js";
+import compassIcon from "../icons/navigation.svg";
 import dateToDisplay from "./dateToDisplay";
+
 export default function HighlightWeather() {
   const { dataByWoeid, todayWeather, isLoading } = useContext(Context);
-
   const { weatherId } = useParams();
+
   const findWeather =
     dataByWoeid.find(
       (data) =>
@@ -19,7 +21,9 @@ export default function HighlightWeather() {
       ) : (
         <>
           <h2 className="highlight-title">
-            {!findWeather ? "Today’s Hightlights" : `${dateToDisplay(findWeather.applicable_date)}'s highlights`}
+            {!findWeather
+              ? "Today’s Hightlights"
+              : `${dateToDisplay(findWeather.applicable_date)}'s highlights`}
           </h2>
           <ul className="highlight-list">
             <li className="highlight-list-item">
@@ -30,8 +34,16 @@ export default function HighlightWeather() {
                 <span className="unit">mph</span>
               </div>
               <div className="compass">
-                {findWeather.wind_direction_compass ||
-                  todayWeather.wind_direction_compass}
+                <img
+                  src={compassIcon}
+                  className={`compass-icon compass-${findWeather.wind_direction_compass ||
+                    todayWeather.wind_direction_compass}`}
+                  alt=""
+                />
+                <div className="compass-value">
+                  {findWeather.wind_direction_compass ||
+                    todayWeather.wind_direction_compass}
+                </div>
               </div>
             </li>
             <li className="highlight-list-item">

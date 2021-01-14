@@ -24,8 +24,9 @@ function HeaderForm() {
   } = useContext(Context);
 
   const [isSearch, setIsSearch] = useState(false);
-
   const [converted, setConverted] = useState(false);
+
+  // Toggle the search form
   function openSearch() {
     setIsSearch(!isSearch);
   }

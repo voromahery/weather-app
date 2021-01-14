@@ -34169,7 +34169,7 @@ function HeaderForm() {
     setDataByCity
   } = (0, _react.useContext)(_ContextProvider.Context);
   const [isSearch, setIsSearch] = (0, _react.useState)(false);
-  const [converted, setConverted] = (0, _react.useState)(false);
+  const [converted, setConverted] = (0, _react.useState)(false); // Toggle the search form
 
   function openSearch() {
     setIsSearch(!isSearch);
@@ -34238,7 +34238,9 @@ function HeaderForm() {
 
 var _default = HeaderForm;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../ContextProvider":"ContextProvider.js","../icons/location.svg":"icons/location.svg","./dateToDisplay":"components/dateToDisplay.js","./FutureWeather":"components/FutureWeather.js","./SearchForm":"components/SearchForm.js","./TodayWeather":"components/TodayWeather.js"}],"components/HighlightWeather.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../ContextProvider":"ContextProvider.js","../icons/location.svg":"icons/location.svg","./dateToDisplay":"components/dateToDisplay.js","./FutureWeather":"components/FutureWeather.js","./SearchForm":"components/SearchForm.js","./TodayWeather":"components/TodayWeather.js"}],"icons/navigation.svg":[function(require,module,exports) {
+module.exports = "/navigation.45c85031.svg";
+},{}],"components/HighlightWeather.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34251,6 +34253,8 @@ var _react = _interopRequireWildcard(require("react"));
 var _reactRouterDom = require("react-router-dom");
 
 var _ContextProvider = require("../ContextProvider.js");
+
+var _navigation = _interopRequireDefault(require("../icons/navigation.svg"));
 
 var _dateToDisplay = _interopRequireDefault(require("./dateToDisplay"));
 
@@ -34288,7 +34292,13 @@ function HighlightWeather() {
     className: "unit"
   }, "mph")), /*#__PURE__*/_react.default.createElement("div", {
     className: "compass"
-  }, findWeather.wind_direction_compass || todayWeather.wind_direction_compass)), /*#__PURE__*/_react.default.createElement("li", {
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    src: _navigation.default,
+    className: `compass-icon compass-${findWeather.wind_direction_compass || todayWeather.wind_direction_compass}`,
+    alt: ""
+  }), /*#__PURE__*/_react.default.createElement("div", {
+    className: "compass-value"
+  }, findWeather.wind_direction_compass || todayWeather.wind_direction_compass))), /*#__PURE__*/_react.default.createElement("li", {
     className: "highlight-list-item"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "status-name"
@@ -34318,7 +34328,7 @@ function HighlightWeather() {
     className: "unit"
   }, "mb"))))));
 }
-},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../ContextProvider.js":"ContextProvider.js","./dateToDisplay":"components/dateToDisplay.js"}],"App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../ContextProvider.js":"ContextProvider.js","../icons/navigation.svg":"icons/navigation.svg","./dateToDisplay":"components/dateToDisplay.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
