@@ -34049,7 +34049,9 @@ function SearchForm({
     className: "search-value",
     value: data.title,
     onClick: searchByClick
-  }, /*#__PURE__*/_react.default.createElement("span", null, data.title), /*#__PURE__*/_react.default.createElement("img", {
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: "search-value-text"
+  }, data.title), /*#__PURE__*/_react.default.createElement("img", {
     src: _rightIcon.default,
     alt: "",
     className: "right-icon"

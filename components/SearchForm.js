@@ -41,7 +41,7 @@ export default function SearchForm({
               value={data.title}
               onClick={searchByClick}
             >
-              <span>{data.title}</span>
+              <span className="search-value-text">{data.title}</span>
               <img src={rightIcon} alt="" className="right-icon" />
             </button>
           </li>

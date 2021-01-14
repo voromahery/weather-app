@@ -35,13 +35,18 @@
 }
 
 .search-form,
-.search-result-list {
+.search-result-list,
+.search-value:hover {
   display: flex;
+}
+
+.search-form,
+.search-value:hover {
+  justify-content: space-between;
 }
 
 .search-form {
   flex-wrap: wrap;
-  justify-content: space-between;
   padding-top: 45px;
   padding-bottom: 58px;
   gap: 12px;
@@ -72,7 +77,12 @@
   display: block;
 }
 
+.search-value-text {
+  text-align: left;
+}
+
 .search-value:hover {
+  flex-direction: row;
   border: 1px solid #616475;
 }
 
