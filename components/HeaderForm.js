@@ -11,13 +11,16 @@ function HeaderForm() {
   const {
     city,
     setCity,
-    dataByCity,
     dataByWoeid,
     location,
     setLocation,
     isLoading,
     setIsLoading,
     todayWeather,
+    searchTitle,
+    setSearchTitle,
+    dataByCity,
+    setDataByCity
   } = useContext(Context);
 
   const [isSearch, setIsSearch] = useState(false);
@@ -54,7 +57,15 @@ function HeaderForm() {
           Seach for places
         </button>
         <img src={locationIcon} alt="" className="location-icon" />
-        {isSearch && <SearchForm searchCity={searchCity} />}
+        {isSearch && (
+          <SearchForm
+            searchCity={searchCity}
+            searchTitle={searchTitle}
+            setSearchTitle={setSearchTitle}
+            dataByCity={dataByCity}
+            setDataByCity={setDataByCity}
+          />
+        )}
       </div>
       {isLoading ? (
         <h1 className="loading">Loading...</h1>

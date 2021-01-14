@@ -33874,6 +33874,7 @@ exports.Context = Context;
 
 function ContextProvider(props) {
   const regeneratorRunTime = "https://cors-anywhere.herokuapp.com/";
+  const [searchTitle, setSearchTitle] = (0, _react.useState)([]);
   const [dataByCity, setDataByCity] = (0, _react.useState)([]);
   const [dataByWoeid, setDataByWoeid] = (0, _react.useState)([]);
   const [todayWeather, setTodayWeather] = (0, _react.useState)("");
@@ -33886,9 +33887,11 @@ function ContextProvider(props) {
   async function dataFetchCity() {
     const responseCity = await fetch(searchByCity);
     const dataCity = await responseCity.json();
-    dataCity.length = 1;
     setDataByCity(dataCity[0]);
+    setSearchTitle(dataCity);
   }
+
+  console.log(searchTitle);
 
   async function dataFetchId() {
     setIsLoading(true);
@@ -33917,7 +33920,9 @@ function ContextProvider(props) {
       setLocation,
       isLoading,
       setIsLoading,
-      todayWeather
+      todayWeather,
+      searchTitle,
+      setSearchTitle
     }
   }, props.children));
 }
@@ -33995,12 +34000,26 @@ var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function SearchForm({
-  searchCity
+  searchCity,
+  searchTitle,
+  setSearchTitle,
+  dataByCity,
+  setDataByCity
 }) {
+  function searchByClick(e) {
+    setDataByCity(e.target.value);
+    console.log(e.target.value);
+  }
+
+  console.log(dataByCity);
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
     onChange: searchCity
-  }), /*#__PURE__*/_react.default.createElement("button", null, "Search"));
+  }), /*#__PURE__*/_react.default.createElement("button", null, "Search"), /*#__PURE__*/_react.default.createElement("div", null, searchTitle.map(data => /*#__PURE__*/_react.default.createElement("button", {
+    key: data.woeid,
+    value: data.title,
+    onClick: searchByClick
+  }, data.title))));
 }
 },{"react":"node_modules/react/index.js"}],"icons/place.svg":[function(require,module,exports) {
 module.exports = "/place.8e5a5e80.svg";
@@ -34086,13 +34105,16 @@ function HeaderForm() {
   const {
     city,
     setCity,
-    dataByCity,
     dataByWoeid,
     location,
     setLocation,
     isLoading,
     setIsLoading,
-    todayWeather
+    todayWeather,
+    searchTitle,
+    setSearchTitle,
+    dataByCity,
+    setDataByCity
   } = (0, _react.useContext)(_ContextProvider.Context);
   const [isSearch, setIsSearch] = (0, _react.useState)(false);
   const [degree, setDegree] = (0, _react.useState)(todayWeather.the_temp);
@@ -34132,7 +34154,11 @@ function HeaderForm() {
     alt: "",
     className: "location-icon"
   }), isSearch && /*#__PURE__*/_react.default.createElement(_SearchForm.default, {
-    searchCity: searchCity
+    searchCity: searchCity,
+    searchTitle: searchTitle,
+    setSearchTitle: setSearchTitle,
+    dataByCity: dataByCity,
+    setDataByCity: setDataByCity
   })), isLoading ? /*#__PURE__*/_react.default.createElement("h1", {
     className: "loading"
   }, "Loading...") : /*#__PURE__*/_react.default.createElement("div", {

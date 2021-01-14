@@ -4,6 +4,7 @@ const Context = React.createContext();
 function ContextProvider(props) {
   const regeneratorRunTime = "https://cors-anywhere.herokuapp.com/";
 
+  const [searchTitle, setSearchTitle] = useState([]);
   const [dataByCity, setDataByCity] = useState([]);
   const [dataByWoeid, setDataByWoeid] = useState([]);
   const [todayWeather, setTodayWeather] = useState("");
@@ -19,9 +20,11 @@ function ContextProvider(props) {
   async function dataFetchCity() {
     const responseCity = await fetch(searchByCity);
     const dataCity = await responseCity.json();
-    dataCity.length = 1;
     setDataByCity(dataCity[0]);
+    setSearchTitle(dataCity);
   }
+
+  console.log(searchTitle);
 
   async function dataFetchId() {
     setIsLoading(true);
@@ -57,6 +60,8 @@ function ContextProvider(props) {
           isLoading,
           setIsLoading,
           todayWeather,
+          searchTitle,
+          setSearchTitle
         }}
       >
         {props.children}
