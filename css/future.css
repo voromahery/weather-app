@@ -12,6 +12,15 @@
   text-align: center;
 }
 
+.next-forecast,
+.next-forecast:hover {
+  transition: all ease-in 0.2s;
+}
+
+.next-forecast:hover {
+  background-color: #1a1c2c;
+}
+
 .future-forecast {
   margin-top: 51px;
   margin-bottom: 51px;

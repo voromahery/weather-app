@@ -15,11 +15,11 @@ export default function FutureWeather({ data, index, converted }) {
       <div className="future-temperature">
         {converted ? (
           <span className="future-temperature">{`${Math.round(
-            data.the_temp * (9 / 5) + 32
+            data.min_temp * (9 / 5) + 32
           )} °F`}</span>
         ) : (
           <span className="future-temperature">{`${Math.round(
-            data.the_temp
+            data.min_temp
           )} °C`}</span>
         )}
         {converted ? (

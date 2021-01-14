@@ -1,30 +1,43 @@
 body {
-    font-family: 'Raleway';
-    margin: auto;
-    background: #100e1d;
+  font-family: "Raleway";
+  margin: auto;
+  background: #100e1d;
 }
 
 button {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 img {
-    width: 100%;
+  width: 100%;
 }
 
 a {
-    font-family: 'Raleway';
-    text-decoration: none;
-    color: unset;
+  font-family: "Raleway";
+  text-decoration: none;
+  color: unset;
 }
 
 ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 .loading {
-    color: #E7E7EB;
+  color: #e7e7eb;
+}
+
+progress {
+  width: 100%;
+  max-width: 229px;
+}
+
+progress::-webkit-progress-bar {
+  background: #e7e7eb;
+}
+
+progress::-webkit-progress-value {
+  background-color: #ffec65;
 }
 
 .today {
@@ -130,6 +143,15 @@ ul {
   text-align: center;
 }
 
+.next-forecast,
+.next-forecast:hover {
+  transition: all ease-in 0.2s;
+}
+
+.next-forecast:hover {
+  background-color: #1a1c2c;
+}
+
 .future-forecast {
   margin-top: 51px;
   margin-bottom: 51px;
@@ -199,8 +221,12 @@ ul {
   font-weight: bold;
 }
 
+.compass,
 .highlight-list {
   display: flex;
+}
+
+.highlight-list {
   flex-direction: column;
   gap: 16px;
 }
@@ -226,6 +252,11 @@ ul {
 .status-value {
   font-size: 64px;
   line-height: 75px;
+}
+
+.compass {
+  place-content: center;
+  gap: 12px;
 }
 
 .compass-icon {
@@ -302,8 +333,11 @@ ul {
   background: #1e213a;
   position: fixed;
   top: 0;
-  width: 100%;
+  width: 95%;
   height: 100vh;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 18px;
 }
 
 .search-form-wrapper,
@@ -324,7 +358,6 @@ ul {
 .search-field {
   border: 1px solid #e7e7eb;
   width: 100%;
-  max-width: 268px;
 }
 
 .search-button {
@@ -346,7 +379,8 @@ ul {
 .search-form,
 .search-result-list,
 .search-value:hover,
-.search-form-wrapper {
+.search-form-wrapper,
+.convertButton {
   display: flex;
 }
 
@@ -356,7 +390,6 @@ ul {
 }
 
 .search-form {
-  flex-wrap: wrap;
   padding-top: 45px;
   padding-bottom: 58px;
   gap: 12px;
@@ -408,6 +441,30 @@ ul {
   max-width: 40px;
   align-self: flex-end;
   cursor: pointer;
+}
+
+.convertButton {
+  gap: 12px;
+}
+
+.toCelcius {
+  color: #110e3c;
+  background: #e7e7eb;
+}
+
+.toFarenheit {
+  color: #e7e7eb;
+  background: #585676;
+}
+
+.toFarenheit,
+.toCelcius {
+  border-radius: 50%;
+  border: none;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  padding: 10px;
 }
 
 

@@ -20,8 +20,12 @@
   font-weight: bold;
 }
 
+.compass,
 .highlight-list {
   display: flex;
+}
+
+.highlight-list {
   flex-direction: column;
   gap: 16px;
 }
@@ -47,6 +51,11 @@
 .status-value {
   font-size: 64px;
   line-height: 75px;
+}
+
+.compass {
+  place-content: center;
+  gap: 12px;
 }
 
 .compass-icon {

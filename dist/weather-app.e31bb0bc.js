@@ -33979,9 +33979,9 @@ function FutureWeather({
     className: "future-temperature"
   }, converted ? /*#__PURE__*/_react.default.createElement("span", {
     className: "future-temperature"
-  }, `${Math.round(data.the_temp * (9 / 5) + 32)} °F`) : /*#__PURE__*/_react.default.createElement("span", {
+  }, `${Math.round(data.min_temp * (9 / 5) + 32)} °F`) : /*#__PURE__*/_react.default.createElement("span", {
     className: "future-temperature"
-  }, `${Math.round(data.the_temp)} °C`), converted ? /*#__PURE__*/_react.default.createElement("span", {
+  }, `${Math.round(data.min_temp)} °C`), converted ? /*#__PURE__*/_react.default.createElement("span", {
     className: "max-temp"
   }, `${Math.round(data.max_temp * (9 / 5) + 32)} °F`) : /*#__PURE__*/_react.default.createElement("span", {
     className: "max-temp"
@@ -34217,9 +34217,11 @@ function HeaderForm() {
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "convertButton"
   }, /*#__PURE__*/_react.default.createElement("button", {
-    onClick: convertDegreeC
+    onClick: convertDegreeC,
+    className: "toCelcius"
   }, "\xB0C"), /*#__PURE__*/_react.default.createElement("button", {
-    onClick: convertDegreeF
+    onClick: convertDegreeF,
+    className: "toFarenheit"
   }, "\xB0F")), /*#__PURE__*/_react.default.createElement("div", {
     className: "future-forecast"
   }, isLoading ? /*#__PURE__*/_react.default.createElement("h2", {

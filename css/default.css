@@ -1,28 +1,41 @@
 body {
-    font-family: 'Raleway';
-    margin: auto;
-    background: #100e1d;
+  font-family: "Raleway";
+  margin: auto;
+  background: #100e1d;
 }
 
 button {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 img {
-    width: 100%;
+  width: 100%;
 }
 
 a {
-    font-family: 'Raleway';
-    text-decoration: none;
-    color: unset;
+  font-family: "Raleway";
+  text-decoration: none;
+  color: unset;
 }
 
 ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 .loading {
-    color: #E7E7EB;
+  color: #e7e7eb;
+}
+
+progress {
+  width: 100%;
+  max-width: 229px;
+}
+
+progress::-webkit-progress-bar {
+  background: #e7e7eb;
+}
+
+progress::-webkit-progress-value {
+  background-color: #ffec65;
 }

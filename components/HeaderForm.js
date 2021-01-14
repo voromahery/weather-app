@@ -75,8 +75,8 @@ function HeaderForm() {
       )}
       <div className="future-weather">
         <div className="convertButton">
-          <button onClick={convertDegreeC}>&deg;C</button>
-          <button onClick={convertDegreeF}>&deg;F</button>
+          <button onClick={convertDegreeC} className="toCelcius">&deg;C</button>
+          <button onClick={convertDegreeF} className="toFarenheit">&deg;F</button>
         </div>
         <div className="future-forecast">
           {isLoading ? (
