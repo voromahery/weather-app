@@ -33874,15 +33874,8 @@ exports.Context = Context;
 
 function ContextProvider(props) {
   const regeneratorRunTime = "https://cors-anywhere.herokuapp.com/";
-  const date = Date.now();
-  const dateNow = new Date(date);
-  let yyyy = dateNow.getFullYear().toString();
-  let mm = (dateNow.getMonth() + 1).toString();
-  let dd = dateNow.getDate().toString();
-  const fullDate = `${yyyy}/${mm}/${dd}`;
   const [dataByCity, setDataByCity] = (0, _react.useState)([]);
   const [dataByWoeid, setDataByWoeid] = (0, _react.useState)([]);
-  const [consolidatedWeather, setConsolidatedWeather] = (0, _react.useState)([]);
   const [todayWeather, setTodayWeather] = (0, _react.useState)("");
   const [city, setCity] = (0, _react.useState)("Nairobi");
   const [location, setLocation] = (0, _react.useState)("1528488");
@@ -33914,7 +33907,6 @@ function ContextProvider(props) {
   (0, _react.useEffect)(() => {
     dataFetchId();
   }, [dataByCity]);
-  console.log(dataByWoeid);
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(Context.Provider, {
     value: {
       city,
@@ -34117,9 +34109,8 @@ function HeaderForm() {
 
   function convertDegreeF() {
     setConverted(true);
-  }
+  } // Searching by city name
 
-  console.log(degree, "DEGREE"); // Searching by city name
 
   function searchCity(e) {
     if (e.currentTarget.value !== "") {
@@ -34199,9 +34190,6 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function HighlightWeather() {
   const {
-    city,
-    setCity,
-    dataByCity,
     dataByWoeid,
     todayWeather,
     isLoading
@@ -34210,7 +34198,6 @@ function HighlightWeather() {
     weatherId
   } = (0, _reactRouterDom.useParams)();
   const findWeather = dataByWoeid.find(data => data.id === Number(weatherId) || todayWeather.id === Number(weatherId)) || "";
-  console.log(findWeather, weatherId, "FOUND");
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "highlight"
   }, isLoading ? /*#__PURE__*/_react.default.createElement("h3", {
@@ -34332,7 +34319,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60444" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53463" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

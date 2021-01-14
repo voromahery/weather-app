@@ -3,9 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import { Context } from "../ContextProvider.js";
 export default function HighlightWeather() {
   const {
-    city,
-    setCity,
-    dataByCity,
     dataByWoeid,
     todayWeather,
     isLoading,
@@ -17,8 +14,6 @@ export default function HighlightWeather() {
       (data) =>
         data.id === Number(weatherId) || todayWeather.id === Number(weatherId)
     ) || "";
-
-  console.log(findWeather, weatherId, "FOUND");
 
   return (
     <div className="highlight">

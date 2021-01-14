@@ -4,16 +4,8 @@ const Context = React.createContext();
 function ContextProvider(props) {
   const regeneratorRunTime = "https://cors-anywhere.herokuapp.com/";
 
-  const date = Date.now();
-  const dateNow = new Date(date);
-  let yyyy = dateNow.getFullYear().toString();
-  let mm = (dateNow.getMonth() + 1).toString();
-  let dd = dateNow.getDate().toString();
-  const fullDate = `${yyyy}/${mm}/${dd}`;
-
   const [dataByCity, setDataByCity] = useState([]);
   const [dataByWoeid, setDataByWoeid] = useState([]);
-  const [consolidatedWeather, setConsolidatedWeather] = useState([]);
   const [todayWeather, setTodayWeather] = useState("");
 
   const [city, setCity] = useState("Nairobi");
@@ -51,7 +43,7 @@ function ContextProvider(props) {
   useEffect(() => {
     dataFetchId();
   }, [dataByCity]);
-console.log(dataByWoeid);
+
   return (
     <div>
       <Context.Provider

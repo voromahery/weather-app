@@ -37,8 +37,6 @@ function HeaderForm() {
     setConverted(true);
   }
 
-  console.log(degree, "DEGREE");
-
   // Searching by city name
   function searchCity(e) {
     if (e.currentTarget.value !== "") {

@@ -6,7 +6,6 @@ import HighlightWeather from "./components/HighlightWeather";
 function App() {
   return (
     <div>
-      {/* <h1>Onja Weather App</h1> */}
       <div>
         <Switch>
           <Route exact path="/">
