@@ -33995,27 +33995,40 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = SearchForm;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function SearchForm({
-  searchCity,
-  searchTitle,
   setSearchTitle,
+  searchTitle,
   dataByCity,
-  setDataByCity
+  setCity
 }) {
+  // Search by clicking the searching result
   function searchByClick(e) {
-    setDataByCity(e.target.value);
+    setCity(e.target.value);
     console.log(e.target.value);
+  } // Searching by city name
+
+
+  function searchCity(e) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    setCity(form.search.value);
+    form.reset();
   }
 
-  console.log(dataByCity);
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("input", {
+  console.log(dataByCity, searchTitle);
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("form", {
+    onSubmit: searchCity
+  }, /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
-    onChange: searchCity
-  }), /*#__PURE__*/_react.default.createElement("button", null, "Search"), /*#__PURE__*/_react.default.createElement("div", null, searchTitle.map(data => /*#__PURE__*/_react.default.createElement("button", {
+    name: "search",
+    onChange: e => e.target.value
+  }), /*#__PURE__*/_react.default.createElement("button", null, "Search")), /*#__PURE__*/_react.default.createElement("div", null, searchTitle.map(data => /*#__PURE__*/_react.default.createElement("button", {
     key: data.woeid,
     value: data.title,
     onClick: searchByClick
@@ -34131,17 +34144,6 @@ function HeaderForm() {
 
   function convertDegreeF() {
     setConverted(true);
-  } // Searching by city name
-
-
-  function searchCity(e) {
-    if (e.currentTarget.value !== "") {
-      setCity(e.currentTarget.value);
-    }
-
-    if (e.currentTarget.value === "") {
-      setCity("Nairobi");
-    }
   }
 
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
@@ -34154,11 +34156,11 @@ function HeaderForm() {
     alt: "",
     className: "location-icon"
   }), isSearch && /*#__PURE__*/_react.default.createElement(_SearchForm.default, {
-    searchCity: searchCity,
     searchTitle: searchTitle,
     setSearchTitle: setSearchTitle,
     dataByCity: dataByCity,
-    setDataByCity: setDataByCity
+    setDataByCity: setDataByCity,
+    setCity: setCity
   })), isLoading ? /*#__PURE__*/_react.default.createElement("h1", {
     className: "loading"
   }, "Loading...") : /*#__PURE__*/_react.default.createElement("div", {

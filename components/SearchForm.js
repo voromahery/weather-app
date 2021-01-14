@@ -1,23 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function SearchForm({
-  searchCity,
-  searchTitle,
   setSearchTitle,
+  searchTitle,
   dataByCity,
-  setDataByCity,
+  setCity,
 }) {
-    
+
+// Search by clicking the searching result
   function searchByClick(e) {
-    setDataByCity(e.target.value);
+    setCity(e.target.value);
     console.log(e.target.value);
   }
 
-  console.log(dataByCity);
+  // Searching by city name
+  function searchCity(e) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    setCity(form.search.value);
+    form.reset();
+  }
+
+  console.log(dataByCity, searchTitle);
   return (
     <div>
-      <input type="text" onChange={searchCity} />
-      <button>Search</button>
+      <form onSubmit={searchCity}>
+        <input type="text" name="search" onChange={(e) => e.target.value} />
+        <button>Search</button>
+      </form>
       <div>
         {searchTitle.map((data) => (
           <button key={data.woeid} value={data.title} onClick={searchByClick}>

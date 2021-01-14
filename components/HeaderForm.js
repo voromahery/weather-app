@@ -40,16 +40,6 @@ function HeaderForm() {
     setConverted(true);
   }
 
-  // Searching by city name
-  function searchCity(e) {
-    if (e.currentTarget.value !== "") {
-      setCity(e.currentTarget.value);
-    }
-    if (e.currentTarget.value === "") {
-      setCity("Nairobi");
-    }
-  }
-
   return (
     <div>
       <div className="search-wrapper">
@@ -59,11 +49,11 @@ function HeaderForm() {
         <img src={locationIcon} alt="" className="location-icon" />
         {isSearch && (
           <SearchForm
-            searchCity={searchCity}
             searchTitle={searchTitle}
             setSearchTitle={setSearchTitle}
             dataByCity={dataByCity}
             setDataByCity={setDataByCity}
+            setCity={setCity}
           />
         )}
       </div>
