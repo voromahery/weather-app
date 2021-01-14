@@ -33989,6 +33989,8 @@ function FutureWeather({
 }
 },{"react":"node_modules/react/index.js","./dateToDisplay":"components/dateToDisplay.js"}],"icons/right-icon.svg":[function(require,module,exports) {
 module.exports = "/right-icon.53fa018a.svg";
+},{}],"icons/close.svg":[function(require,module,exports) {
+module.exports = "/close.1a8adba6.svg";
 },{}],"components/SearchForm.js":[function(require,module,exports) {
 "use strict";
 
@@ -34001,6 +34003,8 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _rightIcon = _interopRequireDefault(require("../icons/right-icon.svg"));
 
+var _close = _interopRequireDefault(require("../icons/close.svg"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
@@ -34011,7 +34015,9 @@ function SearchForm({
   setSearchTitle,
   searchTitle,
   dataByCity,
-  setCity
+  setCity,
+  setIsSearch,
+  isSearch
 }) {
   // Search by clicking the searching result
   function searchByClick(e) {
@@ -34027,10 +34033,19 @@ function SearchForm({
     form.reset();
   }
 
+  function closeForm() {
+    setIsSearch(false);
+  }
+
   console.log(dataByCity, searchTitle);
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "search-form-wrapper"
-  }, /*#__PURE__*/_react.default.createElement("form", {
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    src: _close.default,
+    alt: "",
+    className: "close-icon",
+    onClick: closeForm
+  }), /*#__PURE__*/_react.default.createElement("form", {
     onSubmit: searchCity,
     className: "search-form"
   }, /*#__PURE__*/_react.default.createElement("input", {
@@ -34057,7 +34072,7 @@ function SearchForm({
     className: "right-icon"
   }))))));
 }
-},{"react":"node_modules/react/index.js","../icons/right-icon.svg":"icons/right-icon.svg"}],"icons/place.svg":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../icons/right-icon.svg":"icons/right-icon.svg","../icons/close.svg":"icons/close.svg"}],"icons/place.svg":[function(require,module,exports) {
 module.exports = "/place.8e5a5e80.svg";
 },{}],"components/TodayWeather.js":[function(require,module,exports) {
 "use strict";
@@ -34153,7 +34168,6 @@ function HeaderForm() {
     setDataByCity
   } = (0, _react.useContext)(_ContextProvider.Context);
   const [isSearch, setIsSearch] = (0, _react.useState)(false);
-  const [degree, setDegree] = (0, _react.useState)(todayWeather.the_temp);
   const [converted, setConverted] = (0, _react.useState)(false);
 
   function openSearch() {
@@ -34183,7 +34197,9 @@ function HeaderForm() {
     setSearchTitle: setSearchTitle,
     dataByCity: dataByCity,
     setDataByCity: setDataByCity,
-    setCity: setCity
+    setCity: setCity,
+    setIsSearch: setIsSearch,
+    isSearch: isSearch
   }), isLoading ? /*#__PURE__*/_react.default.createElement("h1", {
     className: "loading"
   }, "Loading...") : /*#__PURE__*/_react.default.createElement("div", {

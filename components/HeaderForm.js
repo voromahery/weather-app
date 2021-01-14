@@ -20,12 +20,11 @@ function HeaderForm() {
     searchTitle,
     setSearchTitle,
     dataByCity,
-    setDataByCity
+    setDataByCity,
   } = useContext(Context);
 
   const [isSearch, setIsSearch] = useState(false);
 
-  const [degree, setDegree] = useState(todayWeather.the_temp);
   const [converted, setConverted] = useState(false);
   function openSearch() {
     setIsSearch(!isSearch);
@@ -47,16 +46,18 @@ function HeaderForm() {
           Seach for places
         </button>
         <img src={locationIcon} alt="" className="location-icon" />
-        </div>
-        {isSearch && (
-          <SearchForm
-            searchTitle={searchTitle}
-            setSearchTitle={setSearchTitle}
-            dataByCity={dataByCity}
-            setDataByCity={setDataByCity}
-            setCity={setCity}
-          />
-        )}
+      </div>
+      {isSearch && (
+        <SearchForm
+          searchTitle={searchTitle}
+          setSearchTitle={setSearchTitle}
+          dataByCity={dataByCity}
+          setDataByCity={setDataByCity}
+          setCity={setCity}
+          setIsSearch={setIsSearch}
+          isSearch={isSearch}
+        />
+      )}
       {isLoading ? (
         <h1 className="loading">Loading...</h1>
       ) : (

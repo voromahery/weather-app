@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import rightIcon from "../icons/right-icon.svg";
+import closeIcon from "../icons/close.svg";
 export default function SearchForm({
   setSearchTitle,
   searchTitle,
   dataByCity,
   setCity,
+  setIsSearch,
+  isSearch,
 }) {
   // Search by clicking the searching result
   function searchByClick(e) {
@@ -20,9 +23,14 @@ export default function SearchForm({
     form.reset();
   }
 
+  function closeForm() {
+      setIsSearch(false)
+  }
+
   console.log(dataByCity, searchTitle);
   return (
     <div className="search-form-wrapper">
+      <img src={closeIcon} alt="" className="close-icon" onClick={closeForm}/>
       <form onSubmit={searchCity} className="search-form">
         <input
           type="text"
