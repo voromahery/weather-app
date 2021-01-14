@@ -13,6 +13,7 @@ export default function SearchForm({
   function searchByClick(e) {
     setCity(e.target.value);
     console.log(e.target.value);
+    setIsSearch(false)
   }
 
   // Searching by city name
