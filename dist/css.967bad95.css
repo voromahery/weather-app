@@ -1,7 +1,10 @@
 body {
-  font-family: "Raleway";
   margin: auto;
   background: #100e1d;
+}
+
+* {
+    font-family: "Raleway";
 }
 
 button {
@@ -13,7 +16,6 @@ img {
 }
 
 a {
-  font-family: "Raleway";
   text-decoration: none;
   color: unset;
 }
@@ -47,7 +49,7 @@ progress::-webkit-progress-value {
 
 .today-wrapper {
   padding-top: 76px;
-  /* padding-bottom: ; */
+  padding-bottom: 105px;
 }
 
 .today-degree {
