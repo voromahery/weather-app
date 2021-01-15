@@ -12,7 +12,7 @@
   color: #e7e7eb;
   font-style: normal;
   font-weight: 500;
-  font-size: calc(144px - 4px);
+  font-size: calc(144px - 44px);
 }
 
 .today-weather-state,
@@ -22,7 +22,7 @@
 
 .today-degree-sign {
   font-weight: bold;
-  font-size: calc(64px - 4px);
+  font-size: calc(64px - 22px);
   line-height: 75px;
 }
 
