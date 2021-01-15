@@ -29,34 +29,45 @@ ul {
   color: #e7e7eb;
 }
 
-progress {
+.bar-container {
   width: 100%;
   max-width: 229px;
+  margin: auto;
 }
 
-progress::-webkit-progress-bar {
+.base-bar {
   background: #e7e7eb;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
 }
 
-progress::-webkit-progress-value {
+.bar-visible {
   background-color: #ffec65;
+  border-radius: 50px;
 }
 
+.bar-container,
+.base-bar,
+.bar-visible {
+  height: 8px;
+}
 .today {
   text-align: center;
   background: #1e213a;
 }
 
 .today-wrapper {
-  padding-top: 76px;
-  padding-bottom: 105px;
+  padding-top: calc(76px - 2px);
+  padding-bottom: calc(105px / 2px);
 }
 
 .today-degree {
   color: #e7e7eb;
   font-style: normal;
   font-weight: 500;
-  font-size: 144px;
+  font-size: calc(144px - 4px);
 }
 
 .today-weather-state,
@@ -66,20 +77,20 @@ progress::-webkit-progress-value {
 
 .today-degree-sign {
   font-weight: bold;
-  font-size: 64px;
+  font-size: calc(64px - 4px);
   line-height: 75px;
 }
 
 .today-weather-state {
   font-weight: 600;
-  font-size: 36px;
+  font-size: calc(36px - 4px);
   line-height: 42px;
 }
 
 .today-date,
 .location {
   font-weight: 600;
-  font-size: 18px;
+  font-size: calc(18px - 4px);
   line-height: 21px;
   color: #88869d;
 }
@@ -92,7 +103,7 @@ progress::-webkit-progress-value {
   background: #6e707a;
   border: none;
   font-weight: 500;
-  font-size: 16px;
+  font-size: calc(16px - 4px);
   line-height: 19px;
   color: #e7e7eb;
   padding-top: 11px;
@@ -106,10 +117,10 @@ progress::-webkit-progress-value {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-left: 11px;
-  padding-right: 11px;
-  padding-top: 18px;
-  gap: 16px;
+  padding-left: calc(11px / 2px);
+  padding-right: calc(11px / 2px);
+  padding-top: calc(18px / 2px);
+  gap: calc(16px / 2px);
   flex-wrap: wrap;
   background: #1e213a;
 }
@@ -120,15 +131,65 @@ progress::-webkit-progress-value {
 }
 
 .location-icon {
-  max-width: 22px;
-  max-height: 22px;
-  padding: 9px;
+  max-width: calc(22px / 2);
+  max-height: calc(22px / 2);
+  padding: calc(9px / 2);
   background: #6e707a;
   border-radius: 50%;
 }
 
 .place-icon {
-  max-width: 14px;
+  max-width: calc(14px / 2);
+}
+
+@media (min-width: 300px) {
+  .today-wrapper {
+    padding-top: 76px;
+    padding-bottom: 105px;
+  }
+
+  .today-degree {
+    font-size: 144px;
+  }
+
+  .today-weather-state,
+  .today-degree-sign {
+    color: #a09fb1;
+  }
+
+  .today-degree-sign {
+    font-size: 64px;
+  }
+
+  .today-weather-state {
+    font-size: 36px;
+  }
+
+  .today-date,
+  .location {
+    font-size: 18px;
+  }
+
+  .search-toggle {
+    font-size: 16px;
+  }
+
+  .search-wrapper {
+    padding-left: 11px;
+    padding-right: 11px;
+    padding-top: 18px;
+    gap: 16px;
+  }
+
+  .location-icon {
+    max-width: 22px;
+    max-height: 22px;
+    padding: 9px;
+  }
+
+  .place-icon {
+    max-width: 14px;
+  }
 }
 
 .future-weather {
@@ -353,7 +414,8 @@ progress::-webkit-progress-value {
 }
 
 .search-button,
-.search-value {
+.search-value,
+.search-field {
   color: #e7e7eb;
 }
 

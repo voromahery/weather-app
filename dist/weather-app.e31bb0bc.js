@@ -34308,11 +34308,16 @@ function HighlightWeather() {
     className: "status-value"
   }, findWeather.humidity || todayWeather.humidity, /*#__PURE__*/_react.default.createElement("span", {
     className: "unit"
-  }, "%")), /*#__PURE__*/_react.default.createElement("progress", {
-    min: "0",
-    max: "100",
-    value: findWeather.humidity || todayWeather.humidity
-  })), /*#__PURE__*/_react.default.createElement("li", {
+  }, "%")), /*#__PURE__*/_react.default.createElement("div", {
+    className: "bar-container"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "base-bar"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "bar-visible",
+    style: {
+      width: `${findWeather.humidity || todayWeather.humidity}%`
+    }
+  })))), /*#__PURE__*/_react.default.createElement("li", {
     className: "highlight-list-item"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "status-name"
@@ -34403,7 +34408,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53463" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49680" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

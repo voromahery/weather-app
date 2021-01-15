@@ -36,8 +36,10 @@ export default function HighlightWeather() {
               <div className="compass">
                 <img
                   src={compassIcon}
-                  className={`compass-icon compass-${findWeather.wind_direction_compass ||
-                    todayWeather.wind_direction_compass}`}
+                  className={`compass-icon compass-${
+                    findWeather.wind_direction_compass ||
+                    todayWeather.wind_direction_compass
+                  }`}
                   alt=""
                 />
                 <div className="compass-value">
@@ -52,11 +54,14 @@ export default function HighlightWeather() {
                 {findWeather.humidity || todayWeather.humidity}
                 <span className="unit">%</span>
               </div>
-              <progress
-                min="0"
-                max="100"
-                value={findWeather.humidity || todayWeather.humidity}
-              ></progress>
+              <div className="bar-container">
+                <div className="base-bar">
+                  <div
+                    className="bar-visible"
+                   style={{width:`${findWeather.humidity || todayWeather.humidity}%`}}
+                  ></div>
+                </div>
+              </div>
             </li>
             <li className="highlight-list-item">
               <div className="status-name">Visibility</div>

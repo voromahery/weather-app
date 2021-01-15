@@ -20,7 +20,8 @@
 }
 
 .search-button,
-.search-value {
+.search-value,
+.search-field {
   color: #e7e7eb;
 }
 

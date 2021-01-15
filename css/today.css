@@ -4,15 +4,15 @@
 }
 
 .today-wrapper {
-  padding-top: 76px;
-  padding-bottom: 105px;
+  padding-top: calc(76px - 2px);
+  padding-bottom: calc(105px / 2px);
 }
 
 .today-degree {
   color: #e7e7eb;
   font-style: normal;
   font-weight: 500;
-  font-size: 144px;
+  font-size: calc(144px - 4px);
 }
 
 .today-weather-state,
@@ -22,20 +22,20 @@
 
 .today-degree-sign {
   font-weight: bold;
-  font-size: 64px;
+  font-size: calc(64px - 4px);
   line-height: 75px;
 }
 
 .today-weather-state {
   font-weight: 600;
-  font-size: 36px;
+  font-size: calc(36px - 4px);
   line-height: 42px;
 }
 
 .today-date,
 .location {
   font-weight: 600;
-  font-size: 18px;
+  font-size: calc(18px - 4px);
   line-height: 21px;
   color: #88869d;
 }
@@ -48,7 +48,7 @@
   background: #6e707a;
   border: none;
   font-weight: 500;
-  font-size: 16px;
+  font-size: calc(16px - 4px);
   line-height: 19px;
   color: #e7e7eb;
   padding-top: 11px;
@@ -62,10 +62,10 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-left: 11px;
-  padding-right: 11px;
-  padding-top: 18px;
-  gap: 16px;
+  padding-left: calc(11px / 2px);
+  padding-right: calc(11px / 2px);
+  padding-top: calc(18px / 2px);
+  gap: calc(16px / 2px);
   flex-wrap: wrap;
   background: #1e213a;
 }
@@ -76,13 +76,63 @@
 }
 
 .location-icon {
-  max-width: 22px;
-  max-height: 22px;
-  padding: 9px;
+  max-width: calc(22px / 2);
+  max-height: calc(22px / 2);
+  padding: calc(9px / 2);
   background: #6e707a;
   border-radius: 50%;
 }
 
 .place-icon {
-  max-width: 14px;
+  max-width: calc(14px / 2);
+}
+
+@media (min-width: 300px) {
+  .today-wrapper {
+    padding-top: 76px;
+    padding-bottom: 105px;
+  }
+
+  .today-degree {
+    font-size: 144px;
+  }
+
+  .today-weather-state,
+  .today-degree-sign {
+    color: #a09fb1;
+  }
+
+  .today-degree-sign {
+    font-size: 64px;
+  }
+
+  .today-weather-state {
+    font-size: 36px;
+  }
+
+  .today-date,
+  .location {
+    font-size: 18px;
+  }
+
+  .search-toggle {
+    font-size: 16px;
+  }
+
+  .search-wrapper {
+    padding-left: 11px;
+    padding-right: 11px;
+    padding-top: 18px;
+    gap: 16px;
+  }
+
+  .location-icon {
+    max-width: 22px;
+    max-height: 22px;
+    padding: 9px;
+  }
+
+  .place-icon {
+    max-width: 14px;
+  }
 }

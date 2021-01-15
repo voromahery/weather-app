@@ -29,15 +29,27 @@ ul {
   color: #e7e7eb;
 }
 
-progress {
+.bar-container {
   width: 100%;
   max-width: 229px;
+  margin: auto;
 }
 
-progress::-webkit-progress-bar {
+.base-bar {
   background: #e7e7eb;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
 }
 
-progress::-webkit-progress-value {
+.bar-visible {
   background-color: #ffec65;
+  border-radius: 50px;
+}
+
+.bar-container,
+.base-bar,
+.bar-visible {
+  height: 8px;
 }
