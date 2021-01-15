@@ -301,8 +301,9 @@ ul {
 }
 
 .compass {
+  align-items: center;
   place-content: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .compass-icon {
@@ -321,6 +322,7 @@ ul {
 .progress-container {
   font-size: 12px;
   line-height: 14px;
+  text-align: end;
   color: #a09fb1;
   max-width: 229px;
   margin: auto;
