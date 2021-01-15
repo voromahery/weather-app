@@ -12,6 +12,7 @@ function ContextProvider(props) {
   const [city, setCity] = useState("Nairobi");
   const [location, setLocation] = useState("1528488");
   const [isLoading, setIsLoading] = useState(false);
+  const [converted, setConverted] = useState(false);
 
   const searchByCity = `${regeneratorRunTime}https://www.metaweather.com/api/location/search/?query=${city}`;
 
@@ -47,6 +48,15 @@ function ContextProvider(props) {
     dataFetchId();
   }, [dataByCity]);
 
+  // Converting the degree
+  function convertDegreeC() {
+    setConverted(false);
+  }
+
+  function convertDegreeF() {
+    setConverted(true);
+  }
+
   return (
     <div>
       <Context.Provider
@@ -61,7 +71,9 @@ function ContextProvider(props) {
           setIsLoading,
           todayWeather,
           searchTitle,
-          setSearchTitle
+          setSearchTitle,
+          converted,
+          setConverted,
         }}
       >
         {props.children}
