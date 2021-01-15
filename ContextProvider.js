@@ -74,6 +74,8 @@ function ContextProvider(props) {
           setSearchTitle,
           converted,
           setConverted,
+          convertDegreeC,
+          convertDegreeF
         }}
       >
         {props.children}

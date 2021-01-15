@@ -4,7 +4,7 @@ import { Context } from "../ContextProvider";
 import dateToDisplay from "./dateToDisplay";
 
 export default function FutureWeather() {
-  const {converted, convertDegreeC, convertDegreeF} = useContext(Context);
+  const {converted, convertDegreeC, convertDegreeF, isLoading, dataByWoeid} = useContext(Context);
   return (
     <div className="future-weather">
       <div className="convertButton">

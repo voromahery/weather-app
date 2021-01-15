@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import placeIcon from "../icons/place.svg";
+import { Context } from "../ContextProvider";
 
 export default function TodayWeather({
   todayWeather,
-  converted,
   dateToDisplay,
-  dataByCity
+  dataByCity,
 }) {
+  const {
+    converted,
+    convertDegreeC,
+    convertDegreeF,
+    isLoading,
+    dataByWoeid,
+  } = useContext(Context);
   return (
     <div className="today-wrapper">
       <img

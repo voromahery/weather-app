@@ -33934,7 +33934,9 @@ function ContextProvider(props) {
       searchTitle,
       setSearchTitle,
       converted,
-      setConverted
+      setConverted,
+      convertDegreeC,
+      convertDegreeF
     }
   }, props.children));
 }
@@ -33984,7 +33986,9 @@ function FutureWeather() {
   const {
     converted,
     convertDegreeC,
-    convertDegreeF
+    convertDegreeF,
+    isLoading,
+    dataByWoeid
   } = (0, _react.useContext)(_ContextProvider.Context);
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "future-weather"
@@ -34123,18 +34127,30 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = TodayWeather;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _place = _interopRequireDefault(require("../icons/place.svg"));
 
+var _ContextProvider = require("../ContextProvider");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function TodayWeather({
   todayWeather,
-  converted,
   dateToDisplay,
   dataByCity
 }) {
+  const {
+    converted,
+    convertDegreeC,
+    convertDegreeF,
+    isLoading,
+    dataByWoeid
+  } = (0, _react.useContext)(_ContextProvider.Context);
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "today-wrapper"
   }, /*#__PURE__*/_react.default.createElement("img", {
@@ -34163,7 +34179,7 @@ function TodayWeather({
     className: "place-icon"
   }), " ", dataByCity.title || "Helsinki"));
 }
-},{"react":"node_modules/react/index.js","../icons/place.svg":"icons/place.svg"}],"icons/navigation.svg":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../icons/place.svg":"icons/place.svg","../ContextProvider":"ContextProvider.js"}],"icons/navigation.svg":[function(require,module,exports) {
 module.exports = "/navigation.45c85031.svg";
 },{}],"components/HighlightWeather.js":[function(require,module,exports) {
 "use strict";
@@ -34383,7 +34399,7 @@ function App() {
   }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     exact: true,
     path: "/"
-  }, /*#__PURE__*/_react.default.createElement(_HeaderForm.default, null), /*#__PURE__*/_react.default.createElement(_HighlightWeather.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  }, /*#__PURE__*/_react.default.createElement(_HeaderForm.default, null), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_FutureWeather.default, null), /*#__PURE__*/_react.default.createElement(_HighlightWeather.default, null))), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: "/highlight/:weatherId"
   }, /*#__PURE__*/_react.default.createElement(_HeaderForm.default, null), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_FutureWeather.default, null), /*#__PURE__*/_react.default.createElement(_HighlightWeather.default, null))))));
 }
