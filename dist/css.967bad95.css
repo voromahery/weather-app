@@ -35,8 +35,8 @@ ul {
 }
 
 .today-wrapper {
-  padding-top: calc(76px - 2px);
-  padding-bottom: calc(105px / 2px);
+  padding-top: calc(76px / 2);
+  padding-bottom: calc(105px / 2);
 }
 
 .today-degree {
@@ -93,10 +93,10 @@ ul {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-left: calc(11px / 2px);
-  padding-right: calc(11px / 2px);
-  padding-top: calc(18px / 2px);
-  gap: calc(16px / 2px);
+  padding-left: calc(11px / 2);
+  padding-right: calc(11px / 2);
+  padding-top: calc(18px / 2);
+  gap: calc(16px / 2);
   flex-wrap: wrap;
   background: #1e213a;
 }
@@ -173,11 +173,10 @@ ul {
 }
 
 .next-forecast {
-  padding-left: 22px;
-  padding-right: 22px;
-  padding-top: 18px;
-  padding-bottom: 18px;
-  /* max-width: 120px; */
+  padding-left: calc(22px / 2);
+  padding-right: calc(22px / 2);
+  padding-top: calc(18px / 2);
+  padding-bottom: calc(18px / 2);
   background: #1e213a;
   text-align: center;
 }
@@ -192,10 +191,8 @@ ul {
 }
 
 .future-forecast {
-  margin-top: 51px;
-  margin-bottom: 51px;
-  /* padding-left: 55px;
-  padding-right: 55px; */
+  margin-top: calc(51px / 2);
+  margin-bottom: calc(51px / 2);
 }
 
 .future-forecast,
@@ -204,22 +201,13 @@ ul {
 }
 
 .future-forecast {
-  /* display: flex;
-  flex-wrap: wrap; */
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 26px;
+  flex-direction: column;
+  gap: calc(26px / 2);
 }
-
-/* .future-icon {
-  max-width: 56.44px;
-  max-height: 62px;
-  margin-bottom: 31px;
-} */
 
 .future-temperature {
   justify-content: space-between;
-  gap: 16px;
+  gap: calc(16px / 2);
 }
 
 .future-date {
@@ -234,12 +222,41 @@ ul {
 .future-date,
 .max-temp {
   font-weight: 500;
-  font-size: 16px;
+  font-size: calc(16px - 2px);
   line-height: 19px;
 }
 
 .max-temp {
   color: #a09fb1;
+}
+
+@media (min-width: 300px) {
+  .next-forecast {
+    padding-left: 22px;
+    padding-right: 22px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+
+  .future-forecast {
+    margin-top: 51px;
+    margin-bottom: 51px;
+  }
+
+  .future-forecast {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px;
+  }
+
+  .future-temperature {
+    gap: 16px;
+  }
+
+  .future-date,
+  .max-temp {
+    font-size: 16px;
+  }
 }
 
 .highlight {

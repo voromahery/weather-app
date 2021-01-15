@@ -4,8 +4,8 @@
 }
 
 .today-wrapper {
-  padding-top: calc(76px - 2px);
-  padding-bottom: calc(105px / 2px);
+  padding-top: calc(76px / 2);
+  padding-bottom: calc(105px / 2);
 }
 
 .today-degree {
@@ -62,10 +62,10 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-left: calc(11px / 2px);
-  padding-right: calc(11px / 2px);
-  padding-top: calc(18px / 2px);
-  gap: calc(16px / 2px);
+  padding-left: calc(11px / 2);
+  padding-right: calc(11px / 2);
+  padding-top: calc(18px / 2);
+  gap: calc(16px / 2);
   flex-wrap: wrap;
   background: #1e213a;
 }

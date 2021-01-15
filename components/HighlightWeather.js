@@ -70,7 +70,7 @@ export default function HighlightWeather() {
                     ></div>
                   </div>
                 </div>
-                <span>%</span>
+                <span className="progress-unit">%</span>
               </div>
             </li>
             <li className="highlight-list-item">
