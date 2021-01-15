@@ -54,13 +54,23 @@ export default function HighlightWeather() {
                 {findWeather.humidity || todayWeather.humidity}
                 <span className="unit">%</span>
               </div>
-              <div className="bar-container">
-                <div className="base-bar">
-                  <div
-                    className="bar-visible"
-                   style={{width:`${findWeather.humidity || todayWeather.humidity}%`}}
-                  ></div>
+              <div className="progress-container">
+                <div className="possible-value">
+                  <span>0</span> <span>50</span> <span>100</span>
                 </div>
+                <div className="bar-container">
+                  <div className="base-bar">
+                    <div
+                      className="bar-visible"
+                      style={{
+                        width: `${
+                          findWeather.humidity || todayWeather.humidity
+                        }%`,
+                      }}
+                    ></div>
+                  </div>
+                </div>
+                <span>%</span>
               </div>
             </li>
             <li className="highlight-list-item">

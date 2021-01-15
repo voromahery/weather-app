@@ -34309,6 +34309,10 @@ function HighlightWeather() {
   }, findWeather.humidity || todayWeather.humidity, /*#__PURE__*/_react.default.createElement("span", {
     className: "unit"
   }, "%")), /*#__PURE__*/_react.default.createElement("div", {
+    className: "progress-container"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "possible-value"
+  }, /*#__PURE__*/_react.default.createElement("span", null, "0"), " ", /*#__PURE__*/_react.default.createElement("span", null, "50"), " ", /*#__PURE__*/_react.default.createElement("span", null, "100")), /*#__PURE__*/_react.default.createElement("div", {
     className: "bar-container"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "base-bar"
@@ -34317,7 +34321,7 @@ function HighlightWeather() {
     style: {
       width: `${findWeather.humidity || todayWeather.humidity}%`
     }
-  })))), /*#__PURE__*/_react.default.createElement("li", {
+  }))), /*#__PURE__*/_react.default.createElement("span", null, "%"))), /*#__PURE__*/_react.default.createElement("li", {
     className: "highlight-list-item"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "status-name"

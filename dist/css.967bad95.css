@@ -29,30 +29,6 @@ ul {
   color: #e7e7eb;
 }
 
-.bar-container {
-  width: 100%;
-  max-width: 229px;
-  margin: auto;
-}
-
-.base-bar {
-  background: #e7e7eb;
-  border-top-left-radius: 50px;
-  border-bottom-left-radius: 50px;
-  border-top-right-radius: 50px;
-  border-bottom-right-radius: 50px;
-}
-
-.bar-visible {
-  background-color: #ffec65;
-  border-radius: 50px;
-}
-
-.bar-container,
-.base-bar,
-.bar-visible {
-  height: 8px;
-}
 .today {
   text-align: center;
   background: #1e213a;
@@ -201,7 +177,7 @@ ul {
   padding-right: 22px;
   padding-top: 18px;
   padding-bottom: 18px;
-  max-width: 120px;
+  /* max-width: 120px; */
   background: #1e213a;
   text-align: center;
 }
@@ -218,6 +194,8 @@ ul {
 .future-forecast {
   margin-top: 51px;
   margin-bottom: 51px;
+  /* padding-left: 55px;
+  padding-right: 55px; */
 }
 
 .future-forecast,
@@ -226,16 +204,18 @@ ul {
 }
 
 .future-forecast {
-  display: flex;
-  flex-wrap: wrap;
+  /* display: flex;
+  flex-wrap: wrap; */
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 26px;
 }
 
-.future-icon {
+/* .future-icon {
   max-width: 56.44px;
-  /* max-height: 62px; */
+  max-height: 62px;
   margin-bottom: 31px;
-}
+} */
 
 .future-temperature {
   justify-content: space-between;
@@ -264,6 +244,8 @@ ul {
 
 .highlight {
   background: #100e1d;
+  padding-right: 24px;
+  padding-left: 24px;
 }
 
 .highlight-title {
@@ -291,6 +273,7 @@ ul {
 
 .highlight-list {
   flex-direction: column;
+  margin-top: 32px;
   gap: 16px;
 }
 
@@ -329,6 +312,50 @@ ul {
   padding: 4px;
 }
 
+/* Progress bar */
+.possible-value {
+  display: flex;
+  justify-content: space-between;
+}
+
+.progress-container {
+  font-size: 12px;
+  line-height: 14px;
+  color: #a09fb1;
+  max-width: 229px;
+  margin: auto;
+}
+
+.progress-unit {
+  text-align: right;
+}
+
+.bar-container {
+  width: 100%;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.base-bar {
+  background: #e7e7eb;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+
+.bar-visible {
+  background-color: #ffec65;
+  border-radius: 50px;
+}
+
+.bar-container,
+.base-bar,
+.bar-visible {
+  height: 8px;
+}
+
+/* Compass rotation */
 .compass-N {
   transform: rotate(0deg);
 }
@@ -358,7 +385,7 @@ ul {
 }
 
 .compass-SSE {
-  transform: rotate(157deg); 
+  transform: rotate(157deg);
 }
 
 .compass-S {
@@ -392,6 +419,45 @@ ul {
 .compass-NNW {
   transform: rotate(337deg);
 }
+
+/* @media(min-width: 300px) {
+  .highlight {
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+
+  .unit,
+  .highlight-title {
+    font-size: 24px;
+  }
+  
+  .highlight-list {
+    gap: 16px;
+  }
+  
+  .highlight-list-item {
+    padding-top: 22px;
+    padding-bottom: 22px;
+  }
+
+  .status-name {
+    font-size: 16px;
+  }
+  
+  .status-value {
+    font-size: 64px;
+  }
+  
+  .compass {
+    gap: 12px;
+  }
+  
+  .compass-icon {
+    max-width: 12px;
+    padding: 4px;
+  }
+} */
+
 .search-form-wrapper {
   background: #1e213a;
   position: fixed;
@@ -509,6 +575,7 @@ ul {
 
 .convertButton {
   gap: 12px;
+  display: none;
 }
 
 .toCelcius {

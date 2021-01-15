@@ -115,6 +115,7 @@
 
 .convertButton {
   gap: 12px;
+  display: none;
 }
 
 .toCelcius {
