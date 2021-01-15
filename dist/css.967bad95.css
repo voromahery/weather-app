@@ -261,8 +261,8 @@ ul {
 
 .highlight {
   background: #100e1d;
-  padding-right: 24px;
-  padding-left: 24px;
+  padding-right: calc(24px/2);
+  padding-left: calc(24px/2);
 }
 
 .highlight-title {
@@ -271,7 +271,7 @@ ul {
 
 .unit,
 .highlight-title {
-  font-size: 24px;
+  font-size: calc(24px - 4px);
 }
 
 .unit {
@@ -290,15 +290,15 @@ ul {
 
 .highlight-list {
   flex-direction: column;
-  margin-top: 32px;
-  gap: 16px;
+  margin-top: calc(32px/2);
+  gap: calc(16px/2);
 }
 
 .highlight-list-item {
   background: #1e213a;
   text-align: center;
-  padding-top: 22px;
-  padding-bottom: 22px;
+  padding-top: calc(22px/2);
+  padding-bottom: calc(22px/2);
 }
 
 .highlight-title,
@@ -308,19 +308,19 @@ ul {
 
 .status-name {
   font-weight: 500;
-  font-size: 16px;
+  font-size: calc(16px-4px);
   line-height: 19px;
 }
 
 .status-value {
-  font-size: 64px;
+  font-size: calc(64px - 4px);
   line-height: 75px;
 }
 
 .compass {
   align-items: center;
   place-content: center;
-  gap: 8px;
+  gap: calc(8px / 2);
 }
 
 .compass-icon {
@@ -337,7 +337,7 @@ ul {
 }
 
 .progress-container {
-  font-size: 12px;
+  font-size: calc(12px-4px);
   line-height: 14px;
   text-align: end;
   color: #a09fb1;
@@ -439,7 +439,7 @@ ul {
   transform: rotate(337deg);
 }
 
-/* @media(min-width: 300px) {
+@media (min-width: 300px) {
   .highlight {
     padding-right: 24px;
     padding-left: 24px;
@@ -449,11 +449,12 @@ ul {
   .highlight-title {
     font-size: 24px;
   }
-  
+
   .highlight-list {
+    margin-top: 32px;
     gap: 16px;
   }
-  
+
   .highlight-list-item {
     padding-top: 22px;
     padding-bottom: 22px;
@@ -462,20 +463,25 @@ ul {
   .status-name {
     font-size: 16px;
   }
-  
+
   .status-value {
     font-size: 64px;
   }
-  
+
   .compass {
-    gap: 12px;
+    gap: 8px;
   }
-  
-  .compass-icon {
-    max-width: 12px;
-    padding: 4px;
+
+  /* Progress bar */
+  .progress-container {
+    font-size: 12px;
   }
-} */
+
+  .bar-container {
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+}
 
 .search-form-wrapper {
   background: #1e213a;
