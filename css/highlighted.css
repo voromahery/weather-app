@@ -1,7 +1,7 @@
 .highlight {
   background: #100e1d;
-  padding-right: calc(24px/2);
-  padding-left: calc(24px/2);
+  padding-right: calc(24px / 2);
+  padding-left: calc(24px / 2);
 }
 
 .highlight-title {
@@ -29,15 +29,15 @@
 
 .highlight-list {
   flex-direction: column;
-  margin-top: calc(32px/2);
-  gap: calc(16px/2);
+  margin-top: calc(32px / 2);
+  gap: calc(16px / 2);
 }
 
 .highlight-list-item {
   background: #1e213a;
   text-align: center;
-  padding-top: calc(22px/2);
-  padding-bottom: calc(22px/2);
+  padding-top: calc(22px / 2);
+  padding-bottom: calc(22px / 2);
 }
 
 .highlight-title,
@@ -219,5 +219,12 @@
   .bar-container {
     margin-top: 2px;
     margin-bottom: 2px;
+  }
+}
+
+@media (min-width: 600px) {
+  .highlight-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

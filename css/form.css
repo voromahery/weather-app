@@ -159,6 +159,7 @@
   }
 
   .search-form {
+    flex-wrap: nowrap;
     padding-top: 45px;
     padding-bottom: 58px;
     gap: 12px;
