@@ -25,7 +25,7 @@ function HeaderForm() {
     converted,
     setConverted,
     convertDegreeC,
-    convertDegreeF
+    convertDegree
   } = useContext(Context);
 
   const [isSearch, setIsSearch] = useState(false);

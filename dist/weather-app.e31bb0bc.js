@@ -34145,11 +34145,7 @@ function TodayWeather({
   dataByCity
 }) {
   const {
-    converted,
-    convertDegreeC,
-    convertDegreeF,
-    isLoading,
-    dataByWoeid
+    converted
   } = (0, _react.useContext)(_ContextProvider.Context);
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "today-wrapper"
@@ -34329,7 +34325,7 @@ function HeaderForm() {
     converted,
     setConverted,
     convertDegreeC,
-    convertDegreeF
+    convertDegree
   } = (0, _react.useContext)(_ContextProvider.Context);
   const [isSearch, setIsSearch] = (0, _react.useState)(false); // Toggle the search form
 
@@ -34450,7 +34446,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49680" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62708" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -5,15 +5,9 @@ import { Context } from "../ContextProvider";
 export default function TodayWeather({
   todayWeather,
   dateToDisplay,
-  dataByCity,
+  dataByCity
 }) {
-  const {
-    converted,
-    convertDegreeC,
-    convertDegreeF,
-    isLoading,
-    dataByWoeid,
-  } = useContext(Context);
+  const { converted } = useContext(Context);
   return (
     <div className="today-wrapper">
       <img
