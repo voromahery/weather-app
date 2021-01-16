@@ -89,8 +89,18 @@
   }
 }
 
-@media(min-width: 600px) {
+@media (min-width: 600px) {
   .future-forecast {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  .convertButton {
+    display: block;
+  }
+
+  .future-forecast {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }

@@ -57,6 +57,10 @@
   padding-left: 18px;
 }
 
+.wrapper {
+  background: #1e213a;
+}
+
 .search-wrapper {
   display: flex;
   flex-direction: row;
@@ -67,7 +71,6 @@
   padding-top: calc(18px / 2);
   gap: calc(16px / 2);
   flex-wrap: wrap;
-  background: #1e213a;
 }
 
 .location-icon,

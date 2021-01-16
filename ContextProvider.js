@@ -25,8 +25,6 @@ function ContextProvider(props) {
     setSearchTitle(dataCity);
   }
 
-  console.log(searchTitle);
-
   async function dataFetchId() {
     setIsLoading(true);
 
@@ -57,6 +55,9 @@ function ContextProvider(props) {
     setConverted(true);
   }
 
+console.log(location, dataByCity, todayWeather)
+
+  console.log(location);
   return (
     <div>
       <Context.Provider
@@ -75,7 +76,7 @@ function ContextProvider(props) {
           converted,
           setConverted,
           convertDegreeC,
-          convertDegreeF
+          convertDegreeF,
         }}
       >
         {props.children}

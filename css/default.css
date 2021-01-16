@@ -4,7 +4,7 @@ body {
 }
 
 * {
-    font-family: "Raleway";
+  font-family: "Raleway";
 }
 
 button {
@@ -27,4 +27,11 @@ ul {
 
 .loading {
   color: #e7e7eb;
+}
+
+@media (min-width: 1000px) {
+  .container {
+    display: flex;
+    /* align-items: center; */
+  }
 }

@@ -37,8 +37,8 @@ export default function TodayWeather({
         Today . {dateToDisplay(todayWeather.applicable_date)}
       </p>
       <p className="location">
-        <img src={placeIcon} alt="" className="place-icon" />{" "}
-        {dataByCity.title || "Helsinki"}
+        <img src={placeIcon} alt="" className="place-icon" />
+        {dataByCity.title || "Nairobi"}
       </p>
     </div>
   );

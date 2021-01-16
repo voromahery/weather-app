@@ -28,7 +28,6 @@ export default function SearchForm({
       setIsSearch(false)
   }
 
-  console.log(dataByCity, searchTitle);
   return (
     <div className="search-form-wrapper">
       <img src={closeIcon} alt="" className="close-icon" onClick={closeForm}/>

@@ -33892,8 +33892,6 @@ function ContextProvider(props) {
     setSearchTitle(dataCity);
   }
 
-  console.log(searchTitle);
-
   async function dataFetchId() {
     setIsLoading(true);
     const responseId = await fetch(weatherData);
@@ -33920,6 +33918,8 @@ function ContextProvider(props) {
     setConverted(true);
   }
 
+  console.log(location, dataByCity, todayWeather);
+  console.log(location);
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(Context.Provider, {
     value: {
       city,
@@ -34082,7 +34082,6 @@ function SearchForm({
     setIsSearch(false);
   }
 
-  console.log(dataByCity, searchTitle);
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "search-form-wrapper"
   }, /*#__PURE__*/_react.default.createElement("img", {
@@ -34173,7 +34172,7 @@ function TodayWeather({
     src: _place.default,
     alt: "",
     className: "place-icon"
-  }), " ", dataByCity.title || "Helsinki"));
+  }), dataByCity.title || "Nairobi"));
 }
 },{"react":"node_modules/react/index.js","../icons/place.svg":"icons/place.svg","../ContextProvider":"ContextProvider.js"}],"icons/navigation.svg":[function(require,module,exports) {
 module.exports = "/navigation.45c85031.svg";
@@ -34446,7 +34445,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62708" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57051" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
