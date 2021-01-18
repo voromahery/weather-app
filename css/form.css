@@ -181,6 +181,10 @@
     max-width: 40px;
   }
 
+  .convertButton {
+    gap: 12px;
+  }
+
   .toFarenheit,
   .toCelcius {
     font-size: 18px;
@@ -190,7 +194,13 @@
 
 @media (min-width: 1000px) {
   .convertButton {
-    display: block;
+    display: flex;
     margin-top: 42px;
+    justify-content: flex-end;
+  }
+
+  .search-wrapper {
+    padding-left: 46px;
+    padding-right: 42px;
   }
 }
