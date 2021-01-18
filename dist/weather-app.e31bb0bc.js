@@ -33895,8 +33895,8 @@ function ContextProvider(props) {
   async function dataFetchId() {
     setIsLoading(true);
     const responseId = await fetch(weatherData);
-    const dataId = await responseId.json();
-    dataId.length = 1;
+    const dataId = await responseId.json(); // dataId.length = 1;
+
     setTodayWeather(dataId.consolidated_weather[0]);
     setDataByWoeid(dataId.consolidated_weather.slice(1, 6));
     setIsLoading(false);
@@ -34449,7 +34449,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58417" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60767" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
