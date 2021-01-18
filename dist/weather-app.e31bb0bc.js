@@ -33895,8 +33895,7 @@ function ContextProvider(props) {
   async function dataFetchId() {
     setIsLoading(true);
     const responseId = await fetch(weatherData);
-    const dataId = await responseId.json(); // dataId.length = 1;
-
+    const dataId = await responseId.json();
     setTodayWeather(dataId.consolidated_weather[0]);
     setDataByWoeid(dataId.consolidated_weather.slice(1, 6));
     setIsLoading(false);
@@ -33918,8 +33917,6 @@ function ContextProvider(props) {
     setConverted(true);
   }
 
-  console.log(location, dataByCity, todayWeather);
-  console.log(location);
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(Context.Provider, {
     value: {
       city,
@@ -34066,7 +34063,6 @@ function SearchForm({
   // Search by clicking the searching result
   function searchByClick(e) {
     setCity(e.target.value);
-    console.log(e.target.value);
     setIsSearch(false);
   } // Searching by city name
 

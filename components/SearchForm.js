@@ -12,7 +12,6 @@ export default function SearchForm({
   // Search by clicking the searching result
   function searchByClick(e) {
     setCity(e.target.value);
-    console.log(e.target.value);
     setIsSearch(false)
   }
 

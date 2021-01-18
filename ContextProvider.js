@@ -30,7 +30,6 @@ function ContextProvider(props) {
 
     const responseId = await fetch(weatherData);
     const dataId = await responseId.json();
-    // dataId.length = 1;
 
     setTodayWeather(dataId.consolidated_weather[0]);
     setDataByWoeid(dataId.consolidated_weather.slice(1, 6));
@@ -55,9 +54,6 @@ function ContextProvider(props) {
     setConverted(true);
   }
 
-console.log(location, dataByCity, todayWeather)
-
-  console.log(location);
   return (
     <div>
       <Context.Provider
