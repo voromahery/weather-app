@@ -303,6 +303,10 @@ ul {
     margin-top: 66px;
     margin-bottom: 72px;
   }
+
+  .next-forecast {
+    min-height: 177px;
+  }
 }
 
 @media (min-width: 1200px) {
