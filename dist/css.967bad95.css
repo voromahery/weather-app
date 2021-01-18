@@ -763,6 +763,10 @@ ul {
     justify-content: flex-end;
   }
 
+  .search-form-wrapper {
+    max-width: 321px;
+  }
+
   .search-wrapper {
     padding-top: 42px;
     /* padding-left: 46px;
