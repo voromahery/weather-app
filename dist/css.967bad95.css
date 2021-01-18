@@ -43,6 +43,10 @@ ul {
 }
 
 .today-wrapper {
+  background: linear-gradient(rgba(30, 33, 58, 0.5),rgba(30, 33, 58, 0.5)), url("/Cloud-background.5bbceb06.png");
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-size: auto;
   padding-top: calc(76px / 2);
   padding-bottom: calc(105px / 2);
 }
