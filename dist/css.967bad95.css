@@ -294,6 +294,10 @@ ul {
     padding-right: 154px;
   }
 
+  .future-icon {
+    max-width: 70px;
+  }
+
   .future-forecast {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     margin-top: 66px;
@@ -301,12 +305,12 @@ ul {
   }
 }
 
-
 @media (min-width: 1200px) {
   .future-forecast {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
+
 .highlight {
   background: #100e1d;
   padding-right: calc(24px / 2);

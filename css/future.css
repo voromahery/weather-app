@@ -102,13 +102,16 @@
     padding-right: 154px;
   }
 
+  .future-icon {
+    max-width: 70px;
+  }
+
   .future-forecast {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     margin-top: 66px;
     margin-bottom: 72px;
   }
 }
-
 
 @media (min-width: 1200px) {
   .future-forecast {
