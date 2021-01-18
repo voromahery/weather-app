@@ -360,6 +360,8 @@ ul {
   text-align: center;
   padding-top: calc(22px / 2);
   padding-bottom: calc(22px / 2);
+  padding-left: calc(22px / 2);
+  padding-right: calc(22px / 2);
 }
 
 .highlight-title,
@@ -519,6 +521,8 @@ ul {
   .highlight-list-item {
     padding-top: 22px;
     padding-bottom: 22px;
+    padding-left: 22px;
+    padding-right: 22px;
   }
 
   .status-name {
