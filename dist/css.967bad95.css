@@ -1,4 +1,5 @@
 body {
+  max-width: 1440px;
   margin: auto;
   background: #100e1d;
 }
@@ -175,6 +176,17 @@ ul {
 
   .place-icon {
     max-width: 14px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .wrapper {
+    width: 459px;
+  }
+
+  .today-wrapper {
+    padding-left: 46px;
+    padding-right: 42px;
   }
 }
 
@@ -531,6 +543,10 @@ ul {
     max-width: 328px;
   } */
 
+  .highlight-list {
+    gap: 12px;
+  }
+
   .highlight {
     padding-left: 0;
     padding-right: 0;
@@ -739,8 +755,9 @@ ul {
   }
 
   .search-wrapper {
-    padding-left: 46px;
-    padding-right: 42px;
+    padding-top: 42px;
+    /* padding-left: 46px;
+    padding-right: 42px; */
   }
 }
 

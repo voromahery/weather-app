@@ -139,3 +139,14 @@
     max-width: 14px;
   }
 }
+
+@media (min-width: 1000px) {
+  .wrapper {
+    width: 459px;
+  }
+
+  .today-wrapper {
+    padding-left: 46px;
+    padding-right: 42px;
+  }
+}

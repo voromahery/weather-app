@@ -200,7 +200,8 @@
   }
 
   .search-wrapper {
-    padding-left: 46px;
-    padding-right: 42px;
+    padding-top: 42px;
+    /* padding-left: 46px;
+    padding-right: 42px; */
   }
 }
