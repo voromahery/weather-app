@@ -111,6 +111,10 @@
 .close-icon {
   max-width: calc(40px / 2);
   align-self: flex-end;
+}
+
+.location-icon,
+.close-icon {
   cursor: pointer;
 }
 
