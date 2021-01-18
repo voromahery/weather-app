@@ -34394,9 +34394,13 @@ function App() {
   }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     exact: true,
     path: "/"
-  }, /*#__PURE__*/_react.default.createElement(_HeaderForm.default, null), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_FutureWeather.default, null), /*#__PURE__*/_react.default.createElement(_HighlightWeather.default, null))), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  }, /*#__PURE__*/_react.default.createElement(_HeaderForm.default, null), /*#__PURE__*/_react.default.createElement("div", {
+    className: "future-wrapper"
+  }, /*#__PURE__*/_react.default.createElement(_FutureWeather.default, null), /*#__PURE__*/_react.default.createElement(_HighlightWeather.default, null))), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: "/highlight/:weatherId"
-  }, /*#__PURE__*/_react.default.createElement(_HeaderForm.default, null), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_FutureWeather.default, null), /*#__PURE__*/_react.default.createElement(_HighlightWeather.default, null))))));
+  }, /*#__PURE__*/_react.default.createElement(_HeaderForm.default, null), /*#__PURE__*/_react.default.createElement("div", {
+    className: "future-wrapper"
+  }, /*#__PURE__*/_react.default.createElement(_FutureWeather.default, null), /*#__PURE__*/_react.default.createElement(_HighlightWeather.default, null))))));
 }
 
 var _default = App;
@@ -34445,7 +34449,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57051" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55728" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

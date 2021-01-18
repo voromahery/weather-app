@@ -9,6 +9,7 @@
   padding-bottom: calc(18px / 2);
   background: #1e213a;
   text-align: center;
+  /* max-width: 120px; */
 }
 
 .next-forecast,
@@ -96,10 +97,20 @@
 }
 
 @media (min-width: 1000px) {
-  .convertButton {
-    display: block;
+  .future-wrapper {
+    padding-left: 154px;
+    padding-right: 154px;
   }
 
+  .future-forecast {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 66px;
+    margin-bottom: 72px;
+  }
+}
+
+
+@media (min-width: 1200px) {
   .future-forecast {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }

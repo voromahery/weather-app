@@ -11,14 +11,14 @@ function App() {
         <Switch>
           <Route exact path="/">
             <HeaderForm />
-            <div>
+            <div className="future-wrapper">
               <FutureWeather />
               <HighlightWeather />
             </div>
           </Route>
           <Route path="/highlight/:weatherId">
             <HeaderForm />
-            <div>
+            <div className="future-wrapper">
               <FutureWeather />
               <HighlightWeather />
             </div>

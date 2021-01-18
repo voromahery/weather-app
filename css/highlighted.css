@@ -228,3 +228,14 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+@media (min-width: 1000px) {
+  /* .highlight-list-item {
+    max-width: 328px;
+  } */
+
+  .highlight {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
