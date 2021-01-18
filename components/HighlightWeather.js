@@ -15,7 +15,7 @@ export default function HighlightWeather() {
     ) || "";
 
   return (
-    <div className="highlight">
+    <section className="highlight">
       {isLoading ? (
         <h3 className="loading">Loading</h3>
       ) : (
@@ -92,6 +92,6 @@ export default function HighlightWeather() {
           </ul>
         </>
       )}
-    </div>
+    </section>
   );
 }

@@ -9,7 +9,7 @@ export default function TodayWeather({
 }) {
   const { converted } = useContext(Context);
   return (
-    <div className="today-wrapper">
+    <section className="today-wrapper">
       <img
         src={`https://www.metaweather.com/static/img/weather/${todayWeather.weather_state_abbr}.svg`}
         alt=""
@@ -40,6 +40,6 @@ export default function TodayWeather({
         <img src={placeIcon} alt="" className="place-icon" />
         {dataByCity.title || "Nairobi"}
       </p>
-    </div>
+    </section>
   );
 }

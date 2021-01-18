@@ -6,7 +6,7 @@ import dateToDisplay from "./dateToDisplay";
 export default function FutureWeather() {
   const {converted, convertDegreeC, convertDegreeF, isLoading, dataByWoeid} = useContext(Context);
   return (
-    <div className="future-weather">
+    <section className="future-weather">
       <div className="convertButton">
         <button onClick={convertDegreeC} className="toCelcius">
           &deg;C
@@ -61,6 +61,6 @@ export default function FutureWeather() {
           </>
         )}
       </div>
-    </div>
+    </section>
   );
 }

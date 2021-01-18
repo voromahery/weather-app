@@ -33987,7 +33987,7 @@ function FutureWeather() {
     isLoading,
     dataByWoeid
   } = (0, _react.useContext)(_ContextProvider.Context);
-  return /*#__PURE__*/_react.default.createElement("div", {
+  return /*#__PURE__*/_react.default.createElement("section", {
     className: "future-weather"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "convertButton"
@@ -34142,7 +34142,7 @@ function TodayWeather({
   const {
     converted
   } = (0, _react.useContext)(_ContextProvider.Context);
-  return /*#__PURE__*/_react.default.createElement("div", {
+  return /*#__PURE__*/_react.default.createElement("section", {
     className: "today-wrapper"
   }, /*#__PURE__*/_react.default.createElement("img", {
     src: `https://www.metaweather.com/static/img/weather/${todayWeather.weather_state_abbr}.svg`,
@@ -34206,7 +34206,7 @@ function HighlightWeather() {
     weatherId
   } = (0, _reactRouterDom.useParams)();
   const findWeather = dataByWoeid.find(data => data.id === Number(weatherId) || todayWeather.id === Number(weatherId)) || "";
-  return /*#__PURE__*/_react.default.createElement("div", {
+  return /*#__PURE__*/_react.default.createElement("section", {
     className: "highlight"
   }, isLoading ? /*#__PURE__*/_react.default.createElement("h3", {
     className: "loading"
