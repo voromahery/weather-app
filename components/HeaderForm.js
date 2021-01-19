@@ -36,7 +36,6 @@ function HeaderForm() {
   }
 
   return (
-    <>
       <div className="wrapper">
         <div className="search-wrapper">
           <button onClick={openSearch} className="search-toggle">
@@ -70,7 +69,6 @@ function HeaderForm() {
           </div>
         )}
       </div>
-    </>
   );
 }
 
