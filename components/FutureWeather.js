@@ -4,14 +4,26 @@ import { Context } from "../ContextProvider";
 import dateToDisplay from "./dateToDisplay";
 
 export default function FutureWeather() {
-  const {converted, convertDegreeC, convertDegreeF, isLoading, dataByWoeid} = useContext(Context);
+  const {
+    converted,
+    convertDegreeC,
+    convertDegreeF,
+    isLoading,
+    dataByWoeid,
+  } = useContext(Context);
   return (
     <section className="future-weather">
       <div className="convertButton">
-        <button onClick={convertDegreeC} className="toCelcius">
+        <button
+          onClick={convertDegreeC}
+          className={!converted ? "activated" : "deactivated"}
+        >
           &deg;C
         </button>
-        <button onClick={convertDegreeF} className="toFarenheit">
+        <button
+          onClick={convertDegreeF}
+          className={converted ? "activated" : "deactivated"}
+        >
           &deg;F
         </button>
       </div>

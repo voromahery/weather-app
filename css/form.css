@@ -113,6 +113,10 @@
   align-self: flex-end;
 }
 
+.location-icon:active {
+  outline: auto;
+}
+
 .location-icon,
 .close-icon {
   cursor: pointer;
@@ -123,18 +127,18 @@
   display: none;
 }
 
-.toCelcius {
+.activated {
   color: #110e3c;
   background: #e7e7eb;
 }
 
-.toFarenheit {
+.deactivated {
   color: #e7e7eb;
   background: #585676;
 }
 
-.toFarenheit,
-.toCelcius {
+.activated,
+.deactivated {
   border-radius: 50%;
   border: none;
   font-weight: bold;
@@ -189,8 +193,8 @@
     gap: 12px;
   }
 
-  .toFarenheit,
-  .toCelcius {
+  .activated,
+  .deactivated {
     font-size: 18px;
     padding: 10px;
   }

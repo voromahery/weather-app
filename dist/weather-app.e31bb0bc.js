@@ -33993,10 +33993,10 @@ function FutureWeather() {
     className: "convertButton"
   }, /*#__PURE__*/_react.default.createElement("button", {
     onClick: convertDegreeC,
-    className: "toCelcius"
+    className: !converted ? "activated" : "deactivated"
   }, "\xB0C"), /*#__PURE__*/_react.default.createElement("button", {
     onClick: convertDegreeF,
-    className: "toFarenheit"
+    className: converted ? "activated" : "deactivated"
   }, "\xB0F")), /*#__PURE__*/_react.default.createElement("div", {
     className: "future-forecast"
   }, isLoading ? /*#__PURE__*/_react.default.createElement("h2", {
@@ -34445,7 +34445,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54627" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54091" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
