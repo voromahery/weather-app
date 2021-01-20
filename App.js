@@ -7,7 +7,7 @@ import HighlightWeather from "./components/HighlightWeather";
 function App() {
   return (
     <div>
-      <div div className="container">
+      <div className="container">
         <Switch>
           <Route exact path="/">
             <HeaderForm />

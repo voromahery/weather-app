@@ -43,7 +43,7 @@ export default function FutureWeather() {
                     </p>
                     <img
                       src={`https://www.metaweather.com/static/img/weather/${data.weather_state_abbr}.svg`}
-                      alt=""
+                      alt={data.weather_state_name}
                       className="future-icon"
                     />
                     <div className="future-temperature">

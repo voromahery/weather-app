@@ -12,7 +12,7 @@ export default function TodayWeather({
     <section className="today-wrapper">
       <img
         src={`https://www.metaweather.com/static/img/weather/${todayWeather.weather_state_abbr}.svg`}
-        alt=""
+        alt={todayWeather.weather_state_name}
         className="today-icon"
       />
       <h3 className="temperature">

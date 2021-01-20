@@ -34011,7 +34011,7 @@ function FutureWeather() {
       className: "future-date"
     }, index === 0 ? "Tomorrow" : (0, _dateToDisplay.default)(data.applicable_date)), /*#__PURE__*/_react.default.createElement("img", {
       src: `https://www.metaweather.com/static/img/weather/${data.weather_state_abbr}.svg`,
-      alt: "",
+      alt: data.weather_state_name,
       className: "future-icon"
     }), /*#__PURE__*/_react.default.createElement("div", {
       className: "future-temperature"
@@ -34146,7 +34146,7 @@ function TodayWeather({
     className: "today-wrapper"
   }, /*#__PURE__*/_react.default.createElement("img", {
     src: `https://www.metaweather.com/static/img/weather/${todayWeather.weather_state_abbr}.svg`,
-    alt: "",
+    alt: todayWeather.weather_state_name,
     className: "today-icon"
   }), /*#__PURE__*/_react.default.createElement("h3", {
     className: "temperature"
@@ -34385,7 +34385,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function App() {
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
-    div: true,
     className: "container"
   }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     exact: true,
@@ -34445,7 +34444,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50532" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53921" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
