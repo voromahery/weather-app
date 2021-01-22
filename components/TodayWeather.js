@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import placeIcon from "../icons/place.svg";
 import { Context } from "../ContextProvider";
+import icons from "../icons";
 
 export default function TodayWeather({
   todayWeather,
@@ -8,10 +9,12 @@ export default function TodayWeather({
   dataByCity
 }) {
   const { converted } = useContext(Context);
+  const weatherIcon = icons.find(icon => icon.name === todayWeather.weather_state_name);
+  console.log(weatherIcon);
   return (
     <section className="today-wrapper">
       <img
-        src={`https://www.metaweather.com/static/img/weather/${todayWeather.weather_state_abbr}.svg`}
+        src={weatherIcon && weatherIcon.src}
         alt={todayWeather.weather_state_name}
         className="today-icon"
       />

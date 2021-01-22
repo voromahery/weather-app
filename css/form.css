@@ -136,6 +136,11 @@
   display: none;
 }
 
+.activated,
+.deactivated {
+  outline: none;
+}
+
 .activated {
   color: #110e3c;
   background: #e7e7eb;

@@ -33957,7 +33957,99 @@ function dateToDisplay(date) {
 
 var _default = dateToDisplay;
 exports.default = _default;
-},{}],"components/FutureWeather.js":[function(require,module,exports) {
+},{}],"weather-app-logos/c.png":[function(require,module,exports) {
+module.exports = "/c.de4e9b04.png";
+},{}],"weather-app-logos/h.png":[function(require,module,exports) {
+module.exports = "/h.45ade4a6.png";
+},{}],"weather-app-logos/hc.png":[function(require,module,exports) {
+module.exports = "/hc.1b2efbad.png";
+},{}],"weather-app-logos/hr.png":[function(require,module,exports) {
+module.exports = "/hr.d745ea4d.png";
+},{}],"weather-app-logos/lc.png":[function(require,module,exports) {
+module.exports = "/lc.f25962bc.png";
+},{}],"weather-app-logos/lr.png":[function(require,module,exports) {
+module.exports = "/lr.b74e469c.png";
+},{}],"weather-app-logos/s.png":[function(require,module,exports) {
+module.exports = "/s.12975b8d.png";
+},{}],"weather-app-logos/sl.png":[function(require,module,exports) {
+module.exports = "/sl.30bfdbf0.png";
+},{}],"weather-app-logos/sn.png":[function(require,module,exports) {
+module.exports = "/sn.145629cd.png";
+},{}],"weather-app-logos/t.png":[function(require,module,exports) {
+module.exports = "/t.c334ec09.png";
+},{}],"icons.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _c = _interopRequireDefault(require("./weather-app-logos/c.png"));
+
+var _h = _interopRequireDefault(require("./weather-app-logos/h.png"));
+
+var _hc = _interopRequireDefault(require("./weather-app-logos/hc.png"));
+
+var _hr = _interopRequireDefault(require("./weather-app-logos/hr.png"));
+
+var _lc = _interopRequireDefault(require("./weather-app-logos/lc.png"));
+
+var _lr = _interopRequireDefault(require("./weather-app-logos/lr.png"));
+
+var _s = _interopRequireDefault(require("./weather-app-logos/s.png"));
+
+var _sl = _interopRequireDefault(require("./weather-app-logos/sl.png"));
+
+var _sn = _interopRequireDefault(require("./weather-app-logos/sn.png"));
+
+var _t = _interopRequireDefault(require("./weather-app-logos/t.png"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = [{
+  id: 1,
+  name: "Clear",
+  src: _c.default
+}, {
+  id: 2,
+  name: "Hail",
+  src: _h.default
+}, {
+  id: 3,
+  name: "Heavy Cloud",
+  src: _hc.default
+}, {
+  id: 4,
+  name: "Heavy Rain",
+  src: _hr.default
+}, {
+  id: 5,
+  name: "Light Cloud",
+  src: _lc.default
+}, {
+  id: 6,
+  name: "Light Rain",
+  src: _lr.default
+}, {
+  id: 8,
+  name: "Showers",
+  src: _s.default
+}, {
+  id: 9,
+  name: "Sleet",
+  src: _sl.default
+}, {
+  id: 10,
+  name: "Snow",
+  src: _sn.default
+}, {
+  id: 9,
+  name: "Thunderstorm",
+  src: _t.default
+}];
+exports.default = _default;
+},{"./weather-app-logos/c.png":"weather-app-logos/c.png","./weather-app-logos/h.png":"weather-app-logos/h.png","./weather-app-logos/hc.png":"weather-app-logos/hc.png","./weather-app-logos/hr.png":"weather-app-logos/hr.png","./weather-app-logos/lc.png":"weather-app-logos/lc.png","./weather-app-logos/lr.png":"weather-app-logos/lr.png","./weather-app-logos/s.png":"weather-app-logos/s.png","./weather-app-logos/sl.png":"weather-app-logos/sl.png","./weather-app-logos/sn.png":"weather-app-logos/sn.png","./weather-app-logos/t.png":"weather-app-logos/t.png"}],"components/FutureWeather.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -33972,6 +34064,8 @@ var _reactRouterDom = require("react-router-dom");
 var _ContextProvider = require("../ContextProvider");
 
 var _dateToDisplay = _interopRequireDefault(require("./dateToDisplay"));
+
+var _icons = _interopRequireDefault(require("../icons"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34002,6 +34096,8 @@ function FutureWeather() {
   }, isLoading ? /*#__PURE__*/_react.default.createElement("h2", {
     className: "loading"
   }, "Loading...") : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, dataByWoeid.map((data, index) => {
+    const weatherIcon = _icons.default.find(icon => icon.name === data.weather_state_name);
+
     return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
       to: `/highlight/${data.id}`,
       key: data.id
@@ -34010,7 +34106,7 @@ function FutureWeather() {
     }, /*#__PURE__*/_react.default.createElement("p", {
       className: "future-date"
     }, index === 0 ? "Tomorrow" : (0, _dateToDisplay.default)(data.applicable_date)), /*#__PURE__*/_react.default.createElement("img", {
-      src: `https://www.metaweather.com/static/img/weather/${data.weather_state_abbr}.svg`,
+      src: weatherIcon.src,
       alt: data.weather_state_name,
       className: "future-icon"
     }), /*#__PURE__*/_react.default.createElement("div", {
@@ -34026,7 +34122,7 @@ function FutureWeather() {
     }, `${Math.round(data.max_temp)} °C`))));
   }))));
 }
-},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../ContextProvider":"ContextProvider.js","./dateToDisplay":"components/dateToDisplay.js"}],"icons/location.svg":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../ContextProvider":"ContextProvider.js","./dateToDisplay":"components/dateToDisplay.js","../icons":"icons.js"}],"icons/location.svg":[function(require,module,exports) {
 module.exports = "/location.68e4bdf6.svg";
 },{}],"icons/right-icon.svg":[function(require,module,exports) {
 module.exports = "/right-icon.53fa018a.svg";
@@ -34128,6 +34224,8 @@ var _place = _interopRequireDefault(require("../icons/place.svg"));
 
 var _ContextProvider = require("../ContextProvider");
 
+var _icons = _interopRequireDefault(require("../icons"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
@@ -34142,10 +34240,14 @@ function TodayWeather({
   const {
     converted
   } = (0, _react.useContext)(_ContextProvider.Context);
+
+  const weatherIcon = _icons.default.find(icon => icon.name === todayWeather.weather_state_name);
+
+  console.log(weatherIcon);
   return /*#__PURE__*/_react.default.createElement("section", {
     className: "today-wrapper"
   }, /*#__PURE__*/_react.default.createElement("img", {
-    src: `https://www.metaweather.com/static/img/weather/${todayWeather.weather_state_abbr}.svg`,
+    src: weatherIcon && weatherIcon.src,
     alt: todayWeather.weather_state_name,
     className: "today-icon"
   }), /*#__PURE__*/_react.default.createElement("h3", {
@@ -34170,7 +34272,7 @@ function TodayWeather({
     className: "place-icon"
   }), dataByCity.title || "Nairobi"));
 }
-},{"react":"node_modules/react/index.js","../icons/place.svg":"icons/place.svg","../ContextProvider":"ContextProvider.js"}],"icons/navigation.svg":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../icons/place.svg":"icons/place.svg","../ContextProvider":"ContextProvider.js","../icons":"icons.js"}],"icons/navigation.svg":[function(require,module,exports) {
 module.exports = "/navigation.45c85031.svg";
 },{}],"components/HighlightWeather.js":[function(require,module,exports) {
 "use strict";
@@ -34444,7 +34546,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53921" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53475" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

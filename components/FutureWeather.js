@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../ContextProvider";
 import dateToDisplay from "./dateToDisplay";
-
+import icons from "../icons";
 export default function FutureWeather() {
   const {
     converted,
@@ -11,6 +11,7 @@ export default function FutureWeather() {
     isLoading,
     dataByWoeid,
   } = useContext(Context);
+
   return (
     <section className="future-weather">
       <div className="convertButton">
@@ -33,6 +34,7 @@ export default function FutureWeather() {
         ) : (
           <>
             {dataByWoeid.map((data, index) => {
+              const weatherIcon = icons.find(icon => icon.name === data.weather_state_name); 
               return (
                 <Link to={`/highlight/${data.id}`} key={data.id}>
                   <div className="next-forecast">
@@ -42,7 +44,7 @@ export default function FutureWeather() {
                         : dateToDisplay(data.applicable_date)}
                     </p>
                     <img
-                      src={`https://www.metaweather.com/static/img/weather/${data.weather_state_abbr}.svg`}
+                      src={weatherIcon.src}
                       alt={data.weather_state_name}
                       className="future-icon"
                     />

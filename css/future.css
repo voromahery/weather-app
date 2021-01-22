@@ -112,10 +112,6 @@
   .next-forecast {
     min-height: 140px;
   }
-
-  .future-icon {
-    max-height: 64px;
-  }
 }
 
 @media (min-width: 1200px) {

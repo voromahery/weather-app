@@ -308,10 +308,6 @@ ul {
   .next-forecast {
     min-height: 140px;
   }
-
-  .future-icon {
-    max-height: 64px;
-  }
 }
 
 @media (min-width: 1200px) {
@@ -706,6 +702,11 @@ ul {
 .convertButton {
   gap: calc(12px / 2);
   display: none;
+}
+
+.activated,
+.deactivated {
+  outline: none;
 }
 
 .activated {
