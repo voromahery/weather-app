@@ -1,3 +1,30 @@
+@font-face {
+    font-family: 'myFont';
+    src: url("/raleway-regular.f061d3e5.woff2"),
+    url("/raleway-regular.c007b01f.woff");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'myFont';
+    src: url("/raleway-medium.b01530ac.woff2"),
+    url("/raleway-medium.9952c2d6.woff");
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'myFont';
+    src: url("/raleway-semibold.0c2025a5.woff2"),
+    url("/raleway-semibold.0a65d59b.woff");
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'myFont';
+    src: url("/raleway-bold.ddaafb92.woff2"),
+    url("/raleway-bold.f991cbb3.woff");
+    font-weight: 700;
+}
 body {
   max-width: 1440px;
   margin: auto;
@@ -5,7 +32,7 @@ body {
 }
 
 * {
-  font-family: "Raleway";
+  font-family: "myFont", "Raleway", Arial, Helvetica, sans-serif;
 }
 
 button {
