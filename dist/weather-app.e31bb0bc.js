@@ -34430,6 +34430,10 @@ function HeaderForm() {
     setIsSearch(!isSearch);
   }
 
+  function currentLocation() {
+    alert("😢 Your location is not found!!");
+  }
+
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "wrapper"
   }, /*#__PURE__*/_react.default.createElement("div", {
@@ -34440,6 +34444,7 @@ function HeaderForm() {
   }, "Seach for places"), /*#__PURE__*/_react.default.createElement("img", {
     src: _location.default,
     alt: "",
+    onClick: currentLocation,
     className: "location-icon"
   })), isSearch && /*#__PURE__*/_react.default.createElement(_SearchForm.default, {
     searchTitle: searchTitle,
@@ -34546,7 +34551,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59349" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62288" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

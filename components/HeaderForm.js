@@ -25,7 +25,7 @@ function HeaderForm() {
     converted,
     setConverted,
     convertDegreeC,
-    convertDegree
+    convertDegree,
   } = useContext(Context);
 
   const [isSearch, setIsSearch] = useState(false);
@@ -35,40 +35,49 @@ function HeaderForm() {
     setIsSearch(!isSearch);
   }
 
+  function currentLocation() {
+    alert("😢 Your location is not found!!");
+  }
+
   return (
-      <div className="wrapper">
-        <div className="search-wrapper">
-          <button onClick={openSearch} className="search-toggle">
-            Seach for places
-          </button>
-          <img src={locationIcon} alt="" className="location-icon" />
-        </div>
-        {isSearch && (
-          <SearchForm
-            searchTitle={searchTitle}
-            setSearchTitle={setSearchTitle}
-            dataByCity={dataByCity}
-            setDataByCity={setDataByCity}
-            setCity={setCity}
-            setIsSearch={setIsSearch}
-            isSearch={isSearch}
-          />
-        )}
-        {isLoading ? (
-          <h1 className="loading">Loading...</h1>
-        ) : (
-          <div className="today">
-            <Link to="/">
-              <TodayWeather
-                converted={converted}
-                todayWeather={todayWeather}
-                dataByCity={dataByCity}
-                dateToDisplay={dateToDisplay}
-              />
-            </Link>
-          </div>
-        )}
+    <div className="wrapper">
+      <div className="search-wrapper">
+        <button onClick={openSearch} className="search-toggle">
+          Seach for places
+        </button>
+        <img
+          src={locationIcon}
+          alt=""
+          onClick={currentLocation}
+          className="location-icon"
+        />
       </div>
+      {isSearch && (
+        <SearchForm
+          searchTitle={searchTitle}
+          setSearchTitle={setSearchTitle}
+          dataByCity={dataByCity}
+          setDataByCity={setDataByCity}
+          setCity={setCity}
+          setIsSearch={setIsSearch}
+          isSearch={isSearch}
+        />
+      )}
+      {isLoading ? (
+        <h1 className="loading">Loading...</h1>
+      ) : (
+        <div className="today">
+          <Link to="/">
+            <TodayWeather
+              converted={converted}
+              todayWeather={todayWeather}
+              dataByCity={dataByCity}
+              dateToDisplay={dateToDisplay}
+            />
+          </Link>
+        </div>
+      )}
+    </div>
   );
 }
 

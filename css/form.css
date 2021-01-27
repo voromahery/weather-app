@@ -183,7 +183,6 @@
 
   .search-field,
   .search-button {
-    /* padding-left: 19px; */
     padding-right: 19px;
     padding-top: 14px;
     padding-bottom: 14px;
@@ -223,7 +222,13 @@
   }
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 600px) {
+  .search-form-wrapper {
+    width: 97.5%;
+  }
+}
+
+@media (min-width: 1100px) {
   .convertButton {
     display: flex;
     margin-top: 42px;

@@ -233,10 +233,7 @@
   }
 }
 
-@media (min-width: 1000px) {
-  /* .highlight-list-item {
-    max-width: 328px;
-  } */
+@media (min-width: 1100px) {
 
   .highlight-list {
     gap: 12px;

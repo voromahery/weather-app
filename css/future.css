@@ -24,6 +24,8 @@
 .future-forecast {
   margin-top: calc(51px / 2);
   margin-bottom: calc(51px / 2);
+  margin-left: calc(23px / 2);
+  margin-right: calc(23px / 2);
 }
 
 .future-forecast,
@@ -72,6 +74,8 @@
   .future-forecast {
     margin-top: 51px;
     margin-bottom: 51px;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .future-forecast {
@@ -92,11 +96,17 @@
 
 @media (min-width: 600px) {
   .future-forecast {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 800px) {
+  .future-forecast {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1100px) {
   .future-wrapper {
     padding-left: 154px;
     padding-right: 154px;
@@ -107,6 +117,12 @@
     margin-top: 66px;
     margin-bottom: 72px;
     gap: 12px;
+  }
+
+  .future-icon {
+    /* max-width: 65px;
+    max-height: 65px; */
+    box-sizing: border-box;
   }
 
   .next-forecast {
