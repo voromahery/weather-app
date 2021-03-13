@@ -10814,7 +10814,7 @@ if ("development" !== "production") {
       }
 
       var eventName = 'on' + eventNameSuffix;
-      var isSupported = (eventName in document);
+      var isSupported = eventName in document;
 
       if (!isSupported) {
         var element = document.createElement('div');
@@ -31963,7 +31963,9 @@ function createReactContext(defaultValue, calculateChangedBits) {
 
   var contextProp = '__create-react-context-' + getUniqueId() + '__';
 
-  var Provider = /*#__PURE__*/function (_Component) {
+  var Provider =
+  /*#__PURE__*/
+  function (_Component) {
     (0, _inheritsLoose2.default)(Provider, _Component);
 
     function Provider() {
@@ -32015,7 +32017,9 @@ function createReactContext(defaultValue, calculateChangedBits) {
 
   Provider.childContextTypes = (_Provider$childContex = {}, _Provider$childContex[contextProp] = _propTypes.default.object.isRequired, _Provider$childContex);
 
-  var Consumer = /*#__PURE__*/function (_Component2) {
+  var Consumer =
+  /*#__PURE__*/
+  function (_Component2) {
     (0, _inheritsLoose2.default)(Consumer, _Component2);
 
     function Consumer() {
@@ -32697,7 +32701,9 @@ var createNamedContext = function createNamedContext(name) {
   return context;
 };
 
-var historyContext = /*#__PURE__*/createNamedContext("Router-History"); // TODO: Replace with React.createContext once we can assume React 16+
+var historyContext =
+/*#__PURE__*/
+createNamedContext("Router-History"); // TODO: Replace with React.createContext once we can assume React 16+
 
 exports.__HistoryContext = historyContext;
 
@@ -32707,14 +32713,18 @@ var createNamedContext$1 = function createNamedContext(name) {
   return context;
 };
 
-var context = /*#__PURE__*/createNamedContext$1("Router");
+var context =
+/*#__PURE__*/
+createNamedContext$1("Router");
 /**
  * The public API for putting history on context.
  */
 
 exports.__RouterContext = context;
 
-var Router = /*#__PURE__*/function (_React$Component) {
+var Router =
+/*#__PURE__*/
+function (_React$Component) {
   (0, _inheritsLoose2.default)(Router, _React$Component);
 
   Router.computeRootMatch = function computeRootMatch(pathname) {
@@ -32807,7 +32817,9 @@ if ("development" !== "production") {
  */
 
 
-var MemoryRouter = /*#__PURE__*/function (_React$Component) {
+var MemoryRouter =
+/*#__PURE__*/
+function (_React$Component) {
   (0, _inheritsLoose2.default)(MemoryRouter, _React$Component);
 
   function MemoryRouter() {
@@ -32850,7 +32862,9 @@ if ("development" !== "production") {
   };
 }
 
-var Lifecycle = /*#__PURE__*/function (_React$Component) {
+var Lifecycle =
+/*#__PURE__*/
+function (_React$Component) {
   (0, _inheritsLoose2.default)(Lifecycle, _React$Component);
 
   function Lifecycle() {
@@ -33096,7 +33110,9 @@ function evalChildrenDev(children, props, path) {
  */
 
 
-var Route = /*#__PURE__*/function (_React$Component) {
+var Route =
+/*#__PURE__*/
+function (_React$Component) {
   (0, _inheritsLoose2.default)(Route, _React$Component);
 
   function Route() {
@@ -33205,7 +33221,9 @@ function noop() {}
  */
 
 
-var StaticRouter = /*#__PURE__*/function (_React$Component) {
+var StaticRouter =
+/*#__PURE__*/
+function (_React$Component) {
   (0, _inheritsLoose2.default)(StaticRouter, _React$Component);
 
   function StaticRouter() {
@@ -33299,7 +33317,9 @@ if ("development" !== "production") {
  */
 
 
-var Switch = /*#__PURE__*/function (_React$Component) {
+var Switch =
+/*#__PURE__*/
+function (_React$Component) {
   (0, _inheritsLoose2.default)(Switch, _React$Component);
 
   function Switch() {
@@ -33556,7 +33576,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * The public API for a <Router> that uses HTML5 history.
  */
-var BrowserRouter = /*#__PURE__*/function (_React$Component) {
+var BrowserRouter =
+/*#__PURE__*/
+function (_React$Component) {
   (0, _inheritsLoose2.default)(BrowserRouter, _React$Component);
 
   function BrowserRouter() {
@@ -33603,7 +33625,9 @@ if ("development" !== "production") {
  */
 
 
-var HashRouter = /*#__PURE__*/function (_React$Component) {
+var HashRouter =
+/*#__PURE__*/
+function (_React$Component) {
   (0, _inheritsLoose2.default)(HashRouter, _React$Component);
 
   function HashRouter() {
@@ -33917,7 +33941,7 @@ function ContextProvider(props) {
     setConverted(true);
   }
 
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(Context.Provider, {
+  return _react.default.createElement("div", null, _react.default.createElement(Context.Provider, {
     value: {
       city,
       setCity,
@@ -34081,43 +34105,43 @@ function FutureWeather() {
     isLoading,
     dataByWoeid
   } = (0, _react.useContext)(_ContextProvider.Context);
-  return /*#__PURE__*/_react.default.createElement("section", {
+  return _react.default.createElement("section", {
     className: "future-weather"
-  }, /*#__PURE__*/_react.default.createElement("div", {
+  }, _react.default.createElement("div", {
     className: "convertButton"
-  }, /*#__PURE__*/_react.default.createElement("button", {
+  }, _react.default.createElement("button", {
     onClick: convertDegreeC,
     className: !converted ? "activated" : "deactivated"
-  }, "\xB0C"), /*#__PURE__*/_react.default.createElement("button", {
+  }, "\xB0C"), _react.default.createElement("button", {
     onClick: convertDegreeF,
     className: converted ? "activated" : "deactivated"
-  }, "\xB0F")), /*#__PURE__*/_react.default.createElement("div", {
+  }, "\xB0F")), _react.default.createElement("div", {
     className: "future-forecast"
-  }, isLoading ? /*#__PURE__*/_react.default.createElement("h2", {
+  }, isLoading ? _react.default.createElement("h2", {
     className: "loading"
-  }, "Loading...") : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, dataByWoeid.map((data, index) => {
+  }, "Loading...") : _react.default.createElement(_react.default.Fragment, null, dataByWoeid.map((data, index) => {
     const weatherIcon = _icons.default.find(icon => icon.name === data.weather_state_name);
 
-    return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    return _react.default.createElement(_reactRouterDom.Link, {
       to: `/highlight/${data.id}`,
       key: data.id
-    }, /*#__PURE__*/_react.default.createElement("div", {
+    }, _react.default.createElement("div", {
       className: "next-forecast"
-    }, /*#__PURE__*/_react.default.createElement("p", {
+    }, _react.default.createElement("p", {
       className: "future-date"
-    }, index === 0 ? "Tomorrow" : (0, _dateToDisplay.default)(data.applicable_date)), /*#__PURE__*/_react.default.createElement("img", {
+    }, index === 0 ? "Tomorrow" : (0, _dateToDisplay.default)(data.applicable_date)), _react.default.createElement("img", {
       src: weatherIcon.src,
       alt: data.weather_state_name,
       className: "future-icon"
-    }), /*#__PURE__*/_react.default.createElement("div", {
+    }), _react.default.createElement("div", {
       className: "future-temperature"
-    }, converted ? /*#__PURE__*/_react.default.createElement("span", {
+    }, converted ? _react.default.createElement("span", {
       className: "future-temperature"
-    }, `${Math.round(data.min_temp * (9 / 5) + 32)} °F`) : /*#__PURE__*/_react.default.createElement("span", {
+    }, `${Math.round(data.min_temp * (9 / 5) + 32)} °F`) : _react.default.createElement("span", {
       className: "future-temperature"
-    }, `${Math.round(data.min_temp)} °C`), converted ? /*#__PURE__*/_react.default.createElement("span", {
+    }, `${Math.round(data.min_temp)} °C`), converted ? _react.default.createElement("span", {
       className: "max-temp"
-    }, `${Math.round(data.max_temp * (9 / 5) + 32)} °F`) : /*#__PURE__*/_react.default.createElement("span", {
+    }, `${Math.round(data.max_temp * (9 / 5) + 32)} °F`) : _react.default.createElement("span", {
       className: "max-temp"
     }, `${Math.round(data.max_temp)} °C`))));
   }))));
@@ -34174,35 +34198,35 @@ function SearchForm({
     setIsSearch(false);
   }
 
-  return /*#__PURE__*/_react.default.createElement("div", {
+  return _react.default.createElement("div", {
     className: "search-form-wrapper"
-  }, /*#__PURE__*/_react.default.createElement("img", {
+  }, _react.default.createElement("img", {
     src: _close.default,
     alt: "",
     className: "close-icon",
     onClick: closeForm
-  }), /*#__PURE__*/_react.default.createElement("form", {
+  }), _react.default.createElement("form", {
     onSubmit: searchCity,
     className: "search-form"
-  }, /*#__PURE__*/_react.default.createElement("input", {
+  }, _react.default.createElement("input", {
     type: "text",
     name: "search",
     className: "search-field",
     onChange: e => e.target.value,
     placeholder: "search location"
-  }), /*#__PURE__*/_react.default.createElement("button", {
+  }), _react.default.createElement("button", {
     className: "search-button"
-  }, "Search")), /*#__PURE__*/_react.default.createElement("ul", {
+  }, "Search")), _react.default.createElement("ul", {
     className: "search-result-list"
-  }, searchTitle.map(data => /*#__PURE__*/_react.default.createElement("li", {
+  }, searchTitle.map(data => _react.default.createElement("li", {
     key: data.woeid
-  }, /*#__PURE__*/_react.default.createElement("button", {
+  }, _react.default.createElement("button", {
     className: "search-value",
     value: data.title,
     onClick: searchByClick
-  }, /*#__PURE__*/_react.default.createElement("span", {
+  }, _react.default.createElement("span", {
     className: "search-value-text"
-  }, data.title), /*#__PURE__*/_react.default.createElement("img", {
+  }, data.title), _react.default.createElement("img", {
     src: _rightIcon.default,
     alt: "",
     className: "right-icon"
@@ -34244,29 +34268,29 @@ function TodayWeather({
   const weatherIcon = _icons.default.find(icon => icon.name === todayWeather.weather_state_name);
 
   console.log(weatherIcon);
-  return /*#__PURE__*/_react.default.createElement("section", {
+  return _react.default.createElement("section", {
     className: "today-wrapper"
-  }, /*#__PURE__*/_react.default.createElement("img", {
+  }, _react.default.createElement("img", {
     src: weatherIcon && weatherIcon.src,
     alt: todayWeather.weather_state_name,
     className: "today-icon"
-  }), /*#__PURE__*/_react.default.createElement("h3", {
+  }), _react.default.createElement("h3", {
     className: "temperature"
-  }, converted ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("span", {
+  }, converted ? _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("span", {
     className: "today-degree"
-  }, `${Math.round(todayWeather.the_temp * (9 / 5) + 32)}`), /*#__PURE__*/_react.default.createElement("span", {
+  }, `${Math.round(todayWeather.the_temp * (9 / 5) + 32)}`), _react.default.createElement("span", {
     className: "today-degree-sign"
-  }, "\xB0F")) : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("span", {
+  }, "\xB0F")) : _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("span", {
     className: "today-degree"
-  }, `${Math.round(todayWeather.the_temp)}`), /*#__PURE__*/_react.default.createElement("span", {
+  }, `${Math.round(todayWeather.the_temp)}`), _react.default.createElement("span", {
     className: "today-degree-sign"
-  }, "\xB0C"))), /*#__PURE__*/_react.default.createElement("p", {
+  }, "\xB0C"))), _react.default.createElement("p", {
     className: "today-weather-state"
-  }, todayWeather.weather_state_name), /*#__PURE__*/_react.default.createElement("p", {
+  }, todayWeather.weather_state_name), _react.default.createElement("p", {
     className: "today-date"
-  }, "Today . ", dateToDisplay(todayWeather.applicable_date)), /*#__PURE__*/_react.default.createElement("p", {
+  }, "Today . ", dateToDisplay(todayWeather.applicable_date)), _react.default.createElement("p", {
     className: "location"
-  }, /*#__PURE__*/_react.default.createElement("img", {
+  }, _react.default.createElement("img", {
     src: _place.default,
     alt: "",
     className: "place-icon"
@@ -34308,68 +34332,68 @@ function HighlightWeather() {
     weatherId
   } = (0, _reactRouterDom.useParams)();
   const findWeather = dataByWoeid.find(data => data.id === Number(weatherId) || todayWeather.id === Number(weatherId)) || "";
-  return /*#__PURE__*/_react.default.createElement("section", {
+  return _react.default.createElement("section", {
     className: "highlight"
-  }, isLoading ? /*#__PURE__*/_react.default.createElement("h3", {
+  }, isLoading ? _react.default.createElement("h3", {
     className: "loading"
-  }, "Loading") : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h2", {
+  }, "Loading") : _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h2", {
     className: "highlight-title"
-  }, !findWeather ? "Today’s Hightlights" : `${(0, _dateToDisplay.default)(findWeather.applicable_date)}'s highlights`), /*#__PURE__*/_react.default.createElement("ul", {
+  }, !findWeather ? "Today’s Hightlights" : `${(0, _dateToDisplay.default)(findWeather.applicable_date)}'s highlights`), _react.default.createElement("ul", {
     className: "highlight-list"
-  }, /*#__PURE__*/_react.default.createElement("li", {
+  }, _react.default.createElement("li", {
     className: "highlight-list-item"
-  }, /*#__PURE__*/_react.default.createElement("div", {
+  }, _react.default.createElement("div", {
     className: "status-name"
-  }, "Wind status"), /*#__PURE__*/_react.default.createElement("div", {
+  }, "Wind status"), _react.default.createElement("div", {
     className: "status-value"
-  }, Math.round(findWeather.wind_speed) || Math.round(todayWeather.wind_speed), /*#__PURE__*/_react.default.createElement("span", {
+  }, Math.round(findWeather.wind_speed) || Math.round(todayWeather.wind_speed), _react.default.createElement("span", {
     className: "unit"
-  }, "mph")), /*#__PURE__*/_react.default.createElement("div", {
+  }, "mph")), _react.default.createElement("div", {
     className: "compass"
-  }, /*#__PURE__*/_react.default.createElement("img", {
+  }, _react.default.createElement("img", {
     src: _navigation.default,
     className: `compass-icon compass-${findWeather.wind_direction_compass || todayWeather.wind_direction_compass}`,
     alt: ""
-  }), /*#__PURE__*/_react.default.createElement("div", {
+  }), _react.default.createElement("div", {
     className: "compass-value"
-  }, findWeather.wind_direction_compass || todayWeather.wind_direction_compass))), /*#__PURE__*/_react.default.createElement("li", {
+  }, findWeather.wind_direction_compass || todayWeather.wind_direction_compass))), _react.default.createElement("li", {
     className: "highlight-list-item"
-  }, /*#__PURE__*/_react.default.createElement("div", {
+  }, _react.default.createElement("div", {
     className: "status-name"
-  }, "Humidity"), /*#__PURE__*/_react.default.createElement("div", {
+  }, "Humidity"), _react.default.createElement("div", {
     className: "status-value"
-  }, findWeather.humidity || todayWeather.humidity, /*#__PURE__*/_react.default.createElement("span", {
+  }, findWeather.humidity || todayWeather.humidity, _react.default.createElement("span", {
     className: "unit"
-  }, "%")), /*#__PURE__*/_react.default.createElement("div", {
+  }, "%")), _react.default.createElement("div", {
     className: "progress-container"
-  }, /*#__PURE__*/_react.default.createElement("div", {
+  }, _react.default.createElement("div", {
     className: "possible-value"
-  }, /*#__PURE__*/_react.default.createElement("span", null, "0"), " ", /*#__PURE__*/_react.default.createElement("span", null, "50"), " ", /*#__PURE__*/_react.default.createElement("span", null, "100")), /*#__PURE__*/_react.default.createElement("div", {
+  }, _react.default.createElement("span", null, "0"), " ", _react.default.createElement("span", null, "50"), " ", _react.default.createElement("span", null, "100")), _react.default.createElement("div", {
     className: "bar-container"
-  }, /*#__PURE__*/_react.default.createElement("div", {
+  }, _react.default.createElement("div", {
     className: "base-bar"
-  }, /*#__PURE__*/_react.default.createElement("div", {
+  }, _react.default.createElement("div", {
     className: "bar-visible",
     style: {
       width: `${findWeather.humidity || todayWeather.humidity}%`
     }
-  }))), /*#__PURE__*/_react.default.createElement("span", {
+  }))), _react.default.createElement("span", {
     className: "progress-unit"
-  }, "%"))), /*#__PURE__*/_react.default.createElement("li", {
+  }, "%"))), _react.default.createElement("li", {
     className: "highlight-list-item"
-  }, /*#__PURE__*/_react.default.createElement("div", {
+  }, _react.default.createElement("div", {
     className: "status-name"
-  }, "Visibility"), /*#__PURE__*/_react.default.createElement("div", {
+  }, "Visibility"), _react.default.createElement("div", {
     className: "status-value"
-  }, Math.round(findWeather.visibility) || Math.round(todayWeather.visibility), /*#__PURE__*/_react.default.createElement("span", {
+  }, Math.round(findWeather.visibility) || Math.round(todayWeather.visibility), _react.default.createElement("span", {
     className: "unit"
-  }, "miles"))), /*#__PURE__*/_react.default.createElement("li", {
+  }, "miles"))), _react.default.createElement("li", {
     className: "highlight-list-item"
-  }, /*#__PURE__*/_react.default.createElement("div", {
+  }, _react.default.createElement("div", {
     className: "status-name"
-  }, "Air Pressure"), /*#__PURE__*/_react.default.createElement("div", {
+  }, "Air Pressure"), _react.default.createElement("div", {
     className: "status-value"
-  }, Math.round(findWeather.air_pressure) || Math.round(todayWeather.air_pressure), /*#__PURE__*/_react.default.createElement("span", {
+  }, Math.round(findWeather.air_pressure) || Math.round(todayWeather.air_pressure), _react.default.createElement("span", {
     className: "unit"
   }, "mb"))))));
 }
@@ -34434,19 +34458,19 @@ function HeaderForm() {
     alert("😢 Your location is not found!!");
   }
 
-  return /*#__PURE__*/_react.default.createElement("div", {
+  return _react.default.createElement("div", {
     className: "wrapper"
-  }, /*#__PURE__*/_react.default.createElement("div", {
+  }, _react.default.createElement("div", {
     className: "search-wrapper"
-  }, /*#__PURE__*/_react.default.createElement("button", {
+  }, _react.default.createElement("button", {
     onClick: openSearch,
     className: "search-toggle"
-  }, "Seach for places"), /*#__PURE__*/_react.default.createElement("img", {
+  }, "Seach for places"), _react.default.createElement("img", {
     src: _location.default,
     alt: "",
     onClick: currentLocation,
     className: "location-icon"
-  })), isSearch && /*#__PURE__*/_react.default.createElement(_SearchForm.default, {
+  })), isSearch && _react.default.createElement(_SearchForm.default, {
     searchTitle: searchTitle,
     setSearchTitle: setSearchTitle,
     dataByCity: dataByCity,
@@ -34454,13 +34478,13 @@ function HeaderForm() {
     setCity: setCity,
     setIsSearch: setIsSearch,
     isSearch: isSearch
-  }), isLoading ? /*#__PURE__*/_react.default.createElement("h1", {
+  }), isLoading ? _react.default.createElement("h1", {
     className: "loading"
-  }, "Loading...") : /*#__PURE__*/_react.default.createElement("div", {
+  }, "Loading...") : _react.default.createElement("div", {
     className: "today"
-  }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+  }, _react.default.createElement(_reactRouterDom.Link, {
     to: "/"
-  }, /*#__PURE__*/_react.default.createElement(_TodayWeather.default, {
+  }, _react.default.createElement(_TodayWeather.default, {
     converted: converted,
     todayWeather: todayWeather,
     dataByCity: dataByCity,
@@ -34491,18 +34515,18 @@ var _HighlightWeather = _interopRequireDefault(require("./components/HighlightWe
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function App() {
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+  return _react.default.createElement("div", null, _react.default.createElement("div", {
     className: "container"
-  }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  }, _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
     exact: true,
     path: "/"
-  }, /*#__PURE__*/_react.default.createElement(_HeaderForm.default, null), /*#__PURE__*/_react.default.createElement("div", {
+  }, _react.default.createElement(_HeaderForm.default, null), _react.default.createElement("div", {
     className: "future-wrapper"
-  }, /*#__PURE__*/_react.default.createElement(_FutureWeather.default, null), /*#__PURE__*/_react.default.createElement(_HighlightWeather.default, null))), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  }, _react.default.createElement(_FutureWeather.default, null), _react.default.createElement(_HighlightWeather.default, null))), _react.default.createElement(_reactRouterDom.Route, {
     path: "/highlight/:weatherId"
-  }, /*#__PURE__*/_react.default.createElement(_HeaderForm.default, null), /*#__PURE__*/_react.default.createElement("div", {
+  }, _react.default.createElement(_HeaderForm.default, null), _react.default.createElement("div", {
     className: "future-wrapper"
-  }, /*#__PURE__*/_react.default.createElement(_FutureWeather.default, null), /*#__PURE__*/_react.default.createElement(_HighlightWeather.default, null))))));
+  }, _react.default.createElement(_FutureWeather.default, null), _react.default.createElement(_HighlightWeather.default, null))))));
 }
 
 var _default = App;
@@ -34522,7 +34546,7 @@ var _ContextProvider = require("./ContextProvider");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom.default.render( /*#__PURE__*/_react.default.createElement(_ContextProvider.ContextProvider, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react.default.createElement(_App.default, null))), document.getElementById("root"));
+_reactDom.default.render(_react.default.createElement(_ContextProvider.ContextProvider, null, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_App.default, null))), document.getElementById("root"));
 },{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./App":"App.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./ContextProvider":"ContextProvider.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -34551,7 +34575,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62288" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54163" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -34582,9 +34606,8 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
         assetsToAccept.forEach(function (v) {
           hmrAcceptRun(v[0], v[1]);
         });
-      } else if (location.reload) {
-        // `location` global exists in a web worker context but lacks `.reload()` function.
-        location.reload();
+      } else {
+        window.location.reload();
       }
     }
 
