@@ -27,7 +27,9 @@
 
 ## Overview
 
-- Click this link to see my app [weather-app](https://weather-app-daniel.netlify.app/) :
+- Click this link to see my app [weather-app](https://weather-app-daniel.netlify.app/)
+
+![screenshot](./screenshot.jpeg)
 
 ## [Acknowledgements](#acknowledgements)
 A weather forecast that I created from scratch in three days by implementing CSS and React.
