@@ -1,11 +1,10 @@
 body {
-  max-width: 1440px;
   margin: auto;
   background: #100e1d;
 }
 
 * {
-  font-family: "myFont", "Raleway", Arial, Helvetica, sans-serif;
+  font-family: 'myFont', 'Raleway', Arial, Helvetica, sans-serif;
 }
 
 button {

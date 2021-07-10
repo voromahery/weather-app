@@ -1,12 +1,12 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Context } from "../ContextProvider";
-import locationIcon from "../icons/location.svg";
-import dateToDisplay from "./dateToDisplay";
-import FutureWeather from "./FutureWeather";
-import SearchForm from "./SearchForm";
-import TodayWeather from "./TodayWeather";
-import HighlightWeather from "./HighlightWeather";
+import React, { useContext, useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { Context } from '../ContextProvider'
+import locationIcon from '../icons/location.svg'
+import dateToDisplay from './dateToDisplay'
+import FutureWeather from './FutureWeather'
+import SearchForm from './SearchForm'
+import TodayWeather from './TodayWeather'
+import HighlightWeather from './HighlightWeather'
 
 function HeaderForm() {
   const {
@@ -26,59 +26,61 @@ function HeaderForm() {
     setConverted,
     convertDegreeC,
     convertDegree,
-  } = useContext(Context);
+  } = useContext(Context)
 
-  const [isSearch, setIsSearch] = useState(false);
+  const [isSearch, setIsSearch] = useState(false)
 
   // Toggle the search form
   function openSearch() {
-    setIsSearch(!isSearch);
+    setIsSearch(!isSearch)
   }
 
   function currentLocation() {
-    alert("😢 Your location is not found!!");
+    alert('😢 Your location is not found!!')
   }
 
   return (
-    <div className="wrapper">
-      <div className="search-wrapper">
-        <button onClick={openSearch} className="search-toggle">
-          Seach for places
-        </button>
-        <img
-          src={locationIcon}
-          alt=""
-          onClick={currentLocation}
-          className="location-icon"
-        />
-      </div>
-      {isSearch && (
-        <SearchForm
-          searchTitle={searchTitle}
-          setSearchTitle={setSearchTitle}
-          dataByCity={dataByCity}
-          setDataByCity={setDataByCity}
-          setCity={setCity}
-          setIsSearch={setIsSearch}
-          isSearch={isSearch}
-        />
-      )}
-      {isLoading ? (
-        <h1 className="loading">Loading...</h1>
-      ) : (
-        <div className="today">
-          <Link to="/">
-            <TodayWeather
-              converted={converted}
-              todayWeather={todayWeather}
-              dataByCity={dataByCity}
-              dateToDisplay={dateToDisplay}
-            />
-          </Link>
+    <div className='wrapper'>
+      <div className='today-container'>
+        <div className='search-wrapper'>
+          <button onClick={openSearch} className='search-toggle'>
+            Seach for places
+          </button>
+          <img
+            src={locationIcon}
+            alt=''
+            onClick={currentLocation}
+            className='location-icon'
+          />
         </div>
-      )}
+        {isSearch && (
+          <SearchForm
+            searchTitle={searchTitle}
+            setSearchTitle={setSearchTitle}
+            dataByCity={dataByCity}
+            setDataByCity={setDataByCity}
+            setCity={setCity}
+            setIsSearch={setIsSearch}
+            isSearch={isSearch}
+          />
+        )}
+        {isLoading ? (
+          <h1 className='loading header-loading'>Loading...</h1>
+        ) : (
+          <div className='today'>
+            <Link to='/'>
+              <TodayWeather
+                converted={converted}
+                todayWeather={todayWeather}
+                dataByCity={dataByCity}
+                dateToDisplay={dateToDisplay}
+              />
+            </Link>
+          </div>
+        )}
+      </div>
     </div>
-  );
+  )
 }
 
-export default HeaderForm;
+export default HeaderForm

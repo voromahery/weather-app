@@ -214,7 +214,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
   return to;
 };
 },{}],"node_modules/react/cjs/react.development.js":[function(require,module,exports) {
-/** @license React v17.0.1
+/** @license React v17.0.2
  * react.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -231,7 +231,7 @@ if ("development" !== "production") {
     var _assign = require('object-assign'); // TODO: this is special because it gets imported during build.
 
 
-    var ReactVersion = '17.0.1'; // ATTENTION
+    var ReactVersion = '17.0.2'; // ATTENTION
     // When adding new symbols to this file,
     // Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
     // The Symbol used to tag the ReactElement-like types. If there is no native Symbol
@@ -2506,7 +2506,7 @@ if ("development" === 'production') {
   module.exports = require('./cjs/react.development.js');
 }
 },{"./cjs/react.development.js":"node_modules/react/cjs/react.development.js"}],"node_modules/scheduler/cjs/scheduler.development.js":[function(require,module,exports) {
-/** @license React v0.20.1
+/** @license React v0.20.2
  * scheduler.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -2521,7 +2521,7 @@ if ("development" !== "production") {
     'use strict';
 
     var enableSchedulerDebugging = false;
-    var enableProfiling = true;
+    var enableProfiling = false;
     var requestHostCallback;
     var requestHostTimeout;
     var cancelHostTimeout;
@@ -2793,179 +2793,13 @@ if ("development" !== "production") {
     } // TODO: Use symbols?
 
 
-    var NoPriority = 0;
     var ImmediatePriority = 1;
     var UserBlockingPriority = 2;
     var NormalPriority = 3;
     var LowPriority = 4;
     var IdlePriority = 5;
-    var runIdCounter = 0;
-    var mainThreadIdCounter = 0;
-    var profilingStateSize = 4;
-    var sharedProfilingBuffer = // $FlowFixMe Flow doesn't know about SharedArrayBuffer
-    typeof SharedArrayBuffer === 'function' ? new SharedArrayBuffer(profilingStateSize * Int32Array.BYTES_PER_ELEMENT) : // $FlowFixMe Flow doesn't know about ArrayBuffer
-    typeof ArrayBuffer === 'function' ? new ArrayBuffer(profilingStateSize * Int32Array.BYTES_PER_ELEMENT) : null // Don't crash the init path on IE9
-    ;
-    var profilingState = sharedProfilingBuffer !== null ? new Int32Array(sharedProfilingBuffer) : []; // We can't read this but it helps save bytes for null checks
 
-    var PRIORITY = 0;
-    var CURRENT_TASK_ID = 1;
-    var CURRENT_RUN_ID = 2;
-    var QUEUE_SIZE = 3;
-    {
-      profilingState[PRIORITY] = NoPriority; // This is maintained with a counter, because the size of the priority queue
-      // array might include canceled tasks.
-
-      profilingState[QUEUE_SIZE] = 0;
-      profilingState[CURRENT_TASK_ID] = 0;
-    } // Bytes per element is 4
-
-    var INITIAL_EVENT_LOG_SIZE = 131072;
-    var MAX_EVENT_LOG_SIZE = 524288; // Equivalent to 2 megabytes
-
-    var eventLogSize = 0;
-    var eventLogBuffer = null;
-    var eventLog = null;
-    var eventLogIndex = 0;
-    var TaskStartEvent = 1;
-    var TaskCompleteEvent = 2;
-    var TaskErrorEvent = 3;
-    var TaskCancelEvent = 4;
-    var TaskRunEvent = 5;
-    var TaskYieldEvent = 6;
-    var SchedulerSuspendEvent = 7;
-    var SchedulerResumeEvent = 8;
-
-    function logEvent(entries) {
-      if (eventLog !== null) {
-        var offset = eventLogIndex;
-        eventLogIndex += entries.length;
-
-        if (eventLogIndex + 1 > eventLogSize) {
-          eventLogSize *= 2;
-
-          if (eventLogSize > MAX_EVENT_LOG_SIZE) {
-            // Using console['error'] to evade Babel and ESLint
-            console['error']("Scheduler Profiling: Event log exceeded maximum size. Don't " + 'forget to call `stopLoggingProfilingEvents()`.');
-            stopLoggingProfilingEvents();
-            return;
-          }
-
-          var newEventLog = new Int32Array(eventLogSize * 4);
-          newEventLog.set(eventLog);
-          eventLogBuffer = newEventLog.buffer;
-          eventLog = newEventLog;
-        }
-
-        eventLog.set(entries, offset);
-      }
-    }
-
-    function startLoggingProfilingEvents() {
-      eventLogSize = INITIAL_EVENT_LOG_SIZE;
-      eventLogBuffer = new ArrayBuffer(eventLogSize * 4);
-      eventLog = new Int32Array(eventLogBuffer);
-      eventLogIndex = 0;
-    }
-
-    function stopLoggingProfilingEvents() {
-      var buffer = eventLogBuffer;
-      eventLogSize = 0;
-      eventLogBuffer = null;
-      eventLog = null;
-      eventLogIndex = 0;
-      return buffer;
-    }
-
-    function markTaskStart(task, ms) {
-      {
-        profilingState[QUEUE_SIZE]++;
-
-        if (eventLog !== null) {
-          // performance.now returns a float, representing milliseconds. When the
-          // event is logged, it's coerced to an int. Convert to microseconds to
-          // maintain extra degrees of precision.
-          logEvent([TaskStartEvent, ms * 1000, task.id, task.priorityLevel]);
-        }
-      }
-    }
-
-    function markTaskCompleted(task, ms) {
-      {
-        profilingState[PRIORITY] = NoPriority;
-        profilingState[CURRENT_TASK_ID] = 0;
-        profilingState[QUEUE_SIZE]--;
-
-        if (eventLog !== null) {
-          logEvent([TaskCompleteEvent, ms * 1000, task.id]);
-        }
-      }
-    }
-
-    function markTaskCanceled(task, ms) {
-      {
-        profilingState[QUEUE_SIZE]--;
-
-        if (eventLog !== null) {
-          logEvent([TaskCancelEvent, ms * 1000, task.id]);
-        }
-      }
-    }
-
-    function markTaskErrored(task, ms) {
-      {
-        profilingState[PRIORITY] = NoPriority;
-        profilingState[CURRENT_TASK_ID] = 0;
-        profilingState[QUEUE_SIZE]--;
-
-        if (eventLog !== null) {
-          logEvent([TaskErrorEvent, ms * 1000, task.id]);
-        }
-      }
-    }
-
-    function markTaskRun(task, ms) {
-      {
-        runIdCounter++;
-        profilingState[PRIORITY] = task.priorityLevel;
-        profilingState[CURRENT_TASK_ID] = task.id;
-        profilingState[CURRENT_RUN_ID] = runIdCounter;
-
-        if (eventLog !== null) {
-          logEvent([TaskRunEvent, ms * 1000, task.id, runIdCounter]);
-        }
-      }
-    }
-
-    function markTaskYield(task, ms) {
-      {
-        profilingState[PRIORITY] = NoPriority;
-        profilingState[CURRENT_TASK_ID] = 0;
-        profilingState[CURRENT_RUN_ID] = 0;
-
-        if (eventLog !== null) {
-          logEvent([TaskYieldEvent, ms * 1000, task.id, runIdCounter]);
-        }
-      }
-    }
-
-    function markSchedulerSuspended(ms) {
-      {
-        mainThreadIdCounter++;
-
-        if (eventLog !== null) {
-          logEvent([SchedulerSuspendEvent, ms * 1000, mainThreadIdCounter]);
-        }
-      }
-    }
-
-    function markSchedulerUnsuspended(ms) {
-      {
-        if (eventLog !== null) {
-          logEvent([SchedulerResumeEvent, ms * 1000, mainThreadIdCounter]);
-        }
-      }
-    }
+    function markTaskErrored(task, ms) {}
     /* eslint-disable no-var */
     // Math.pow(2, 30) - 1
     // 0b111111111111111111111111111111
@@ -3006,10 +2840,6 @@ if ("development" !== "production") {
           pop(timerQueue);
           timer.sortIndex = timer.expirationTime;
           push(taskQueue, timer);
-          {
-            markTaskStart(timer, currentTime);
-            timer.isQueued = true;
-          }
         } else {
           // Remaining timers are pending.
           return;
@@ -3038,10 +2868,6 @@ if ("development" !== "production") {
     }
 
     function flushWork(hasTimeRemaining, initialTime) {
-      {
-        markSchedulerUnsuspended(initialTime);
-      } // We'll need a host callback the next time work is scheduled.
-
       isHostCallbackScheduled = false;
 
       if (isHostTimeoutScheduled) {
@@ -3074,11 +2900,6 @@ if ("development" !== "production") {
         currentTask = null;
         currentPriorityLevel = previousPriorityLevel;
         isPerformingWork = false;
-        {
-          var _currentTime = exports.unstable_now();
-
-          markSchedulerSuspended(_currentTime);
-        }
       }
     }
 
@@ -3099,19 +2920,12 @@ if ("development" !== "production") {
           currentTask.callback = null;
           currentPriorityLevel = currentTask.priorityLevel;
           var didUserCallbackTimeout = currentTask.expirationTime <= currentTime;
-          markTaskRun(currentTask, currentTime);
           var continuationCallback = callback(didUserCallbackTimeout);
           currentTime = exports.unstable_now();
 
           if (typeof continuationCallback === 'function') {
             currentTask.callback = continuationCallback;
-            markTaskYield(currentTask, currentTime);
           } else {
-            {
-              markTaskCompleted(currentTask, currentTime);
-              currentTask.isQueued = false;
-            }
-
             if (currentTask === peek(taskQueue)) {
               pop(taskQueue);
             }
@@ -3254,9 +3068,6 @@ if ("development" !== "production") {
         expirationTime: expirationTime,
         sortIndex: -1
       };
-      {
-        newTask.isQueued = false;
-      }
 
       if (startTime > currentTime) {
         // This is a delayed task.
@@ -3277,12 +3088,7 @@ if ("development" !== "production") {
         }
       } else {
         newTask.sortIndex = expirationTime;
-        push(taskQueue, newTask);
-        {
-          markTaskStart(newTask, currentTime);
-          newTask.isQueued = true;
-        } // Schedule a host callback, if needed. If we're already performing work,
-        // wait until the next time we yield.
+        push(taskQueue, newTask); // wait until the next time we yield.
 
         if (!isHostCallbackScheduled && !isPerformingWork) {
           isHostCallbackScheduled = true;
@@ -3307,16 +3113,8 @@ if ("development" !== "production") {
     }
 
     function unstable_cancelCallback(task) {
-      {
-        if (task.isQueued) {
-          var currentTime = exports.unstable_now();
-          markTaskCanceled(task, currentTime);
-          task.isQueued = false;
-        }
-      } // Null out the callback to indicate the task has been canceled. (Can't
       // remove from the queue because you can't remove arbitrary nodes from an
       // array based heap, only the first one.)
-
       task.callback = null;
     }
 
@@ -3325,11 +3123,7 @@ if ("development" !== "production") {
     }
 
     var unstable_requestPaint = requestPaint;
-    var unstable_Profiling = {
-      startLoggingProfilingEvents: startLoggingProfilingEvents,
-      stopLoggingProfilingEvents: stopLoggingProfilingEvents,
-      sharedProfilingBuffer: sharedProfilingBuffer
-    };
+    var unstable_Profiling = null;
     exports.unstable_IdlePriority = IdlePriority;
     exports.unstable_ImmediatePriority = ImmediatePriority;
     exports.unstable_LowPriority = LowPriority;
@@ -3357,7 +3151,7 @@ if ("development" === 'production') {
   module.exports = require('./cjs/scheduler.development.js');
 }
 },{"./cjs/scheduler.development.js":"node_modules/scheduler/cjs/scheduler.development.js"}],"node_modules/scheduler/cjs/scheduler-tracing.development.js":[function(require,module,exports) {
-/** @license React v0.20.1
+/** @license React v0.20.2
  * scheduler-tracing.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -3713,7 +3507,7 @@ if ("development" === 'production') {
   module.exports = require('./cjs/scheduler-tracing.development.js');
 }
 },{"./cjs/scheduler-tracing.development.js":"node_modules/scheduler/cjs/scheduler-tracing.development.js"}],"node_modules/react-dom/cjs/react-dom.development.js":[function(require,module,exports) {
-/** @license React v17.0.1
+/** @license React v17.0.2
  * react-dom.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -10814,7 +10608,7 @@ if ("development" !== "production") {
       }
 
       var eventName = 'on' + eventNameSuffix;
-      var isSupported = eventName in document;
+      var isSupported = (eventName in document);
 
       if (!isSupported) {
         var element = document.createElement('div');
@@ -15113,7 +14907,7 @@ if ("development" !== "production") {
     } // TODO: this is special because it gets imported during build.
 
 
-    var ReactVersion = '17.0.1';
+    var ReactVersion = '17.0.2';
     var NoMode = 0;
     var StrictMode = 1; // TODO: Remove BlockingMode and ConcurrentMode by reading from the root
     // tag instead
@@ -29772,7 +29566,23 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _setPrototypeOf;
+
+function _setPrototypeOf(o, p) {
+  exports.default = _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+},{}],"node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -29780,12 +29590,16 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _inheritsLoose;
 
+var _setPrototypeOf = _interopRequireDefault(require("./setPrototypeOf.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
   subClass.prototype.constructor = subClass;
-  subClass.__proto__ = superClass;
+  (0, _setPrototypeOf.default)(subClass, superClass);
 }
-},{}],"node_modules/react-is/cjs/react-is.development.js":[function(require,module,exports) {
+},{"./setPrototypeOf.js":"node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js"}],"node_modules/react-is/cjs/react-is.development.js":[function(require,module,exports) {
 /** @license React v16.13.1
  * react-is.development.js
  *
@@ -31911,9 +31725,9 @@ var _tinyWarning = _interopRequireDefault(require("tiny-warning"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 var MAX_SIGNED_31_BIT_INT = 1073741823;
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : {};
@@ -31963,9 +31777,7 @@ function createReactContext(defaultValue, calculateChangedBits) {
 
   var contextProp = '__create-react-context-' + getUniqueId() + '__';
 
-  var Provider =
-  /*#__PURE__*/
-  function (_Component) {
+  var Provider = /*#__PURE__*/function (_Component) {
     (0, _inheritsLoose2.default)(Provider, _Component);
 
     function Provider() {
@@ -32017,9 +31829,7 @@ function createReactContext(defaultValue, calculateChangedBits) {
 
   Provider.childContextTypes = (_Provider$childContex = {}, _Provider$childContex[contextProp] = _propTypes.default.object.isRequired, _Provider$childContex);
 
-  var Consumer =
-  /*#__PURE__*/
-  function (_Component2) {
+  var Consumer = /*#__PURE__*/function (_Component2) {
     (0, _inheritsLoose2.default)(Consumer, _Component2);
 
     function Consumer() {
@@ -32090,7 +31900,7 @@ function createReactContext(defaultValue, calculateChangedBits) {
 var index = _react.default.createContext || createReactContext;
 var _default = index;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","@babel/runtime/helpers/esm/inheritsLoose":"node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","prop-types":"node_modules/prop-types/index.js","tiny-warning":"node_modules/tiny-warning/dist/tiny-warning.esm.js"}],"node_modules/isarray/index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","@babel/runtime/helpers/esm/inheritsLoose":"node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","prop-types":"node_modules/prop-types/index.js","tiny-warning":"node_modules/tiny-warning/dist/tiny-warning.esm.js"}],"node_modules/path-to-regexp/node_modules/isarray/index.js":[function(require,module,exports) {
 module.exports = Array.isArray || function (arr) {
   return Object.prototype.toString.call(arr) == '[object Array]';
 };
@@ -32523,7 +32333,7 @@ function pathToRegexp (path, keys, options) {
   return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options)
 }
 
-},{"isarray":"node_modules/isarray/index.js"}],"node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js":[function(require,module,exports) {
+},{"isarray":"node_modules/path-to-regexp/node_modules/isarray/index.js"}],"node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -32701,9 +32511,7 @@ var createNamedContext = function createNamedContext(name) {
   return context;
 };
 
-var historyContext =
-/*#__PURE__*/
-createNamedContext("Router-History"); // TODO: Replace with React.createContext once we can assume React 16+
+var historyContext = /*#__PURE__*/createNamedContext("Router-History"); // TODO: Replace with React.createContext once we can assume React 16+
 
 exports.__HistoryContext = historyContext;
 
@@ -32713,18 +32521,14 @@ var createNamedContext$1 = function createNamedContext(name) {
   return context;
 };
 
-var context =
-/*#__PURE__*/
-createNamedContext$1("Router");
+var context = /*#__PURE__*/createNamedContext$1("Router");
 /**
  * The public API for putting history on context.
  */
 
 exports.__RouterContext = context;
 
-var Router =
-/*#__PURE__*/
-function (_React$Component) {
+var Router = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2.default)(Router, _React$Component);
 
   Router.computeRootMatch = function computeRootMatch(pathname) {
@@ -32817,9 +32621,7 @@ if ("development" !== "production") {
  */
 
 
-var MemoryRouter =
-/*#__PURE__*/
-function (_React$Component) {
+var MemoryRouter = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2.default)(MemoryRouter, _React$Component);
 
   function MemoryRouter() {
@@ -32862,9 +32664,7 @@ if ("development" !== "production") {
   };
 }
 
-var Lifecycle =
-/*#__PURE__*/
-function (_React$Component) {
+var Lifecycle = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2.default)(Lifecycle, _React$Component);
 
   function Lifecycle() {
@@ -33110,9 +32910,7 @@ function evalChildrenDev(children, props, path) {
  */
 
 
-var Route =
-/*#__PURE__*/
-function (_React$Component) {
+var Route = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2.default)(Route, _React$Component);
 
   function Route() {
@@ -33221,9 +33019,7 @@ function noop() {}
  */
 
 
-var StaticRouter =
-/*#__PURE__*/
-function (_React$Component) {
+var StaticRouter = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2.default)(StaticRouter, _React$Component);
 
   function StaticRouter() {
@@ -33317,9 +33113,7 @@ if ("development" !== "production") {
  */
 
 
-var Switch =
-/*#__PURE__*/
-function (_React$Component) {
+var Switch = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2.default)(Switch, _React$Component);
 
   function Switch() {
@@ -33576,9 +33370,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * The public API for a <Router> that uses HTML5 history.
  */
-var BrowserRouter =
-/*#__PURE__*/
-function (_React$Component) {
+var BrowserRouter = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2.default)(BrowserRouter, _React$Component);
 
   function BrowserRouter() {
@@ -33625,9 +33417,7 @@ if ("development" !== "production") {
  */
 
 
-var HashRouter =
-/*#__PURE__*/
-function (_React$Component) {
+var HashRouter = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2.default)(HashRouter, _React$Component);
 
   function HashRouter() {
@@ -33888,9 +33678,9 @@ exports.Context = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 const Context = _react.default.createContext();
 
@@ -33941,7 +33731,7 @@ function ContextProvider(props) {
     setConverted(true);
   }
 
-  return _react.default.createElement("div", null, _react.default.createElement(Context.Provider, {
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(Context.Provider, {
     value: {
       city,
       setCity,
@@ -34093,9 +33883,9 @@ var _icons = _interopRequireDefault(require("../icons"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function FutureWeather() {
   const {
@@ -34105,43 +33895,43 @@ function FutureWeather() {
     isLoading,
     dataByWoeid
   } = (0, _react.useContext)(_ContextProvider.Context);
-  return _react.default.createElement("section", {
+  return /*#__PURE__*/_react.default.createElement("section", {
     className: "future-weather"
-  }, _react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("div", {
     className: "convertButton"
-  }, _react.default.createElement("button", {
+  }, /*#__PURE__*/_react.default.createElement("button", {
     onClick: convertDegreeC,
     className: !converted ? "activated" : "deactivated"
-  }, "\xB0C"), _react.default.createElement("button", {
+  }, "\xB0C"), /*#__PURE__*/_react.default.createElement("button", {
     onClick: convertDegreeF,
     className: converted ? "activated" : "deactivated"
-  }, "\xB0F")), _react.default.createElement("div", {
+  }, "\xB0F")), /*#__PURE__*/_react.default.createElement("div", {
     className: "future-forecast"
-  }, isLoading ? _react.default.createElement("h2", {
+  }, isLoading ? /*#__PURE__*/_react.default.createElement("h2", {
     className: "loading"
-  }, "Loading...") : _react.default.createElement(_react.default.Fragment, null, dataByWoeid.map((data, index) => {
+  }, "Loading...") : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, dataByWoeid.map((data, index) => {
     const weatherIcon = _icons.default.find(icon => icon.name === data.weather_state_name);
 
-    return _react.default.createElement(_reactRouterDom.Link, {
+    return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
       to: `/highlight/${data.id}`,
       key: data.id
-    }, _react.default.createElement("div", {
+    }, /*#__PURE__*/_react.default.createElement("div", {
       className: "next-forecast"
-    }, _react.default.createElement("p", {
+    }, /*#__PURE__*/_react.default.createElement("p", {
       className: "future-date"
-    }, index === 0 ? "Tomorrow" : (0, _dateToDisplay.default)(data.applicable_date)), _react.default.createElement("img", {
+    }, index === 0 ? "Tomorrow" : (0, _dateToDisplay.default)(data.applicable_date)), /*#__PURE__*/_react.default.createElement("img", {
       src: weatherIcon.src,
       alt: data.weather_state_name,
       className: "future-icon"
-    }), _react.default.createElement("div", {
+    }), /*#__PURE__*/_react.default.createElement("div", {
       className: "future-temperature"
-    }, converted ? _react.default.createElement("span", {
+    }, converted ? /*#__PURE__*/_react.default.createElement("span", {
       className: "future-temperature"
-    }, `${Math.round(data.min_temp * (9 / 5) + 32)} °F`) : _react.default.createElement("span", {
+    }, `${Math.round(data.min_temp * (9 / 5) + 32)} °F`) : /*#__PURE__*/_react.default.createElement("span", {
       className: "future-temperature"
-    }, `${Math.round(data.min_temp)} °C`), converted ? _react.default.createElement("span", {
+    }, `${Math.round(data.min_temp)} °C`), converted ? /*#__PURE__*/_react.default.createElement("span", {
       className: "max-temp"
-    }, `${Math.round(data.max_temp * (9 / 5) + 32)} °F`) : _react.default.createElement("span", {
+    }, `${Math.round(data.max_temp * (9 / 5) + 32)} °F`) : /*#__PURE__*/_react.default.createElement("span", {
       className: "max-temp"
     }, `${Math.round(data.max_temp)} °C`))));
   }))));
@@ -34168,9 +33958,9 @@ var _close = _interopRequireDefault(require("../icons/close.svg"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function SearchForm({
   setSearchTitle,
@@ -34198,35 +33988,35 @@ function SearchForm({
     setIsSearch(false);
   }
 
-  return _react.default.createElement("div", {
+  return /*#__PURE__*/_react.default.createElement("div", {
     className: "search-form-wrapper"
-  }, _react.default.createElement("img", {
+  }, /*#__PURE__*/_react.default.createElement("img", {
     src: _close.default,
     alt: "",
     className: "close-icon",
     onClick: closeForm
-  }), _react.default.createElement("form", {
+  }), /*#__PURE__*/_react.default.createElement("form", {
     onSubmit: searchCity,
     className: "search-form"
-  }, _react.default.createElement("input", {
+  }, /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
     name: "search",
     className: "search-field",
     onChange: e => e.target.value,
     placeholder: "search location"
-  }), _react.default.createElement("button", {
+  }), /*#__PURE__*/_react.default.createElement("button", {
     className: "search-button"
-  }, "Search")), _react.default.createElement("ul", {
+  }, "Search")), /*#__PURE__*/_react.default.createElement("ul", {
     className: "search-result-list"
-  }, searchTitle.map(data => _react.default.createElement("li", {
+  }, searchTitle.map(data => /*#__PURE__*/_react.default.createElement("li", {
     key: data.woeid
-  }, _react.default.createElement("button", {
+  }, /*#__PURE__*/_react.default.createElement("button", {
     className: "search-value",
     value: data.title,
     onClick: searchByClick
-  }, _react.default.createElement("span", {
+  }, /*#__PURE__*/_react.default.createElement("span", {
     className: "search-value-text"
-  }, data.title), _react.default.createElement("img", {
+  }, data.title), /*#__PURE__*/_react.default.createElement("img", {
     src: _rightIcon.default,
     alt: "",
     className: "right-icon"
@@ -34252,9 +34042,9 @@ var _icons = _interopRequireDefault(require("../icons"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function TodayWeather({
   todayWeather,
@@ -34268,33 +34058,33 @@ function TodayWeather({
   const weatherIcon = _icons.default.find(icon => icon.name === todayWeather.weather_state_name);
 
   console.log(weatherIcon);
-  return _react.default.createElement("section", {
+  return /*#__PURE__*/_react.default.createElement("section", {
     className: "today-wrapper"
-  }, _react.default.createElement("img", {
+  }, /*#__PURE__*/_react.default.createElement("img", {
     src: weatherIcon && weatherIcon.src,
     alt: todayWeather.weather_state_name,
     className: "today-icon"
-  }), _react.default.createElement("h3", {
+  }), /*#__PURE__*/_react.default.createElement("h3", {
     className: "temperature"
-  }, converted ? _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("span", {
+  }, converted ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("span", {
     className: "today-degree"
-  }, `${Math.round(todayWeather.the_temp * (9 / 5) + 32)}`), _react.default.createElement("span", {
+  }, `${Math.round(todayWeather.the_temp * (9 / 5) + 32)}`), /*#__PURE__*/_react.default.createElement("span", {
     className: "today-degree-sign"
-  }, "\xB0F")) : _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("span", {
+  }, "\xB0F")) : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("span", {
     className: "today-degree"
-  }, `${Math.round(todayWeather.the_temp)}`), _react.default.createElement("span", {
+  }, `${Math.round(todayWeather.the_temp)}`), /*#__PURE__*/_react.default.createElement("span", {
     className: "today-degree-sign"
-  }, "\xB0C"))), _react.default.createElement("p", {
+  }, "\xB0C"))), /*#__PURE__*/_react.default.createElement("p", {
     className: "today-weather-state"
-  }, todayWeather.weather_state_name), _react.default.createElement("p", {
+  }, todayWeather.weather_state_name), /*#__PURE__*/_react.default.createElement("p", {
     className: "today-date"
-  }, "Today . ", dateToDisplay(todayWeather.applicable_date)), _react.default.createElement("p", {
+  }, "Today . ", dateToDisplay(todayWeather.applicable_date)), /*#__PURE__*/_react.default.createElement("p", {
     className: "location"
-  }, _react.default.createElement("img", {
+  }, /*#__PURE__*/_react.default.createElement("img", {
     src: _place.default,
     alt: "",
     className: "place-icon"
-  }), dataByCity.title || "Nairobi"));
+  }), dataByCity.title || 'Nairobi'));
 }
 },{"react":"node_modules/react/index.js","../icons/place.svg":"icons/place.svg","../ContextProvider":"ContextProvider.js","../icons":"icons.js"}],"icons/navigation.svg":[function(require,module,exports) {
 module.exports = "/navigation.45c85031.svg";
@@ -34318,9 +34108,9 @@ var _dateToDisplay = _interopRequireDefault(require("./dateToDisplay"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function HighlightWeather() {
   const {
@@ -34332,68 +34122,68 @@ function HighlightWeather() {
     weatherId
   } = (0, _reactRouterDom.useParams)();
   const findWeather = dataByWoeid.find(data => data.id === Number(weatherId) || todayWeather.id === Number(weatherId)) || "";
-  return _react.default.createElement("section", {
+  return /*#__PURE__*/_react.default.createElement("section", {
     className: "highlight"
-  }, isLoading ? _react.default.createElement("h3", {
+  }, isLoading ? /*#__PURE__*/_react.default.createElement("h3", {
     className: "loading"
-  }, "Loading") : _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h2", {
+  }, "Loading") : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h2", {
     className: "highlight-title"
-  }, !findWeather ? "Today’s Hightlights" : `${(0, _dateToDisplay.default)(findWeather.applicable_date)}'s highlights`), _react.default.createElement("ul", {
+  }, !findWeather ? "Today’s Hightlights" : `${(0, _dateToDisplay.default)(findWeather.applicable_date)}'s highlights`), /*#__PURE__*/_react.default.createElement("ul", {
     className: "highlight-list"
-  }, _react.default.createElement("li", {
+  }, /*#__PURE__*/_react.default.createElement("li", {
     className: "highlight-list-item"
-  }, _react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("div", {
     className: "status-name"
-  }, "Wind status"), _react.default.createElement("div", {
+  }, "Wind status"), /*#__PURE__*/_react.default.createElement("div", {
     className: "status-value"
-  }, Math.round(findWeather.wind_speed) || Math.round(todayWeather.wind_speed), _react.default.createElement("span", {
+  }, Math.round(findWeather.wind_speed) || Math.round(todayWeather.wind_speed), /*#__PURE__*/_react.default.createElement("span", {
     className: "unit"
-  }, "mph")), _react.default.createElement("div", {
+  }, "mph")), /*#__PURE__*/_react.default.createElement("div", {
     className: "compass"
-  }, _react.default.createElement("img", {
+  }, /*#__PURE__*/_react.default.createElement("img", {
     src: _navigation.default,
     className: `compass-icon compass-${findWeather.wind_direction_compass || todayWeather.wind_direction_compass}`,
     alt: ""
-  }), _react.default.createElement("div", {
+  }), /*#__PURE__*/_react.default.createElement("div", {
     className: "compass-value"
-  }, findWeather.wind_direction_compass || todayWeather.wind_direction_compass))), _react.default.createElement("li", {
+  }, findWeather.wind_direction_compass || todayWeather.wind_direction_compass))), /*#__PURE__*/_react.default.createElement("li", {
     className: "highlight-list-item"
-  }, _react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("div", {
     className: "status-name"
-  }, "Humidity"), _react.default.createElement("div", {
+  }, "Humidity"), /*#__PURE__*/_react.default.createElement("div", {
     className: "status-value"
-  }, findWeather.humidity || todayWeather.humidity, _react.default.createElement("span", {
+  }, findWeather.humidity || todayWeather.humidity, /*#__PURE__*/_react.default.createElement("span", {
     className: "unit"
-  }, "%")), _react.default.createElement("div", {
+  }, "%")), /*#__PURE__*/_react.default.createElement("div", {
     className: "progress-container"
-  }, _react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("div", {
     className: "possible-value"
-  }, _react.default.createElement("span", null, "0"), " ", _react.default.createElement("span", null, "50"), " ", _react.default.createElement("span", null, "100")), _react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("span", null, "0"), " ", /*#__PURE__*/_react.default.createElement("span", null, "50"), " ", /*#__PURE__*/_react.default.createElement("span", null, "100")), /*#__PURE__*/_react.default.createElement("div", {
     className: "bar-container"
-  }, _react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("div", {
     className: "base-bar"
-  }, _react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("div", {
     className: "bar-visible",
     style: {
       width: `${findWeather.humidity || todayWeather.humidity}%`
     }
-  }))), _react.default.createElement("span", {
+  }))), /*#__PURE__*/_react.default.createElement("span", {
     className: "progress-unit"
-  }, "%"))), _react.default.createElement("li", {
+  }, "%"))), /*#__PURE__*/_react.default.createElement("li", {
     className: "highlight-list-item"
-  }, _react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("div", {
     className: "status-name"
-  }, "Visibility"), _react.default.createElement("div", {
+  }, "Visibility"), /*#__PURE__*/_react.default.createElement("div", {
     className: "status-value"
-  }, Math.round(findWeather.visibility) || Math.round(todayWeather.visibility), _react.default.createElement("span", {
+  }, Math.round(findWeather.visibility) || Math.round(todayWeather.visibility), /*#__PURE__*/_react.default.createElement("span", {
     className: "unit"
-  }, "miles"))), _react.default.createElement("li", {
+  }, "miles"))), /*#__PURE__*/_react.default.createElement("li", {
     className: "highlight-list-item"
-  }, _react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("div", {
     className: "status-name"
-  }, "Air Pressure"), _react.default.createElement("div", {
+  }, "Air Pressure"), /*#__PURE__*/_react.default.createElement("div", {
     className: "status-value"
-  }, Math.round(findWeather.air_pressure) || Math.round(todayWeather.air_pressure), _react.default.createElement("span", {
+  }, Math.round(findWeather.air_pressure) || Math.round(todayWeather.air_pressure), /*#__PURE__*/_react.default.createElement("span", {
     className: "unit"
   }, "mb"))))));
 }
@@ -34425,9 +34215,9 @@ var _HighlightWeather = _interopRequireDefault(require("./HighlightWeather"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function HeaderForm() {
   const {
@@ -34455,22 +34245,24 @@ function HeaderForm() {
   }
 
   function currentLocation() {
-    alert("😢 Your location is not found!!");
+    alert('😢 Your location is not found!!');
   }
 
-  return _react.default.createElement("div", {
+  return /*#__PURE__*/_react.default.createElement("div", {
     className: "wrapper"
-  }, _react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "today-container"
+  }, /*#__PURE__*/_react.default.createElement("div", {
     className: "search-wrapper"
-  }, _react.default.createElement("button", {
+  }, /*#__PURE__*/_react.default.createElement("button", {
     onClick: openSearch,
     className: "search-toggle"
-  }, "Seach for places"), _react.default.createElement("img", {
+  }, "Seach for places"), /*#__PURE__*/_react.default.createElement("img", {
     src: _location.default,
     alt: "",
     onClick: currentLocation,
     className: "location-icon"
-  })), isSearch && _react.default.createElement(_SearchForm.default, {
+  })), isSearch && /*#__PURE__*/_react.default.createElement(_SearchForm.default, {
     searchTitle: searchTitle,
     setSearchTitle: setSearchTitle,
     dataByCity: dataByCity,
@@ -34478,18 +34270,18 @@ function HeaderForm() {
     setCity: setCity,
     setIsSearch: setIsSearch,
     isSearch: isSearch
-  }), isLoading ? _react.default.createElement("h1", {
-    className: "loading"
-  }, "Loading...") : _react.default.createElement("div", {
+  }), isLoading ? /*#__PURE__*/_react.default.createElement("h1", {
+    className: "loading header-loading"
+  }, "Loading...") : /*#__PURE__*/_react.default.createElement("div", {
     className: "today"
-  }, _react.default.createElement(_reactRouterDom.Link, {
+  }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
     to: "/"
-  }, _react.default.createElement(_TodayWeather.default, {
+  }, /*#__PURE__*/_react.default.createElement(_TodayWeather.default, {
     converted: converted,
     todayWeather: todayWeather,
     dataByCity: dataByCity,
     dateToDisplay: _dateToDisplay.default
-  }))));
+  })))));
 }
 
 var _default = HeaderForm;
@@ -34515,18 +34307,18 @@ var _HighlightWeather = _interopRequireDefault(require("./components/HighlightWe
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function App() {
-  return _react.default.createElement("div", null, _react.default.createElement("div", {
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
     className: "container"
-  }, _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
+  }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     exact: true,
     path: "/"
-  }, _react.default.createElement(_HeaderForm.default, null), _react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement(_HeaderForm.default, null), /*#__PURE__*/_react.default.createElement("div", {
     className: "future-wrapper"
-  }, _react.default.createElement(_FutureWeather.default, null), _react.default.createElement(_HighlightWeather.default, null))), _react.default.createElement(_reactRouterDom.Route, {
+  }, /*#__PURE__*/_react.default.createElement(_FutureWeather.default, null), /*#__PURE__*/_react.default.createElement(_HighlightWeather.default, null))), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: "/highlight/:weatherId"
-  }, _react.default.createElement(_HeaderForm.default, null), _react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement(_HeaderForm.default, null), /*#__PURE__*/_react.default.createElement("div", {
     className: "future-wrapper"
-  }, _react.default.createElement(_FutureWeather.default, null), _react.default.createElement(_HighlightWeather.default, null))))));
+  }, /*#__PURE__*/_react.default.createElement(_FutureWeather.default, null), /*#__PURE__*/_react.default.createElement(_HighlightWeather.default, null))))));
 }
 
 var _default = App;
@@ -34546,8 +34338,8 @@ var _ContextProvider = require("./ContextProvider");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom.default.render(_react.default.createElement(_ContextProvider.ContextProvider, null, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_App.default, null))), document.getElementById("root"));
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./App":"App.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./ContextProvider":"ContextProvider.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+_reactDom.default.render( /*#__PURE__*/_react.default.createElement(_ContextProvider.ContextProvider, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react.default.createElement(_App.default, null))), document.getElementById("root"));
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./App":"App.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./ContextProvider":"ContextProvider.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -34575,7 +34367,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54163" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42031" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -34606,8 +34398,9 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
         assetsToAccept.forEach(function (v) {
           hmrAcceptRun(v[0], v[1]);
         });
-      } else {
-        window.location.reload();
+      } else if (location.reload) {
+        // `location` global exists in a web worker context but lacks `.reload()` function.
+        location.reload();
       }
     }
 
@@ -34750,5 +34543,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
 //# sourceMappingURL=/weather-app.e31bb0bc.js.map
